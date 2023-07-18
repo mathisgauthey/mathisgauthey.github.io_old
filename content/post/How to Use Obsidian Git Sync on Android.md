@@ -144,11 +144,11 @@ Don't forget to edit permissions to termux home folder :
 
 Create an Obsidian profile :
 
-![2023-03-09_13-42-12_Tasker_Obsidian_profile.png](/images/2023-03-09_13-42-12_Tasker_Obsidian_profile.png)
+![[2023-03-09_13-42-12_Tasker_Obsidian_profile.png]]
 
 Setup the following task :
 
-![2023-03-09_13-42-12_Tasker_Termux_backup.png]({{< ref "2023-03-09_13-42-12_Tasker_Termux_backup.png" >}})
+![[2023-03-09_13-42-12_Tasker_Termux_backup.png]]
 
 ![[2023-03-09_13-42-12_Tasker_Termux_backup_task.png]]
 
