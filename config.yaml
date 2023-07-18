@@ -55,7 +55,7 @@ params:
 
     comments:
         enabled: true
-        provider: disqus
+        provider: giscus
 
         disqusjs:
             shortname:
@@ -110,11 +110,11 @@ params:
             siteName: "" # You must insert a unique identifier here matching the one you registered (See https://cactus.chat/docs/getting-started/quick-start/#register-your-site)
 
         giscus:
-            repo:
-            repoID:
-            category:
-            categoryID:
-            mapping:
+            repo: mathisgauthey/mathisgauthey.github.io
+            repoID: R_kgDOJ83Y6Q
+            category: Announcements
+            categoryID: DIC_kwDOJ83Y6c4CX9m5
+            mapping: title
             lightTheme:
             darkTheme:
             reactionsEnabled: 1
