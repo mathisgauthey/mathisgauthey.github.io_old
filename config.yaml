@@ -4,6 +4,10 @@ theme: hugo-theme-stack
 paginate: 5
 title: Mathis Gauthey's Website
 
+# Error handling configuration for internal markdown link not found
+refLinksErrorLevel: WARNING
+refLinksNotFoundURL: https://mathisgauthey.github.io/404
+
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
 
