@@ -144,17 +144,17 @@ Don't forget to edit permissions to termux home folder :
 
 Create an Obsidian profile :
 
-![2023-03-09_13-42-12_Tasker_Obsidian_profile.png](/images/2023-03-09_13-42-12_Tasker_Obsidian_profile.png)
+![2023-03-09_13-42-12_Tasker_Obsidian_profile_test.png](/images/2023-03-09_13-42-12_Tasker_Obsidian_profile_test.png)
 
 Setup the following task :
 
-![2023-03-09_13-42-12_Tasker_Termux_backup.png]({{< ref "2023-03-09_13-42-12_Tasker_Termux_backup.png" >}})
+![2023-03-09_13-42-12_Tasker_Termux_backup_test.png](/images/2023-03-09_13-42-12_Tasker_Termux_backup_test.png)
 
-![[2023-03-09_13-42-12_Tasker_Termux_backup_task.png]]
+![2023-03-09_13-42-12_Tasker_Termux_backup_task_test.png](/images/2023-03-09_13-42-12_Tasker_Termux_backup_task_test.png)
 
-![[2023-03-09_13-42-12_Tasker_Termux_stdout.png]]
+![2023-03-09_13-42-12_Tasker_Termux_stdout_test.png](/images/2023-03-09_13-42-12_Tasker_Termux_stdout_test.png)
 
-![[2023-03-09_13-42-12_Tasker_Termux_stderr.png]]
+![2023-03-09_13-42-12_Tasker_Termux_stderr_test.png](/images/2023-03-09_13-42-12_Tasker_Termux_stderr_test.png)
 
 ## Setup the Error Handling Shortcut for Merge Conflict
 
@@ -227,4 +227,4 @@ You just need to keep Termux opened in order for the job to be able to launch.
 
 You can find information about Cron job easily on the internet.
 
-![[2023-03-09_11-57-30_cron-job-format-1.png]]
+![2023-03-09_11-57-30_cron-job-format-1_test.png](/images/2023-03-09_11-57-30_cron-job-format-1_test.png)
