@@ -1,13 +1,13 @@
 ---
 title: About
 description: Why this site ?
-date: '2023-18-07'
+date: '2023-07-18'
 aliases:
   - about-us
   - about-me
   - contact
 license: CC BY-NC-ND
-lastmod: '2023-18-07'
+lastmod: '2023-07-18'
 menu:
     main:
         weight: 3
