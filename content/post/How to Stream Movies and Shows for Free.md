@@ -1,7 +1,7 @@
 ---
 title: How to Stream Movies and Shows for Free
 date: 2023-07-21 19:43:03
-lastmod: 2023-07-21 19:48:46
+lastmod: 2023-07-21 20:00:35
 categories:
   - guide
 tags:
@@ -24,22 +24,22 @@ Sources :
 3. Install Torrentio addon.
 4. Install OpenSubtitles addon.
 5. (Optionnal): Install any of these addons for adding catalog :
-	1. Orion
-	2. Juan Carlos 2
-	3. Public domain movies
-	4. 123movies
-	5. Trailers.to
-	6. Popcorn Time
-	7. RAR
-	8. YTS
-	9. Fmovies
-	10. Kickass torrents
-	11. MyAnimeStreams+
-	12. Watch Cartoon Online
-	13. Cartoon Extra
+	- Orion
+	- Juan Carlos 2
+	- Public domain movies
+	- 123movies
+	- Trailers.to
+	- Popcorn Time
+	- RAR
+	- YTS
+	- Fmovies
+	- Kickass torrents
+	- MyAnimeStreams+
+	- Watch Cartoon Online
+	- Cartoon Extra
 6. (Optionnal): Install any of these addons to complement or replace Torrentio :
-	1. Anime Kitsu
-	2. The Movie Database Addons
-	3. TMDB Alternatives
-	4. IMDB Catalogs
-	5. Trakt TOP
+	- Anime Kitsu
+	- The Movie Database Addons
+	- TMDB Alternatives
+	- IMDB Catalogs
+	- Trakt TOP
