@@ -11,3 +11,7 @@ menu:
         params:
             icon: messages
 ---
+
+You can contact me by :
+- [Mail](mailto:***REMOVED***).
+- [Phone](tel:***REMOVED***) but I will only respond to messages sent using [Signal](https://www.signal.org/).
