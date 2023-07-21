@@ -7,7 +7,7 @@ links:
     image: https://storage.ko-fi.com/cdn/brandasset/kofi_s_logo_nolabel.png
 menu:
     main:
-        weight: -50
+        weight: 5
         params:
             icon: link
 
