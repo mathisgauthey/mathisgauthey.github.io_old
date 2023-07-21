@@ -1,5 +1,6 @@
 ---
 title: Support me
+description: How to support me ?
 links:
   - title: Ko-fi
     description: Ko-fi is a free donation platform.
