@@ -1,7 +1,7 @@
 ---
 title: Leatherman Wave+, Charge+ and Charge+ TTI Comparison
 date: 2023-02-22 14:25:33
-lastmod: 2023-07-25 21:35:46
+lastmod: 2023-02-22 14:25:33
 categories:
   - comparison
 tags:
