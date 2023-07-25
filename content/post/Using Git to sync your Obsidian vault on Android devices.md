@@ -14,6 +14,8 @@ share: true
 
 # Using Git to Sync Your Obsidian Vault on Android Devices
 
+My new guide using tasker to sync on app start-up and close instead of using cron jobs at time intervals : [How to Use Obsidian Git Sync on Android]({{< ref "How to Use Obsidian Git Sync on Android" >}})
+
 Hi everyone! As I'm using Obsidian Git on my laptop, and it isn't available on android (yet?), I searched for ways to make it simple on Android. I wrote myself a tutorial and wanted to share it with you all! This one is not using SSH keys which might be too complicated for the standard user. But if you do use a SSH key, remember not to use a passphrase if you want the process to be automated and or fast with your widget!
 
 Install Termux and Termux Widget
