@@ -1,7 +1,7 @@
 baseurl: https://mathisgauthey.github.io/
 languageCode: en-us
 theme: hugo-theme-stack
-paginate: 5
+paginate: 10
 title: Mathis Gauthey's Website
 
 # Error handling configuration for internal markdown link not found
