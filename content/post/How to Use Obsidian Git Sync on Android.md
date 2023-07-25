@@ -1,7 +1,7 @@
 ---
 title: How to Use Obsidian Git Sync on Android
 date: 2023-01-18 18:43:21
-lastmod: 2023-07-19 07:55:02
+lastmod: 2023-02-12 19:55:46
 categories:
   - guide
 tags:
