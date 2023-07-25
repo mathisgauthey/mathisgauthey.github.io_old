@@ -230,3 +230,5 @@ You just need to keep Termux opened in order for the job to be able to launch.
 You can find information about Cron job easily on the internet.
 
 ![2023-03-09_11-57-30_cron-job-format-1.png](/images/2023-03-09_11-57-30_cron-job-format-1.png)
+
+Edit : I already uploaded a guide to do it with a cron job. I kept this part, but I wanted something less energy consuming. Hence I learned how to use Tasker and did it this way. I find it as simple as the obsidian-git plugin on computer, but on mobile ! Hope it helps !
