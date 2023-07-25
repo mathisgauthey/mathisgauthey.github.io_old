@@ -16,6 +16,7 @@ share: true
 
 ## Inspirations
 
+- My old guide using cron jobs with time intervals instead of tasker : [Using Git to Sync Your Obsidian Vault on Android Devices]({{< ref "Using Git to Sync Your Obsidian Vault on Android Devices" >}})
 - [How to sync your obsidian vault on mobile using git](https://www.reddit.com/r/ObsidianMD/comments/v6otbu/how_to_sync_your_obsidian_vault_on_mobile_using/)
 - [Mobile Sync for Obsidian | Some Thoughts](https://werzum.github.io/tech/2022/02/13/Obsidian-Mobile-Sync.html)
 - [Automatically sync notes to and from git repository whenever you open and close Obsidian on mobile. · GitHub](https://gist.github.com/yuvve/013977d93ddc3b0c4780de950ba53d89)
