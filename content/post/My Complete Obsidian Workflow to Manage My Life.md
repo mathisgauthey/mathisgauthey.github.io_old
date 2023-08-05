@@ -121,6 +121,13 @@ In order to show which project you should be working on, you should rely on your
 
 The `Someday Maybe 💭` file is where you put your future goals and objectives in the form of a simple bullet list. Nothing fancy, we don't care it's not important as of now. But you might want to put things you want to do here, wait for a bit and decide if they're still relevant after a while. If yes, simply create a project and start working on it !
 
+The higher horizons of existence are covered in the `Vision, Identity, Purpose & Principles ⚙️` note.
+
+Basically :
+- Visions : Where and how you see yourself in 3-5 years.
+- Identity : Who you are.
+- Purpose : Your ultimate goal in life, why you're in this world.
+- Principles : Values you act upon everyday.
 ### How Do I Use the Journal ?
 
 You can write your feelings inside your `daily note` and each `periodic notes`, that's always the last header purpose.
@@ -139,9 +146,17 @@ If you right click on the `-Workout-Log` folder and select `Create new note from
 
 It is important that the first header of your workout template keep the [templater](https://github.com/SilentVoid13/Templater) code snippet. This is how the timestamp is added to the template file name.
 
+You'll find that I added goals to sections of my workout linked to goals in my `Sport` area. You can do something like this, or not. Experiment with queries and filters from the [dataview](https://blacksmithgu.github.io/obsidian-dataview/) plugin or the [task](https://publish.obsidian.md/tasks/Introduction) plugin, you can make very powerful things without much effort. You just need to read their doc !
+
 ### How Do I Use the Media Backlog ?
 
 Your Media Backlog 🎮 file is a simple Kanban board. It is self explicit, just keep in mind that the daily note's `Ongoing Medias 🎮` callout will query some kanban cards. But only the one inside columns that contains `Doing`. That'll help you to know what you could be doing during your daily spare time today.
+
+There's some predefined tags with emojis that you can find in the colorful-tag plugin settings.
+
+If you finished something, you can add a date on the kanban board by using the `Add a date` command from right clicking the card.
+
+You might want to add the `#ongoing` tag if there's going to be a sequel and you want to get back to it later on.
 
 ### How Do I Use the The Read-it-later and Bookmark Manager ?
 
