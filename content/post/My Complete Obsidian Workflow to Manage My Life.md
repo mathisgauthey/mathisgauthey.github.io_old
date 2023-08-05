@@ -22,7 +22,7 @@ share: true
 
 ## Introduction
 
-![2023-08-05_19-36-15_obsidian_workflow_workspace.png](/images/2023-08-05_19-36-15_obsidian_workflow_workspace.png)
+![2023-08-05_19-43-11_obsidian_workflow_workspace_example.png](/images/2023-08-05_19-43-11_obsidian_workflow_workspace_example.png)
 
 ### Why Writing This Guide ?
 
