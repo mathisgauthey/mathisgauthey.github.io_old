@@ -22,6 +22,8 @@ share: true
 
 ## Introduction
 
+![2023-08-05_19-36-15_obsidian_workflow_workspace.png](/images/2023-08-05_19-36-15_obsidian_workflow_workspace.png)
+
 ### Why Writing This Guide ?
 
 As I promised to quite a few people on different places, I'm releasing a full blown guide of my Obsidian workflow. It has many cool features that I've seen people struggling with online :
