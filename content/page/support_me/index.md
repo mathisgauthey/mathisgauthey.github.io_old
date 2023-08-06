@@ -10,7 +10,7 @@ menu:
     main:
         weight: 5
         params:
-            icon: link
+            icon: pig-money
 
 comments: false
 ---
