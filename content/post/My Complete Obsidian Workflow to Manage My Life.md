@@ -1,7 +1,7 @@
 ---
 title: My Complete Obsidian Workflow to Manage My Life
 date: 2023-07-29 17:53:34
-lastmod: 2023-08-03 19:54:57
+lastmod: 2023-08-07 09:26:57
 categories:
   - guide
 tags:
@@ -91,6 +91,16 @@ For the note-sharing part, you might want to take a look at my [guide]({{< ref "
 
 I will briefly explain each functionality here as well, and with more details in other posts.
 
+### Wait ! Don't Go Further !
+
+I forgot something in the initial post. Here's an update. There's a lot of quality of live improvements in this vault, here's a few examples :
+
+- If you hit `ctrl+S` or just save the file, Obsidian will [lint](https://github.com/platers/obsidian-linter) the file ! Meaning the whole writing, the frontmatter, the titles, the spacings, even the characters used for bold or italics will be standardized. In a way that works with my other plugins !
+- If you paste a link, the link will [auto-fetch](https://github.com/zolrath/obsidian-auto-link-title) a title for markdown link !
+- If you paste an image, it'll [automatically](https://github.com/reorx/obsidian-paste-image-rename) prompt you for an image title after a timestamp. That way, if you use clear unused image, you'll be able to see if you deleted unwanted images or not.
+- The first header will [automatically](https://github.com/dvcrn/obsidian-filename-heading-sync) mimic the note title. And if you lint the file, the title metadata will change according to the title as well.
+- There's also improvements in the way footnotes are managed along with a configurable shortcut to create footnotes automatically numbered. I recommend setting `ctrl + shift + ^`.
+
 ### How Do I Use the Tasks and Projects ?
 
 I'll explain here how to use it. But if you want to understand why I built it this way, I encourage you to read my explanations [here]({{< ref "Why Using Obsidian for Life Management" >}}).
@@ -126,10 +136,12 @@ The `Someday Maybe 💭` file is where you put your future goals and objectives 
 The higher horizons of existence are covered in the `Vision, Identity, Purpose & Principles ⚙️` note.
 
 Basically :
+
 - Visions : Where and how you see yourself in 3-5 years.
 - Identity : Who you are.
 - Purpose : Your ultimate goal in life, why you're in this world.
 - Principles : Values you act upon everyday.
+
 ### How Do I Use the Journal ?
 
 You can write your feelings inside your `daily note` and each `periodic notes`, that's always the last header purpose.
