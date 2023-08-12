@@ -1,7 +1,7 @@
 ---
 title: My Complete Obsidian Workflow to Manage My Life
 date: 2023-07-29 17:53:34
-lastmod: 2023-08-07 09:26:57
+lastmod: 2023-08-12 10:11:35
 categories:
   - guide
 tags:
@@ -161,6 +161,8 @@ If you right click on the `-Workout-Log` folder and select `Create new note from
 It is important that the first header of your workout template keep the [templater](https://github.com/SilentVoid13/Templater) code snippet. This is how the timestamp is added to the template file name.
 
 You'll find that I added goals to sections of my workout linked to goals in my `Sport` area. You can do something like this, or not. Experiment with queries and filters from the [dataview](https://blacksmithgu.github.io/obsidian-dataview/) plugin or the [task](https://publish.obsidian.md/tasks/Introduction) plugin, you can make very powerful things without much effort. You just need to read their doc !
+
+> Take extra care where moving file from the `5-Templates` folder to the archives or anywhere else. **You should remove the templater code from everywhere before doing so**, otherwise it might end up in an infinite loop of template file creation because of `filename-heading-sync` and `templater` plugin working asynchronously.
 
 ### How Do I Use the Media Backlog ?
 
