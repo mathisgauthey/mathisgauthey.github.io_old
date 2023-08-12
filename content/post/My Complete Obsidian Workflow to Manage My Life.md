@@ -1,7 +1,7 @@
 ---
 title: My Complete Obsidian Workflow to Manage My Life
 date: 2023-07-29 17:53:34
-lastmod: 2023-08-07 09:26:57
+lastmod: 2023-08-12 10:11:35
 categories:
   - guide
 tags:
