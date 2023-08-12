@@ -162,6 +162,8 @@ It is important that the first header of your workout template keep the [templat
 
 You'll find that I added goals to sections of my workout linked to goals in my `Sport` area. You can do something like this, or not. Experiment with queries and filters from the [dataview](https://blacksmithgu.github.io/obsidian-dataview/) plugin or the [task](https://publish.obsidian.md/tasks/Introduction) plugin, you can make very powerful things without much effort. You just need to read their doc !
 
+> Take extra care where moving file from the `5-Templates` folder to the archives or anywhere else. **You should remove the templater code from everywhere before doing so**, otherwise it might end up in an infinite loop of template file creation because of `filename-heading-sync` and `templater` plugin working asynchronously.
+
 ### How Do I Use the Media Backlog ?
 
 Your Media Backlog 🎮 file is a simple Kanban board. It is self explicit, just keep in mind that the daily note's `Ongoing Medias 🎮` callout will query some kanban cards. But only the one inside columns that contains `Doing`. That'll help you to know what you could be doing during your daily spare time today.
