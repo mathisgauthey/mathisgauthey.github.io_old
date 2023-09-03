@@ -12,6 +12,4 @@ menu:
             icon: messages
 ---
 
-You can contact me by :
-- [Mail](mailto:${{ secrets.EMAIL_ADDRESS }}).
-- [Phone](tel:${{ secrets.PHONE_NUMBER }}) but I will only respond to messages sent using [Signal](https://www.signal.org/).
+You can find my contact details on my CV, it is accessible on the left sidebar of the website.
