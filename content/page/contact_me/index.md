@@ -13,5 +13,5 @@ menu:
 ---
 
 You can contact me by :
-- [Mail](mailto:${{ secrets.EMAIL_ADRESS }}).
+- [Mail](mailto:${{ secrets.EMAIL_ADDRESS }}).
 - [Phone](tel:${{ secrets.PHONE_NUMBER }}) but I will only respond to messages sent using [Signal](https://www.signal.org/).
