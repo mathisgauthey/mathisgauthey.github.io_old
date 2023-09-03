@@ -4,7 +4,7 @@ description: How to contact me ?
 date: '2023-07-18'
 aliases:
 license: CC BY-NC-ND
-lastmod: '2023-09-03'
+lastmod: '2023-09-02'
 menu:
     main:
         weight: 4
