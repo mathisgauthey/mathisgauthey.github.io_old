@@ -51,6 +51,9 @@ jobs:
 
             - name: Build
               run: hugo --minify --gc
+              env: # Or as an environment variable
+                  EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+                  PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
 
             - name: Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@4.1.4
