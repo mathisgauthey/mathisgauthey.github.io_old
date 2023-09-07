@@ -1,7 +1,7 @@
 ---
 title: How to Convert a Music Sheet to a Mandolin Tab
 date: 2023-09-05 21:50:17
-lastmod: 2023-09-06 22:19:06
+lastmod: 2023-09-07 17:49:54
 categories:
   - guide
 tags:
@@ -21,7 +21,7 @@ Well, so I got a Mandolin and decided that Maiden Voyage OST from Sea Of Thieves
 
 But hey, MuseScore is paid now for downloading scores, and it is using a Baryton, not a mando ! Well, no worries, I got everything worked out.
 
-First, [download MuseScore without Muse Hub](https://musescore.org/en/download). Install it.
+First, [download MuseScore without Muse Hub](https://musescore.org/en/download). Install it. *Edit : You need to download version 3.2.3 in a `.msi` file on Windows. That is, if you need Android to work properly, as of 2023-09-07, only scores created on 3.2.3 are readable on Android. More informations [here](https://musescore.com/groups/musescore-on-android/discuss/5169686).*
 
 Then, it isn't the scope of this guide, but you will need to gather a music sheet of the song you want to learn. This can be found on the internet, on MuseScore or you might need to use [libre-score](https://github.com/LibreScore/dl-librescore). Either way, you end up with a `midi` or `pdf` file and you'll use it on MuseScore app that you previously installed.
 
