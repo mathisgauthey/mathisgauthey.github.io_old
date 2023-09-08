@@ -65,13 +65,13 @@ By the way, if you want to be able to modify the theme, you should fork the them
 
 Anyway, now you should find the `hugo.toml` file and **delete it**. Don't worry, we'll use the theme configuration file.
 
-Speaking of which, copy the whole `exampleSite` folder at the root of your `website_name` folder.
+Speaking of which, copy the whole `exampleSite` folder content at the root of your `website_name` folder.
 
 You'll now have a `config.yaml` configured correctly, meaning with the good theme and all the base configs. You can also steal [mine](https://github.com/mathisgauthey/mathisgauthey.github.io/blob/main/config.yaml). I don't really mind, if anything, it'll make me happy to see websites created thanks to my guide.
 
 Just don't forget to change at least the `baseurl` to `https://website_name.github.io/` and your website `title`.
 
-Please make sure to add the following two lines as well :
+Please make sure to add the following two lines to your `config.yaml` as well :
 
 ```yaml
 # Error handling configuration for internal markdown link not found
