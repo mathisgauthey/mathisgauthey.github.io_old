@@ -1,7 +1,7 @@
 ---
 title: How to Convert a Music Sheet to a Mandolin Tab
-date: 2023-09-09 19:48:15
-lastmod: 2023-09-09 19:48:33
+date: 2023-09-05 21:50:17
+lastmod: 2023-09-07 17:49:54
 categories:
   - guide
 tags:
