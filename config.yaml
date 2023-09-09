@@ -3,6 +3,7 @@ languageCode: en-us
 theme: hugo-theme-stack
 paginate: 10
 title: Mathis Gauthey's Website
+timeZone: Europe/Dublin
 
 # Error handling configuration for internal markdown link not found
 refLinksErrorLevel: WARNING
