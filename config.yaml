@@ -28,7 +28,6 @@ permalinks:
     page: /:slug/
 
 params:
-    GithubEdit: "https://github.com/mathisgauthey/mathisgauthey.github.io/edit/main/content/"
     mainSections:
         - post
     featuredImageField: image
