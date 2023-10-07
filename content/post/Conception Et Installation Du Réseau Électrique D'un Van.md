@@ -1,10 +1,12 @@
 ---
 title: Conception Et Installation Du Réseau Électrique D'un Van
 date: 2023-10-05 16:09:29
-lastmod: 2023-10-07 10:02:16
+lastmod: 2023-10-07 10:15022:16
 categories:
-  - 
-tags: 
+  - projects
+tags:
+  - electricity
+  - van
 aliases: 
 share: true
 ---
