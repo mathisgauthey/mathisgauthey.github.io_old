@@ -1,7 +1,7 @@
 ---
 title: Budget Pour Voyager En Van Pendant 6 Mois
 date: 2023-10-04 12:18:42
-lastmod: 2023-10-07 14:17:45
+lastmod: 2023-10-07 14:53:41
 categories:
   - blog
 tags:
@@ -65,6 +65,8 @@ Pour suivre nos dépenses, nous sommes des adorateurs de la [méthode de l'envel
 Le voyage nous a couté **4872,29 €** par personne, soit **9744,58€**.
 
 Nous avons voyagé **166 jours**, cela nous fait un budget total de **58,7€** par jour, et donc de **29,35€** par jour et par personne. Ce qui fait pour le côté nourriture (courses et restaurants) **10,4€** par jour et par personne. Un peu plus de 3€ le repas, on est restés au Crous en fait !
+
+Notons que faire des cartes de fidélité à Morrisons ou ailleurs est une très belle option à envisager pour faire des économies, comme toujours. Idem utiliser des sites de cashback pour les achats de billets de ferries.
 
 Donc au total, achat, aménagement et voyage compris, on arrive à :
 
