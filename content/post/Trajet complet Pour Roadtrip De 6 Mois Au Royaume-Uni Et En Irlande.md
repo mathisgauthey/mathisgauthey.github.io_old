@@ -15,7 +15,7 @@ share: true
 
 Le 17 Avril 2023, nous sommes partis à l'aventure avec ma copine pour 166 jours en France, en Angleterre, au Pays de Galles, en Ecosse et en Irlande.
 
-On a quand même réalisé environ 16 000 km de route d'après le compteur du van, soit environ 96km par jour. Pour ceux qui ont suivis notre [post concernant le budget]({{< ref "Le Budget Voyage Du Van" >}}), on peut dire qu'on a vu juste ! Mais au final, quel a été notre trajet ? Eh bien, c'est ce qu'on va voir aujourd'hui.
+On a quand même réalisé environ 16 000 km de route d'après le compteur du van, soit environ 96km par jour. Pour ceux qui ont suivis notre [post concernant le budget]({{< ref "Budget Pour Voyager En Van Pendant 6 Mois" >}}), on peut dire qu'on a vu juste ! Mais au final, quel a été notre trajet ? Eh bien, c'est ce qu'on va voir aujourd'hui.
 
 ![2023-10-04_16-34-21_voyage_complet_location_history.png](/images/2023-10-04_16-34-21_voyage_complet_location_history.png)
 
@@ -105,9 +105,9 @@ On découvre les belles plages de l'est de l'Ecosse avec des cascades qui se jet
 
 On tente quelques randonnées dans le parc national Cairngorms qu'on finit par fuir à cause des midges (ces minuscules insectes en essaims qui mordent). Eh oui, l'Ecosse n'est pas le meilleur pays à faire en juillet-août, il vaut mieux le visiter au printemps.
 
-On retourne donc près de la mer car vent = pas de midges et nous voilà partis pour suivre la côte jusqu'au bout ! On commence du côté de Bow Fiddle Rock et on remonte vers l'ouest puis le nord jusqu'au point le plus au nord car nous sommes des complétionnistes !
+On retourne donc près de la mer car vent = pas de midges et nous voilà partis pour suivre la côte jusqu'au bout ! On commence du côté de Bow Fiddle Rock et on remonte par Inverness jusqu'au point le plus au nord car nous sommes des complétionnistes !
 
-Des points de vue superbes, des randonnées en bord de mer, un petit passage au milieu des midges autour de cascades (mais on s'est équipés), et on arrive à l'île de Skye ! Malheureusement pour nous, les randonnées sont compromises par la présence de nombreux nuages bas. Du positif : ça nous a fait découvrir le musée des Highland Folk, une reconstitution de village très détaillée !
+Des points de vue superbes, des randonnées en bord de mer, un petit passage au milieu des midges autour de cascades (mais on s'est équipés), et on arrive à l'île de Skye ! Malheureusement pour nous, les randonnées sont compromises par la présence de nombreux nuages bas. Du positif : ça nous a fait découvrir le musée des Highland Folk, une reconstitution de village local très détaillée !
 
 Un passage par le légendaire viaduc de Glenfinnan avec le passage du Poudlard Express !
 
@@ -141,7 +141,7 @@ Mention très spéciale pour Killarney National Park, une pépite au calme avec 
 
 Sur le sud on passe par Kinsale, un petit village qui nous a été proposé par une locale, très belle surprise ! Bien plus sympa que Cork que l'on ne recommande que pour son aspect centre commercial à ciel ouvert.
 
-Et après… Ce fut l'apocalypse puis le Brittany Ferries jusqu'à Cherbourg !
+Et après… Ce fut l'apocalypse météo puis le Brittany Ferries jusqu'à Cherbourg !
 
 ## La France (le retour)
 
