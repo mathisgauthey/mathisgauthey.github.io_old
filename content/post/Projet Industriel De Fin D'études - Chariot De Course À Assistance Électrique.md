@@ -3,7 +3,7 @@ title: Projet Industriel De Fin D'études - Chariot De Course À Assistance Éle
 date: 2022-02-10 16:11:22
 lastmod: 2023-10-10 16:41:31
 categories:
-  - project
+  - projects
 tags:
   - CAD
   - Adams
