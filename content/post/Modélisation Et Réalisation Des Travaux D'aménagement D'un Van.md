@@ -1,12 +1,13 @@
 ---
-title: Modélisation Et Réalisation Des Travaux D'aménagement D'un Van
+title: "Modélisation Et Réalisation Des Travaux D'aménagement D'un Van"
 date: 2023-10-05 12:37:32
-lastmod: 2023-10-07 09:49:17
+lastmod: 2023-10-16 10:49:27
 categories:
   - projects
 tags:
   - cad
   - diy
+  - van
 aliases: 
 share: true
 ---
