@@ -1,12 +1,13 @@
 ---
 title: Budget Pour Voyager En Van Pendant 6 Mois
 date: 2023-10-04 12:18:42
-lastmod: 2023-10-07 14:53:41
+lastmod: 2023-10-16 10:51:54
 categories:
   - blog
 tags:
   - budget
   - van
+  - travel
 aliases: 
 share: true
 ---
@@ -105,7 +106,7 @@ Notons quand même que pour trouver des campings de qualité mais pas cher, nous
 
 Pour les parkings, le même trio suffit mais on remplace PitchUp par Parkopedia.
 
-Pour plus d'applications utiles en van, nous avons réalisé un autre [post sur le sujet]({{< ref "Les Applications Utiles Pour Voyager En Van" >}}).
+Pour plus d'applications utiles en van, nous avons réalisé un autre [post sur le sujet]({{< ref "Les Applications Indispensables Pour Voyager En Van" >}}).
 
 En conclusion, on a fait quelques ajustements selon les catégories mais, même avec les petits pépins mécaniques, on est en-dessous du budget prévisionnel du voyage (on avait dépassé sur celui du pré départ, ça compense) et ça, c'est agréable !
 
