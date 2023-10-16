@@ -47,7 +47,7 @@ params:
         emoji: ⚙️
         subtitle: Knowledge is best shared.
         avatar:
-            enabled: true
+            enabled: false
             local: true
             src: img/avatar.jpg
 
