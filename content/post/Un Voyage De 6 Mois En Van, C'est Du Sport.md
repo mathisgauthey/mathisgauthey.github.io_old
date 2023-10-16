@@ -1,12 +1,13 @@
 ---
 title: "Un Voyage De 6 Mois En Van, C'est Du Sport"
 date: 2023-10-04 12:18:35
-lastmod: 2023-10-07 15:01:18
+lastmod: 2023-10-16 10:52:15
 categories:
   - blog
 tags:
   - van
   - sport
+  - travel
 aliases: 
 share: true
 ---
