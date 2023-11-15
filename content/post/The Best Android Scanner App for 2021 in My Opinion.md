@@ -1,9 +1,9 @@
 ---
 title: The Best Android Scanner App for 2021 in My Opinion
 date: 2021-01-05 07:41:25
-lastmod: 2021-01-05 07:41:25
+lastmod: 2023-11-15 10:23:33
 categories:
-  - comparison
+  - guide
 tags:
   - android
   - scanner
