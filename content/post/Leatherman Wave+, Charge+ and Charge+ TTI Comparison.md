@@ -1,13 +1,13 @@
 ---
 title: Leatherman Wave+, Charge+ and Charge+ TTI Comparison
 date: 2023-02-22 14:25:33
-lastmod: 2023-02-22 14:25:33
+lastmod: 2023-110152-0223 104:25:33
 categories:
-  - comparison
+  - guide
 tags:
   - leatherman
 aliases: 
-share: true 
+share: true
 ---
 
 # Leatherman Wave+, Charge+ and Charge+ TTI Comparison
