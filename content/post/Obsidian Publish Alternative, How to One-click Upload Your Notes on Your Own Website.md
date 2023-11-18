@@ -1,7 +1,7 @@
 ---
 title: Obsidian Publish Alternative, How to One-click Upload Your Notes on Your Own Website
 date: 2023-08-02 18:55:32
-lastmod: 2023-08-03 18:26:06
+lastmod: 2023-11-18 12:32:14
 categories:
   - guide
 tags:
@@ -62,6 +62,8 @@ There's other ways of installing a theme, I just made a choice :
 - Using a Hugo module → Configuration involves creating folder, I'm a lazy ass, I'm configuring my theme directly from my theme folder.
 
 By the way, if you want to be able to modify the theme, you should fork the theme, and update the `.gitmodules` file with your forked repository link. If not, just keep it this way with the official [hugo-theme-stack](https://github.com/CaiJimmy/hugo-theme-stack) repository.
+
+**If you do choose to use the git submodules for being able to modify the website theme, please don't forget to use the `git submodule update --remote` command to gather the changes from your remote fork.**
 
 Anyway, now you should find the `hugo.toml` file and **delete it**. Don't worry, we'll use the theme configuration file.
 
