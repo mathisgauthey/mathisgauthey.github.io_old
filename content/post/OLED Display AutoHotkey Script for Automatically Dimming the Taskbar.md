@@ -1,7 +1,7 @@
 ---
 title: OLED Display AutoHotkey Script for Automatically Dimming the Taskbar
 date: 2023-11-21 08:46:00
-lastmod: 2023-11-21 13:48:45
+lastmod: 2023-11-23 10:50:30
 categories:
   - guide
 tags:
@@ -16,9 +16,10 @@ share: true
 
 ## Goal
 
-1. Auto-dim the taskbar to prevent burn in.
-2. Keep the dimming when an app is opened in full-screen on a second monitor.
-3. Stop the dimming if an app is opened full-screen on the primary monitor.
+> [!todo] Goals
+> 1. Auto-dim the taskbar to prevent burn in.
+> 2. Keep the dimming when an app is opened in full-screen on a second monitor.
+> 3. Stop the dimming if an app is opened full-screen on the primary monitor.
 
 ## Sources
 
