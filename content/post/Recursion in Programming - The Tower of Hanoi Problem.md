@@ -1,7 +1,7 @@
 ---
 title: Recursion in Programming - The Tower of Hanoi Problem
 date: 2023-12-07 11:10:00
-lastmod: 2023-12-07 14:52:03
+lastmod: 2023-12-07 15:00:57
 categories:
   - guide
 tags:
@@ -23,7 +23,7 @@ The Tower of Hanoi is a mathematical game or puzzle consisting of three rods and
 
 With three disks, the puzzle can be solved in **<u>seven moves</u>**.
 
-The minimal number of moves required to solve a Tower of Hanoi puzzle is $2n − 1$, where $n$ is the number of disks.
+The minimal number of moves required to solve a Tower of Hanoi puzzle is `2n − 1`, where `n` is the number of disks.
 
 ## How to Solve it Manually with Three Disks ?
 
@@ -31,7 +31,7 @@ The minimal number of moves required to solve a Tower of Hanoi puzzle is $2n −
 
 Source : [Python Program for Tower of Hanoi - GeeksforGeeks](https://www.geeksforgeeks.org/python-program-for-tower-of-hanoi/)
 
-Basically, with three disks, there is 7 steps. If we use the following notation `hanoiMove(source, auxilary, destination`, we can further explain the steps :
+Basically, with three disks, there is 7 steps. If we use the following notation `hanoiMove(source, auxilary, destination)`, we can further explain the steps :
 
 1. hanoiMove(**A**, B, **C**)
 2. hanoiMove(**A**, C, **B**)
@@ -60,7 +60,7 @@ RECURSIVE_CALL_GOING_DOWN_LEFT # We go down left
 RECURSIVE_CALL_GOING_DOWN_RIGHT # We go down right
 ```
 
-Using such a structure allow us to navigate down solutions in a three in this order :
+Using such a structure allow us to navigate down solutions in a tree in this order :
 
 ![2023-12-07_12-23-38_navigation_tree_order.png](/images/2023-12-07_12-23-38_navigation_tree_order.png)
 
@@ -94,7 +94,7 @@ RECURSIVE_CALL_GOING_DOWN_LEFT
 RECURSIVE_CALL_GOING_DOWN_RIGHT
 ```
 
-And here is where it gets tricky. What do do next ?
+And here is where it gets tricky. What to do next ?
 
 Well, I might be a simple man, but I just considered my 3 disks scenario. I want my first moves to be these ones :
 
