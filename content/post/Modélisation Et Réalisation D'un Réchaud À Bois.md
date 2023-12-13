@@ -1,13 +1,13 @@
 ---
 title: "Modélisation Et Réalisation D'un Réchaud À Bois"
 date: 2023-10-05 10:14:12
-lastmod: 2023-10-16017 00:429:26:51
+lastmod: 2023-12-13 18:08:41
 categories:
-  - projects
+  - project
 tags:
-  - cad
-  - diy
   - van
+  - DIY
+  - CAD
 aliases: 
 share: true
 ---
