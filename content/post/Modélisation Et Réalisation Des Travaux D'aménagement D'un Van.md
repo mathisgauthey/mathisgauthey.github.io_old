@@ -1,7 +1,7 @@
 ---
-title: Modélisation Et Réalisation Des Travaux D'aménagement D'un Van
+title: "Modélisation Et Réalisation Des Travaux D'aménagement D'un Van"
 date: 2023-10-05 12:37:32
-lastmod: 2023-10-16 10:49:27
+lastmod: 2023-12-13 18:06:30
 categories:
   - project
 tags:
