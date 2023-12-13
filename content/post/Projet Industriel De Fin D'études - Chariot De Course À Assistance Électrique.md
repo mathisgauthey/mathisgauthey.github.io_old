@@ -1,9 +1,9 @@
 ---
-title: Projet Industriel De Fin D'études - Chariot De Course À Assistance Électrique
+title: "Projet Industriel De Fin D'études - Chariot De Course À Assistance Électrique"
 date: 2022-02-10 16:11:22
-lastmod: 2023-10-10 16:41:31
+lastmod: 2023-12-13 18:05:34
 categories:
-  - projects
+  - project
 tags:
   - CAD
   - Adams
