@@ -1,9 +1,9 @@
 ---
-title: Projet De CAO - Modélisation D'un Cold Python
+title: "Projet De CAO - Modélisation D'un Cold Python"
 date: 2020-06-01 15:42:32
-lastmod: 2023-10-10 16:10:03
+lastmod: 2023-12-13 18:04:53
 categories:
-  - projects
+  - project
 tags:
   - CAD
   - CatiaV5
