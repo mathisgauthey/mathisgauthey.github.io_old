@@ -1,8 +1,9 @@
 ---
 title: Windows Post-Install Script
 date: 2023-01-16 13:31:14
-lastmod: 2024-01-07 22:18:58
-categories: 
+lastmod: 2024-01-07 22:56:18
+categories:
+  - 
 tags:
   - batch
 aliases: 
@@ -10,6 +11,8 @@ share: true
 ---
 
 # Windows Post-Install Script
+
+Source : [Browse the winget repository - winstall](https://winstall.app/)
 
 ```
 winget install --id=Microsoft.VisualStudioCode -e
@@ -22,13 +25,13 @@ winget install --id=Obsidian.Obsidian -e
 winget install --id=JohannesMillan.superProductivity  -e
 
 winget install --id=Mozilla.Firefox  -e
-winget install --id=Google.Drive -e
+winget install --id=Google.GoogleDrive -e
 winget install --id=Google.ChromeRemoteDesktop -e
 winget install --id=Cryptomator.Cryptomator -e
 
 winget install --id=Armin2208.WindowsAutoNightMode -e
 winget install --id=ShareX.ShareX -e
-winget install --id=TGRMNSoftware.BulkRenameUtility -e
+::winget install --id=TGRMNSoftware.BulkRenameUtility -e
 winget install --id=WinMerge.WinMerge -e
 winget install --id=Microsoft.PowerToys -e
 winget install --id=7zip.7zip -e
@@ -40,12 +43,17 @@ winget install --id=SumatraPDF.SumatraPDF -e
 winget install --id=TheDocumentFoundation.LibreOffice  -e
 
 winget install --id=Stremio.Stremio -e
-winget install --id=WindscribeLimited.Windscribe -e
+::winget install --id=WindscribeLimited.Windscribe -e
 winget install --id=Spotify.Spotify -e
 winget install --id=VideoLAN.VLC -e
 winget install --id=OBSProject.OBSStudio -e
 winget install --id=Discord.Discord -e
 ```
+
+- Install [Bulk Rename Utility](https://www.bulkrenameutility.co.uk/Download.php) manually as command is not working atm.
+- Install [Windscribe](https://windscribe.com/download) manually as command not working atm.
+
+---
 
 Terminal (now included in windows) :
 
