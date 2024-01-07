@@ -1,8 +1,9 @@
 ---
 title: Windows Post-Install Script for Gaming
 date: 2023-01-16 13:31:35
-lastmod: 2024-01-07 22:20:12
-categories: 
+lastmod: 2024-01-07 22:31:20
+categories:
+  - 
 tags:
   - batch
 aliases: 
@@ -10,6 +11,8 @@ share: true
 ---
 
 # Windows Post-Install Script for Gaming
+
+Source : [Browse the winget repository - winstall](https://winstall.app/)
 
 Core :
 
@@ -32,13 +35,24 @@ Nvidia specific :
 winget install --id=TechPowerUp.NVCleanstall  -e
 ```
 
-Logitech specific :
+Only check :
+
+- Check `Disable Installer Telemetry & Advertising`
+- Check `Perform a Clean Installation`
+
+Logitech specific (for mouse) :
 
 ```
 winget install --id=Logitech.GHUB  -e
 ```
 
-MSI GL75 :
+Razer specific :
+
+```
+winget install --id=RazerInc.RazerInstaller -e 
+```
+
+## MSI GL75 Specifics
 
 ```
 winget install --id=SteelSeries.GG  -e
