@@ -64,4 +64,4 @@ winget install --id=RazerInc.RazerInstaller -e
 winget install --id=SteelSeries.GG  -e
 ```
 
-![How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller](/images/How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller)
+- [How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller]({{< ref "How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller" >}})
