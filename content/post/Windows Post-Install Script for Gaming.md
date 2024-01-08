@@ -1,7 +1,7 @@
 ---
 title: Windows Post-Install Script for Gaming
 date: 2023-01-16 13:31:35
-lastmod: 2024-01-07 22:31:20
+lastmod: 2024-01-08 09:24:53
 categories:
   - 
 tags:
@@ -12,24 +12,28 @@ share: true
 
 # Windows Post-Install Script for Gaming
 
+## Sources
+
 Source : [Browse the winget repository - winstall](https://winstall.app/)
 
-Core :
+## Scrips
+
+### Core Game Launchers
 
 ```
 winget install --id=Valve.Steam -e
 winget install --id=EpicGames.EpicGamesLauncher -e
 ```
 
-Others :
+### Other Stuff
 
 ```
+winget install --id=GOG.Galaxy -e
 winget install --id=ElectronicArts.EADesktop -e
 winget install --id=Ubisoft.Connect -e
-winget install --id=GOG.Galaxy -e
 ```
 
-Nvidia specific :
+### Nvidia Specific
 
 ```
 winget install --id=TechPowerUp.NVCleanstall  -e
@@ -40,19 +44,21 @@ Only check :
 - Check `Disable Installer Telemetry & Advertising`
 - Check `Perform a Clean Installation`
 
-Logitech specific (for mouse) :
+### Mouses
+
+#### Logitech Specific
 
 ```
 winget install --id=Logitech.GHUB  -e
 ```
 
-Razer specific :
+#### Razer Specific
 
 ```
 winget install --id=RazerInc.RazerInstaller -e 
 ```
 
-## MSI GL75 Specifics
+### MSI GL75 Specifics
 
 ```
 winget install --id=SteelSeries.GG  -e
