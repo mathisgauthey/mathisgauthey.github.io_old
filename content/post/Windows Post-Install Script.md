@@ -1,7 +1,7 @@
 ---
 title: Windows Post-Install Script
 date: 2023-01-16 13:31:14
-lastmod: 2024-01-07 22:56:18
+lastmod: 2024-01-08 09:27:04
 categories:
   - 
 tags:
@@ -12,7 +12,13 @@ share: true
 
 # Windows Post-Install Script
 
+## Sources
+
 Source : [Browse the winget repository - winstall](https://winstall.app/)
+
+## Scripts
+
+### Main Tools
 
 ```
 winget install --id=Microsoft.VisualStudioCode -e
@@ -53,50 +59,48 @@ winget install --id=Discord.Discord -e
 - Install [Bulk Rename Utility](https://www.bulkrenameutility.co.uk/Download.php) manually as command is not working atm.
 - Install [Windscribe](https://windscribe.com/download) manually as command not working atm.
 
----
-
-Terminal (now included in windows) :
+### Terminal (now Included in windows)
 
 ```
 winget install --id=Microsoft.WindowsTerminal -e
 ```
 
-Torrents :
+### Torrents
 
 ```
 winget install --id=qBittorrent.qBittorrent -e
 ```
 
-Temperature :
+### Component Temperature
 
 ```
 winget install --id=CPUID.HWMonitor -e
 ```
 
-Encryption :
-
-```
-winget install --id=IDRIX.VeraCrypt -e
-```
-
-Python Dev :
-
-```
-winget install --id=Anaconda.Anaconda3  -e
-```
-
-Linux ISO Boot Key :
-
-```
-winget install --id=Balena.Etcher  -e
-```
-
-Music :
+### Music
 
 ```
 winget install --id=Musescore.Musescore.3  -e
 ```
 
-File server :
+### Encryption
+
+```
+winget install --id=IDRIX.VeraCrypt -e
+```
+
+### Python Dev
+
+```
+winget install --id=Anaconda.Anaconda3  -e
+```
+
+### Linux ISO Boot Key
+
+```
+winget install --id=Balena.Etcher  -e
+```
+
+### File Server
 
 - Filezilla
