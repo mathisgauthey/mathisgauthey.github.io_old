@@ -3,9 +3,8 @@ title: Launch Todoist Minimized on Windows Startup
 date: 2023-11-23 18:41:00
 lastmod: 2024-01-08 09:43:02
 categories:
-  - 
-tags:
-  - 
+  - guide
+tags: 
 aliases: 
 share: true
 ---
