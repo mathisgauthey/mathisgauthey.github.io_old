@@ -3,7 +3,7 @@ title: Windows Post-Install Script
 date: 2023-01-16 13:31:14
 lastmod: 2024-01-08 09:27:04
 categories:
-  - 
+  - guide
 tags:
   - batch
 aliases: 
