@@ -3,7 +3,7 @@ title: Windows Post-Install Script for Gaming
 date: 2023-01-16 13:31:35
 lastmod: 2024-01-08 09:24:53
 categories:
-  - 
+  - guide
 tags:
   - batch
 aliases: 
