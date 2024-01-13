@@ -1,7 +1,7 @@
 ---
 title: Fix Bose QC35 Headset Communication Issue on Windows 11
 date: 2023-11-28 09:54:00
-lastmod: 2024-01-08 09:34:40
+lastmod: 2024-01-13 13:19:09
 categories:
   - guide
 tags:
@@ -24,3 +24,7 @@ Source : [[deleted by user] : r/bose](https://www.reddit.com/r/bose/comments/kbd
 6. Disable "handsfree telephony"
 
 ![2023-11-28_09-55-00_bose_fix_windows.png](/images/2023-11-28_09-55-00_bose_fix_windows.png)
+
+In order for the settings to be kept, one should do this as well :
+
+![2024-01-13_13-19-01_disable_bose_QC35II.png](/images/2024-01-13_13-19-01_disable_bose_QC35II.png)
