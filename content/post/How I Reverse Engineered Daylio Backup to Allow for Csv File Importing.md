@@ -1,7 +1,7 @@
 ---
 title: How I Reverse Engineered Daylio Backup to Allow for Csv File Importing
 date: 2024-01-23 16:47:00
-lastmod: 2024-01-23 18:54:23
+lastmod: 2024-01-23 22:05:29
 categories:
   - project
 tags:
