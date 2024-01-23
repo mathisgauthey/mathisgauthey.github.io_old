@@ -44,13 +44,13 @@ I remember I used to export my Daylio to csv and use [Obsidian-Daylio-Parser](ht
 
 My journaling workflow was simple on Obsidian.
 
-![[2024-01-23_18-36-15_journal_entry_example.png]]
+![2024-01-23_18-36-15_journal_entry_example.png](/images/2024-01-23_18-36-15_journal_entry_example.png)
 
 I took note on my daily note (`YYYY-MM-DD.md`) in the `## Journal 📔` section. The section naming evolved, but always had the `Journal` keyword.
 
 That's a start. I used to query my daily notes journal entries using this dataviewjs script :
 
-![[2024-01-23_18-37-06_journal_query.png]]
+![2024-01-23_18-37-06_journal_query.png](/images/2024-01-23_18-37-06_journal_query.png)
 
 ```javascript
 const header = '#+ [^\n]*?Journal[^\n]*?'
@@ -80,7 +80,7 @@ Basically, I search for files in my `-Daily-Notes` folder, sort them, look for t
 
 But I also had some heatmap-calendar script to query moods :
 
-![[2024-01-23_18-12-58_mood_tracking.png]]
+![2024-01-23_18-12-58_mood_tracking.png](/images/2024-01-23_18-12-58_mood_tracking.png)
 
 ```javascript
 dv.span("Journal Mood 📈")
