@@ -1,7 +1,7 @@
 ---
 title: How I Reverse Engineered Daylio Backup to Allow for Csv File Importing
 date: 2024-01-23 16:47:00
-lastmod: 2024-01-23 22:05:29
+lastmod: 2024-01-23 23:00:23
 categories:
   - project
 tags:
@@ -13,6 +13,8 @@ share: true
 ---
 
 # How I Reverse Engineered Daylio Backup to Allow for Csv File Importing
+
+## Introduction
 
 On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :
 
