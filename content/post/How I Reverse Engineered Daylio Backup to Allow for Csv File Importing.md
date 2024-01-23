@@ -1,7 +1,7 @@
 ---
 title: How I Reverse Engineered Daylio Backup to Allow for Csv File Importing
 date: 2024-01-23 16:47:00
-lastmod: 2024-01-23 18:42:24
+lastmod: 2024-01-23 18:54:23
 categories:
   - project
 tags:
@@ -44,13 +44,13 @@ I remember I used to export my Daylio to csv and use [Obsidian-Daylio-Parser](ht
 
 My journaling workflow was simple on Obsidian.
 
-![2024-01-23_18-36-15_journal_entry_example.png](/images/2024-01-23_18-36-15_journal_entry_example.png)
+![[2024-01-23_18-36-15_journal_entry_example.png]]
 
 I took note on my daily note (`YYYY-MM-DD.md`) in the `## Journal 📔` section. The section naming evolved, but always had the `Journal` keyword.
 
 That's a start. I used to query my daily notes journal entries using this dataviewjs script :
 
-![2024-01-23_18-37-06_journal_query.png](/images/2024-01-23_18-37-06_journal_query.png)
+![[2024-01-23_18-37-06_journal_query.png]]
 
 ```javascript
 const header = '#+ [^\n]*?Journal[^\n]*?'
@@ -70,7 +70,7 @@ for (const page of pages) {
     const summary = contents.match(regex)
     if (summary) {
         // Output the header and summary
-        dv.header(2, "["+file.basename+"]({{< ref ""+file.basename+"" >}})")
+        dv.header(2, "[["+file.basename+"]]")
         dv.paragraph(summary[1].trim())
     }
 }
@@ -80,7 +80,7 @@ Basically, I search for files in my `-Daily-Notes` folder, sort them, look for t
 
 But I also had some heatmap-calendar script to query moods :
 
-![2024-01-23_18-12-58_mood_tracking.png](/images/2024-01-23_18-12-58_mood_tracking.png)
+![[2024-01-23_18-12-58_mood_tracking.png]]
 
 ```javascript
 dv.span("Journal Mood 📈")
@@ -120,10 +120,6 @@ I need to be able parse all that to Daylio. Let's recap.
 - Query the entire `Journal` section of each daily-note.
 - Take the `mood::x` key and add it as a daily evaluation from 1 to 5 for Daylio moods. And remove that part afterward.
 - Take the title for the new Daylio note title. And remove that part afterward.
-
-### Difficulties Encountered
-
-- The regex. They are a pain. I won't explain much because ChatGPT exists, and you can use [regex101 to build, test, and debug regex](https://regex101.com/).
 
 ### The Script
 
@@ -220,6 +216,10 @@ df = pd.concat([df, df_extended])
 # Export the dataframe to a CSV file
 df.to_csv("output.csv", index=False)
 ```
+
+### Difficulties Encountered
+
+- The regex. They are a pain. I won't explain much because ChatGPT exists, and you can use [regex101 to build, test, and debug regex](https://regex101.com/).
 
 ## Importing Data to Daylio
 
