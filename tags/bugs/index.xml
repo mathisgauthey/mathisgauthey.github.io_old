@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bugs on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/bugs/</link><description>Recent content in bugs on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 28 Nov 2023 09:54:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/bugs/index.xml" rel="self" type="application/rss+xml"/><item><title>Fix Bose QC35 Headset Communication Issue on Windows 11</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/fix-bose-qc35-headset-communication-issue-on-windows-11/</link><pubDate>Tue, 28 Nov 2023 09:54:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/fix-bose-qc35-headset-communication-issue-on-windows-11/</guid><description>&lt;h1 id="fix-bose-qc35-headset-communication-issue-on-windows-11">Fix Bose QC35 Headset Communication Issue on Windows 11&lt;/h1>
+&lt;p>Source : &lt;a class="link" href="https://www.reddit.com/r/bose/comments/kbdf4e/deleted_by_user/" target="_blank" rel="noopener"
+>[deleted by user] : r/bose&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>Open settings.&lt;/li>
+&lt;li>Click devices&lt;/li>
+&lt;li>On the right click devices and printers&lt;/li>
+&lt;li>Find your headphones and double click them&lt;/li>
+&lt;li>Click the services tab&lt;/li>
+&lt;li>Disable &amp;ldquo;handsfree telephony&amp;rdquo;&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-11-28_09-55-00_bose_fix_windows.png"
+loading="lazy"
+alt="2023-11-28_09-55-00_bose_fix_windows.png"
+>&lt;/p>
+&lt;p>In order for the settings to be kept, one should do this as well :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-13_13-19-01_disable_bose_QC35II.png"
+loading="lazy"
+alt="2024-01-13_13-19-01_disable_bose_QC35II.png"
+>&lt;/p></description></item></channel></rss>

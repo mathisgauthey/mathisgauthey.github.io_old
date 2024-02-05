@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>electricity on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/electricity/</link><description>Recent content in electricity on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 05 Oct 2023 16:09:29 +0200</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/electricity/index.xml" rel="self" type="application/rss+xml"/><item><title>Conception Et Installation Du Réseau Électrique D'un Van</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/conception-et-installation-du-r%C3%A9seau-%C3%A9lectrique-dun-van/</link><pubDate>Thu, 05 Oct 2023 16:09:29 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/conception-et-installation-du-r%C3%A9seau-%C3%A9lectrique-dun-van/</guid><description>&lt;h1 id="conception-et-installation-du-réseau-électrique-dun-van">Conception Et Installation Du Réseau Électrique D&amp;rsquo;un Van&lt;/h1>
+&lt;p>Un des gros chantiers que nous avons dû réaliser pour notre voyage a été de refaire entièrement le réseau électrique du van.&lt;/p>
+&lt;h2 id="etat-initial">Etat Initial&lt;/h2>
+&lt;p>Lorsque nous avons acheté le van, il était équipé des éléments suivants :&lt;/p>
+&lt;ul>
+&lt;li>Un &lt;a class="link" href="https://www.camping-car-plus.com/high-tech-electricite/source-d-energie/panneaux-solaires/kit-panneau-solaire-e-ssential-inovtech-80w-5831.html" target="_blank" rel="noopener"
+>panneau solaire de 80W&lt;/a>&lt;/li>
+&lt;li>Une &lt;a class="link" href="https://www.camping-car-plus.com/high-tech-electricite/source-d-energie/batteries/batterie-varta-professional-dual-purpose-agm-95-ah-6602.html" target="_blank" rel="noopener"
+>batterie auxiliaire VARTA Professional Dual Purpose AGM 95 Ah / 105 AH&lt;/a> que nous pouvions relier à la batterie de démarrage du véhicule en parallèle pour la recharger à l&amp;rsquo;aide de l&amp;rsquo;alternateur.&lt;/li>
+&lt;li>Un &lt;a class="link" href="https://lcg-loisirs.fr/energie-high-tech/convertisseur-vechline-LCG3953" target="_blank" rel="noopener"
+>convertisseur de tension Vechline 600W quasi-sinus&lt;/a>&lt;/li>
+&lt;li>Un &lt;a class="link" href="https://www.cdiscount.com/auto/camping-car-caravaning/refrigerateur-a-poser-trimixte-xc-43g-40-litres/f-13330100101-inc3700628230212.html" target="_blank" rel="noopener"
+>frigo Trimixte XC-43G de 40L&lt;/a>&lt;/li>
+&lt;li>Une &lt;a class="link" href="https://www.amazon.fr/dp-Flojet-Triplex-2-9-12-V-25psi/dp/B01JUN0NDG/ref=as_li_ss_tl?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;amp;dchild=1&amp;amp;keywords=flojet&amp;#43;12v&amp;amp;qid=1582580597&amp;amp;sr=8-1&amp;amp;linkCode=ll1&amp;amp;tag=fourgonamen07-21&amp;amp;linkId=b02653e5b721120ad7a1ab65ab86a8cf&amp;amp;language=fr_FR" target="_blank" rel="noopener"
+>pompe à eau Flojet Triplex 2.9 12V 25 psi&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-16-33_photo_elec_ancien_proprio.png"
+loading="lazy"
+alt="2023-10-05_16-16-33_photo_elec_ancien_proprio.png"
+>&lt;/p>
+&lt;p>Et là vous vous dites, et bien parfait, quel est le problème ?&lt;/p>
+&lt;p>Il y en a plusieurs :&lt;/p>
+&lt;ol>
+&lt;li>Il n&amp;rsquo;y a que le convertisseur et le panneau solaire qui sont protégées par un fusible. Aucun des autres appareils n&amp;rsquo;est aux normes.&lt;/li>
+&lt;li>Le convertisseur de tension est un quasi-sinus, il est donc déconseillé pour les appareils informatiques (téléphones, ordinateurs, etc.)&lt;/li>
+&lt;li>La batterie auxiliaire est reliée directement à la batterie de démarrage lorsque l&amp;rsquo;on enclenche une clef. Malheureusement, cela rend le système soumis à l&amp;rsquo;erreur humaine, et démarrer après avoir branché le système peut provoquer une montée de tension trop brusque pour la batterie auxiliaire.&lt;/li>
+&lt;li>Notre frigo consomme beaucoup trop d&amp;rsquo;électricité (~100W) pour une technologie de refroidissement inefficace.&lt;/li>
+&lt;li>Nous n&amp;rsquo;avons aucun moyen de contrôler le niveau de charge de la batterie.&lt;/li>
+&lt;li>Nous n&amp;rsquo;avons aucun moyen de protéger la batterie auxiliaire en l&amp;rsquo;empêchant de descendre sous les 50% et ainsi respecter son DOD.&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/li>
+&lt;/ol>
+&lt;h2 id="améliorations-proposées">Améliorations Proposées&lt;/h2>
+&lt;p>Etant donnée notre consommation prévue d&amp;rsquo;électricité, nous avons conservé la batterie et le système de charge solaire. Nos améliorations ont porté sur :&lt;/p>
+&lt;ol>
+&lt;li>Achat et installation d&amp;rsquo;un &lt;a class="link" href="https://www.amazon.fr/gp/product/B07YDF3WJX/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&amp;amp;psc=1" target="_blank" rel="noopener"
+>porte fusible complet&lt;/a> pour protéger chaque circuit selon les normes.&lt;/li>
+&lt;li>Changement du convertisseur de tension pour un &lt;a class="link" href="https://www.h2r-equipements.com/convertisseur-12v-230v-transformateur-bateau/17056-victron-phoenix-vedirect-12-375.html" target="_blank" rel="noopener"
+>Victron Phoenix VE.Direct 12/375&lt;/a>.&lt;/li>
+&lt;li>Installation d&amp;rsquo;un coupleur &lt;a class="link" href="https://www.h2r-equipements.com/coupleur-separateur-camping-car-fourgon-amenage/2376-victron-energy-cyrix-ct.html" target="_blank" rel="noopener"
+>séparateur Victron Energy Cyrix-CT 120A&lt;/a>.&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;/li>
+&lt;li>Changement du frigo pour une glacière à compression &lt;a class="link" href="https://www.amazon.fr/MOBICOOL-Glaci%C3%A8re-compresseur-refroidissement-cong%C3%A9lateur/dp/B07ZZC6816" target="_blank" rel="noopener"
+>Mobicool MCF40 de 38L&lt;/a>. Consommation moyenne de 48W en 12V (~25Ah/24h).&lt;/li>
+&lt;li>Installation d&amp;rsquo;un &lt;a class="link" href="https://www.amazon.fr/gp/product/B0793PJSJM/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&amp;amp;th=1" target="_blank" rel="noopener"
+>voltmètre&lt;/a> pour contrôler la tension de la batterie. Attention, cela ne suffit absolument pas à connaitre l&amp;rsquo;état de charge d&amp;rsquo;une batterie, un capteur intelligent comme le &lt;a class="link" href="https://www.amazon.fr/Victron-Energy-BMV-712-Moniteur-Batterie/dp/B075RTSTKS/ref=sr_1_1?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;amp;crid=BADP7PRIKLOB&amp;amp;keywords=victron&amp;#43;bmv&amp;amp;qid=1696516595&amp;amp;sprefix=victron&amp;#43;bmv%2Caps%2C112&amp;amp;sr=8-1" target="_blank" rel="noopener"
+>Victron BMV-712&lt;/a> est requis pour tenir compte de l&lt;a class="link" href="https://esoxiste.com/la-batterie-pour-les-nuls/" target="_blank" rel="noopener"
+>&amp;rsquo;effet Peukert&lt;/a>, mais nous auront tout de même une indication.&lt;/li>
+&lt;li>L&amp;rsquo;ajout d&amp;rsquo;un &lt;a class="link" href="https://www.h2r-equipements.com/protection-basse-tension-fourgon-amenage-camping-car/18131-victron-battery-protect-65-a.html" target="_blank" rel="noopener"
+>Victron Battery Protect 65A&lt;/a> afin de couper le courant à la batterie si une certaine tension est atteinte et réenclencher le circuit uniquement lorsqu&amp;rsquo;une nouvelle tension jugée suffisante est atteinte. Cela nous permet, en ayant la correspondance tension-capacité restante d&amp;rsquo;une batterie AGM, de bloquer la décharge à 50% de DOD. Du moins, lorsque le panneau solaire ne fonctionne pas : en effet, lorsque le panneau solaire charge la batterie, la tension augmente mais la batterie n&amp;rsquo;a pas pour autant récupéré sa charge.&lt;/li>
+&lt;/ol>
+&lt;h2 id="schéma-électrique-final">Schéma Électrique Final&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-41-21_schema_electrique_final.png"
+loading="lazy"
+alt="2023-10-05_16-41-21_schema_electrique_final.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-44-29_panneau_electrique.jpg"
+loading="lazy"
+alt="2023-10-05_16-44-29_panneau_electrique.jpg"
+>&lt;/p>
+&lt;p>Remarque : Le câble noir permettant de contrôler l&amp;rsquo;allumage du convertisseur de tension par le batterie protect n&amp;rsquo;a pas été utilisé étant donné que notre convertisseur de tension possède une sécurité intégrée pour éviter les décharges lourdes de batterie.&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>&lt;strong>Depth of discharge&lt;/strong> (&lt;strong>DoD&lt;/strong>) is an important parameter appearing in the context of rechargeable battery operation. More informations &lt;a class="link" href="https://www.solaris-store.com/content/43-principe-de-fonctionnement-d-une-batterie-solaire" target="_blank" rel="noopener"
+>here&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Plus d&amp;rsquo;informations sur les coupleurs séparateurs et leur fonctionnement &lt;a class="link" href="https://www.youtube.com/watch?v=YIDDCP6phbo&amp;amp;t" target="_blank" rel="noopener"
+>ici&lt;/a>.&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

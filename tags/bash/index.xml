@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bash on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/bash/</link><description>Recent content in bash on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 14 Nov 2023 15:29:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/bash/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Automatically Back-up All Your Github Repo and Archive Them</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-automatically-back-up-all-your-github-repo-and-archive-them/</link><pubDate>Tue, 14 Nov 2023 15:29:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-automatically-back-up-all-your-github-repo-and-archive-them/</guid><description>&lt;h1 id="how-to-automatically-back-up-all-your-github-repo-and-archive-them">How to Automatically Back-up All Your Github Repo and Archive Them&lt;/h1>
+&lt;h2 id="goals">Goals&lt;/h2>
+&lt;ol>
+&lt;li>Clone all our repositories.&lt;/li>
+&lt;li>Archive them to their respective &lt;code>folderName.zip&lt;/code>&lt;/li>
+&lt;li>Delete the repository folders&lt;/li>
+&lt;/ol>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Linux, git-bash on windows, well basically you need to be able to run bash script.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/cli/cli#installation" target="_blank" rel="noopener"
+>Github CLI&lt;/a> → Access to the repo list and clone using https login.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.gnu.org/software/parallel/" target="_blank" rel="noopener"
+>parallel&lt;/a> → Parallelize code to reduce execution time.&lt;/li>
+&lt;li>[[p7zip [Wiki ubuntu-fr]|p7zip]] → Archive the cloned repository.&lt;/li>
+&lt;/ul>
+&lt;h2 id="the-script">The Script&lt;/h2>
+&lt;p>You&amp;rsquo;ll just need to input your account username in line &lt;code>2&lt;/code> of the script.&lt;/p>
+&lt;p>You can find it here :&lt;code>https://github.com/USER&lt;/code>&lt;/p>
+&lt;p>The script will clone and archive the repositories in the &lt;code>current folder&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Cloning all the repositories from a profile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">gh repo list USER --limit &lt;span class="m">1000&lt;/span> --json nameWithOwner --jq &lt;span class="s1">&amp;#39;.[].nameWithOwner&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> parallel -j16 gh repo clone
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Function to archive and remove subfolders&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">archive_and_remove&lt;span class="o">()&lt;/span> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">local&lt;/span> &lt;span class="nv">subfolder&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">local&lt;/span> &lt;span class="nv">subfolder_name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">subfolder&lt;/span>&lt;span class="p">%/&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Archive the subfolder to its own ZIP file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 7z a -tzip &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">subfolder_name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">.zip&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$subfolder_name&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Remove the original subfolder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> rm -rf &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$subfolder_name&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Export the function to make it available to parallel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> -f archive_and_remove
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Use find to get a list of subfolders and pipe it to parallel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">find . -maxdepth &lt;span class="m">1&lt;/span> -type d -exec basename &lt;span class="o">{}&lt;/span> &lt;span class="se">\;&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> parallel -j16 archive_and_remove
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

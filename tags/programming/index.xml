@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>programming on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/programming/</link><description>Recent content in programming on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 07 Dec 2023 11:10:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/programming/index.xml" rel="self" type="application/rss+xml"/><item><title>Recursion in Programming - The Tower of Hanoi Problem</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/recursion-in-programming-the-tower-of-hanoi-problem/</link><pubDate>Thu, 07 Dec 2023 11:10:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/recursion-in-programming-the-tower-of-hanoi-problem/</guid><description>&lt;h1 id="recursion-in-programming---the-tower-of-hanoi-problem">Recursion in Programming - The Tower of Hanoi Problem&lt;/h1>
+&lt;h2 id="introduction--what-is-the-tower-of-hanoi-">Introduction : What is the Tower of Hanoi ?&lt;/h2>
+&lt;p>The Tower of Hanoi is a mathematical game or puzzle consisting of three rods and a number of disks of various diameters, which can slide onto any rod. The puzzle begins with the disks stacked on one rod in order of decreasing size, the smallest at the top, thus approximating a conical shape. The objective of the puzzle is to move the entire stack to one of the other rods, obeying the following rules:&lt;/p>
+&lt;ol>
+&lt;li>Only one disk may be moved at a time.&lt;/li>
+&lt;li>Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.&lt;/li>
+&lt;li>No disk may be placed on top of a disk that is smaller than it.&lt;/li>
+&lt;/ol>
+&lt;p>With three disks, the puzzle can be solved in &lt;strong>&lt;!-- raw HTML omitted -->seven moves&lt;!-- raw HTML omitted -->&lt;/strong>.&lt;/p>
+&lt;p>The minimal number of moves required to solve a Tower of Hanoi puzzle is &lt;code>2n − 1&lt;/code>, where &lt;code>n&lt;/code> is the number of disks.&lt;/p>
+&lt;h2 id="how-to-solve-it-manually-with-three-disks-">How to Solve it Manually with Three Disks ?&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-07_11-50-07_hanoi_solving_steps_3_disks.png"
+loading="lazy"
+alt="2023-12-07_11-50-07_hanoi_solving_steps_3_disks.png"
+>&lt;/p>
+&lt;p>Source : &lt;a class="link" href="https://www.geeksforgeeks.org/python-program-for-tower-of-hanoi/" target="_blank" rel="noopener"
+>Python Program for Tower of Hanoi - GeeksforGeeks&lt;/a>&lt;/p>
+&lt;p>Basically, with three disks, there is 7 steps. If we use the following notation &lt;code>hanoiMove(source, auxilary, destination)&lt;/code>, we can further explain the steps :&lt;/p>
+&lt;ol>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, C, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>C&lt;/strong>, A, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>B&lt;/strong>, C, &lt;strong>A&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>B&lt;/strong>, A, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;/ol>
+&lt;h2 id="how-to-get-the-idea-of-coding-such-a-thing-">How to Get the Idea of Coding Such a Thing ?&lt;/h2>
+&lt;p>Do you know about recursion ? If not, now is your time to &lt;a class="link" href="https://www.youtube.com/watch?v=IJDJ0kBx2LM" target="_blank" rel="noopener"
+>learn&lt;/a>. I also suggest taking a look at some &lt;a class="link" href="https://betterprogramming.pub/5-basic-sorting-algorithms-you-must-know-9ef5b1f3949c" target="_blank" rel="noopener"
+>sorting algorithms&lt;/a> to grasp the idea of recursion and how to follow down a tree structure.&lt;/p>
+&lt;p>Well, you got the moves in order for a basic scenario with 3 disks, that&amp;rsquo;s what we discussed above.&lt;/p>
+&lt;p>And here is a basic recursive template to navigate down a solution tree :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">recursiveFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">SOMETHING&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">BASE&lt;/span> &lt;span class="n">CASE&lt;/span> &lt;span class="c1"># When we hit the bottom of the tree&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_LEFT&lt;/span> &lt;span class="c1"># We go down left&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Some actions to do when coming back up before going down&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_RIGHT&lt;/span> &lt;span class="c1"># We go down right&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Using such a structure allow us to navigate down solutions in a tree in this order :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-07_12-23-38_navigation_tree_order.png"
+loading="lazy"
+alt="2023-12-07_12-23-38_navigation_tree_order.png"
+>&lt;/p>
+&lt;p>And there&amp;rsquo;s 7 steps… Isn&amp;rsquo;t that all too convenient ? Yup, that&amp;rsquo;s because this code template suits our scenario very well.&lt;/p>
+&lt;p>Now think about it. The goal of recursion is to solve a problem by &lt;strong>gradually shrinking down the problem until we come to a simple scenario.&lt;/strong>&lt;/p>
+&lt;p>The most basic scenario of a tower of Hanoi would be to have &lt;!-- raw HTML omitted -->one disk&lt;!-- raw HTML omitted -->.&lt;/p>
+&lt;p>We would just have to move it to the destination using &lt;code>hanoiMove(n=1, source='A', auxiliary='B', destination='C', hanoi_tower)&lt;/code>.&lt;/p>
+&lt;p>We should start naming rods now, lets define our rods in the initial setup :&lt;/p>
+&lt;ul>
+&lt;li>The left one is &lt;code>A&lt;/code>, it holds our disks initially.&lt;/li>
+&lt;li>The middle one is &lt;code>B&lt;/code>, it is empty but will help us get to the right.&lt;/li>
+&lt;li>The right one is &lt;code>C&lt;/code> and is our target destination.&lt;/li>
+&lt;/ul>
+&lt;p>Going back to our one disk scenario, that&amp;rsquo;ll be our base case:&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># We pop the disk from the source and append it to the destination&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_LEFT&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Some actions to do when coming back up before going down&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_RIGHT&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And here is where it gets tricky. What to do next ?&lt;/p>
+&lt;p>Well, I might be a simple man, but I just considered my 3 disks scenario. I want my first moves to be these ones :&lt;/p>
+&lt;ol>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, C, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>C&lt;/strong>, A, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;/ol>
+&lt;p>If you look at the former tree, it is the left side of it.&lt;/p>
+&lt;p>I&amp;rsquo;ll just use some input permutation on the function calls variable input to get the correct base case for my 3 disks scenario.&lt;/p>
+&lt;p>If our first function call is &lt;code>hanoiMove(3, 'A', 'B', 'C')&lt;/code> on the function &lt;code>hanoiMove(n, source, auxiliary, destination)&lt;/code>.&lt;/p>
+&lt;p>We want the call stack to look like this :&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>hanoiMove(3, 'A', 'B', 'C')&lt;/code> # First function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(2, '?', '?', '?')&lt;/code> # Second function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(1, 'A', 'B', 'C')&lt;/code> # Third function call, the one that hits the base case at the bottom left of the tree and is executed first&lt;/li>
+&lt;/ol>
+&lt;p>With a tree, it looks like that :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-07_12-42-41_tree_call_stack_base_case.png"
+loading="lazy"
+alt="2023-12-07_12-42-41_tree_call_stack_base_case.png"
+>&lt;/p>
+&lt;p>Alright, so we need our first recursive call &lt;code>RECURSIVE_CALL_GOING_DOWN_LEFT&lt;/code> to swap two input variables, so that it comes back to a &lt;code>A → C&lt;/code> movement at the bottom.&lt;/p>
+&lt;p>If we look at the second move to solve our tower of Hanoi, the middle disk moves to the auxiliary rod (&lt;code>B&lt;/code>), and not the destination (&lt;code>C&lt;/code>) one. It&amp;rsquo;s a move from &lt;code>A → B&lt;/code>. :&lt;/p>
+&lt;p>&lt;code>2. hanoiMove(**A**, C, **B**)&lt;/code>&lt;/p>
+&lt;p>That&amp;rsquo;s it, we just need to swap the &lt;code>auxiliary&lt;/code> and the &lt;code>destination&lt;/code> on our first recursive call :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># We pop the disk from the source and append it to the destination&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># First recursive call, we move the n-1 disks from the source to the auxiliary&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Some actions to do when coming back up before going down&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_RIGHT&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>But doing so, it will never actually move the middle disk from &lt;code>A&lt;/code> to &lt;code>B&lt;/code>, we need to tell it that when it comes back to the scenario with 2 disks in the tree, it should move the disk. That&amp;rsquo;s why I intentionally left a &lt;code>#Some actions to do&lt;/code> in the code template.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># We pop the disk from the source and append it to the destination&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># First recursive call, we move the n-1 disks from the source to the auxiliary&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">RECURSIVE_CALL_GOING_DOWN_RIGHT&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now where are we ? If we sum up, this is our call stack :&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>hanoiMove(3, 'A', 'B', 'C')&lt;/code> # First function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(2, 'A', 'C', 'B')&lt;/code> # Second function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(1, 'A', 'B', 'C')&lt;/code> # Third function call, the one that hits the base case at the bottom left of the tree and is executed first&lt;/li>
+&lt;/ol>
+&lt;p>And this is the graph :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-07_12-44-56_finding_right_part.png"
+loading="lazy"
+alt="2023-12-07_12-44-56_finding_right_part.png"
+>&lt;/p>
+&lt;p>Alright, now final part. How to end the recursion with the recursive call to the right.&lt;/p>
+&lt;p>If we come back to our solving steps :&lt;/p>
+&lt;ol>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, C, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>C&lt;/strong>, A, &lt;strong>B&lt;/strong>)&lt;/li>
+&lt;li>hanoiMove(&lt;strong>A&lt;/strong>, B, &lt;strong>C&lt;/strong>)&lt;/li>
+&lt;/ol>
+&lt;p>Using the same idea, we want our third move to be &lt;code>3. hanoiMove(**C**, A, **B**)&lt;/code>, meaning a movement from &lt;code>C → B&lt;/code> .&lt;/p>
+&lt;p>Remember our call stack :&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>hanoiMove(3, 'A', 'B', 'C')&lt;/code> # First function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(2, 'A', 'C', 'B')&lt;/code> # Second function call&lt;/li>
+&lt;li>&lt;code>hanoiMove(1, 'A', 'B', 'C')&lt;/code> # Third function call, the one that hits the base case at the bottom left of the tree and is executed first&lt;/li>
+&lt;/ol>
+&lt;p>When the third one is called, it does the base case. Then we come back to the first recursive call :&lt;/p>
+&lt;p>&lt;code>2. hanoiMove(2, 'A', 'C', 'B')&lt;/code>.&lt;/p>
+&lt;p>And we want our third move to be :&lt;/p>
+&lt;p>&lt;code>3. hanoiMove(**C**, A, **B**)&lt;/code>.&lt;/p>
+&lt;p>Well, that settles it. The other recursive call should swap the &lt;code>source&lt;/code> and &lt;code>auxiliary&lt;/code> in the call.&lt;/p>
+&lt;h2 id="solution-to-the-problem">Solution to the Problem&lt;/h2>
+&lt;p>Here&amp;rsquo;s the whole code :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Base case, we just move the disk from the source to the destination&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># We pop the disk from the source and append it to the destination&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># First recursive call, we move the n-1 disks from the source to the auxiliary&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">destination&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">source&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pop&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Second recursive call, we move the n-1 disks from the auxiliary to the source&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And the main part :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="c1"># Number of disks&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">source&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;A&amp;#39;&lt;/span> &lt;span class="c1"># Original source rod for the disks&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">auxiliary&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;B&amp;#39;&lt;/span> &lt;span class="c1"># Middle rod&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">destination&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;C&amp;#39;&lt;/span> &lt;span class="c1"># Destination rod&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># We then initialise the hanoi_tower dictionary with the number of disks&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hanoi_tower&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;A&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;B&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;C&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Initial state :&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Print the initial state of the hanoi_tower&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">hanoiMove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">auxiliary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">destination&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hanoi_tower&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Solve the puzzle&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And now you get the whole tree chart :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-07_12-56-33_complete_tree_chart.png"
+loading="lazy"
+alt="2023-12-07_12-56-33_complete_tree_chart.png"
+>&lt;/p>
+&lt;p>I executed the code with n=5 to make sure everything works well :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 3, 2, 1], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: []}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 3, 2], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 3], &amp;#39;B&amp;#39;: [2], &amp;#39;C&amp;#39;: [1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 3], &amp;#39;B&amp;#39;: [2, 1], &amp;#39;C&amp;#39;: []}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4], &amp;#39;B&amp;#39;: [2, 1], &amp;#39;C&amp;#39;: [3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 1], &amp;#39;B&amp;#39;: [2], &amp;#39;C&amp;#39;: [3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4, 1], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [3, 2]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 4], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [3, 2, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5], &amp;#39;B&amp;#39;: [4], &amp;#39;C&amp;#39;: [3, 2, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5], &amp;#39;B&amp;#39;: [4, 1], &amp;#39;C&amp;#39;: [3, 2]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 2], &amp;#39;B&amp;#39;: [4, 1], &amp;#39;C&amp;#39;: [3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 2, 1], &amp;#39;B&amp;#39;: [4], &amp;#39;C&amp;#39;: [3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 2, 1], &amp;#39;B&amp;#39;: [4, 3], &amp;#39;C&amp;#39;: []}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5, 2], &amp;#39;B&amp;#39;: [4, 3], &amp;#39;C&amp;#39;: [1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5], &amp;#39;B&amp;#39;: [4, 3, 2], &amp;#39;C&amp;#39;: [1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [5], &amp;#39;B&amp;#39;: [4, 3, 2, 1], &amp;#39;C&amp;#39;: []}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [], &amp;#39;B&amp;#39;: [4, 3, 2, 1], &amp;#39;C&amp;#39;: [5]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [1], &amp;#39;B&amp;#39;: [4, 3, 2], &amp;#39;C&amp;#39;: [5]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [1], &amp;#39;B&amp;#39;: [4, 3], &amp;#39;C&amp;#39;: [5, 2]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [], &amp;#39;B&amp;#39;: [4, 3], &amp;#39;C&amp;#39;: [5, 2, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3], &amp;#39;B&amp;#39;: [4], &amp;#39;C&amp;#39;: [5, 2, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3], &amp;#39;B&amp;#39;: [4, 1], &amp;#39;C&amp;#39;: [5, 2]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3, 2], &amp;#39;B&amp;#39;: [4, 1], &amp;#39;C&amp;#39;: [5]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3, 2, 1], &amp;#39;B&amp;#39;: [4], &amp;#39;C&amp;#39;: [5]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3, 2, 1], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [5, 4]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3, 2], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [5, 4, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3], &amp;#39;B&amp;#39;: [2], &amp;#39;C&amp;#39;: [5, 4, 1]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [3], &amp;#39;B&amp;#39;: [2, 1], &amp;#39;C&amp;#39;: [5, 4]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [], &amp;#39;B&amp;#39;: [2, 1], &amp;#39;C&amp;#39;: [5, 4, 3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [1], &amp;#39;B&amp;#39;: [2], &amp;#39;C&amp;#39;: [5, 4, 3]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [1], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [5, 4, 3, 2]}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">{&amp;#39;A&amp;#39;: [], &amp;#39;B&amp;#39;: [], &amp;#39;C&amp;#39;: [5, 4, 3, 2, 1]}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Welp, that&amp;rsquo;s about it, I managed to make this work. Hope my explanation was clear enough.&lt;/p>
+&lt;h2 id="additional-resources-that-could-help">Additional Resources That Could Help&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.geeksforgeeks.org/python-program-for-tower-of-hanoi/" target="_blank" rel="noopener"
+>Python Program for Tower of Hanoi - GeeksforGeeks&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.youtube.com/watch?v=rf6uf3jNjbo" target="_blank" rel="noopener"
+>Towers of Hanoi: A Complete Recursive Visualization - YouTube&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://mathisgauthey.github.io/404" >Hanoi_recursive_graph&lt;/a>&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Base case : Condition to stop the recursion.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>oled on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/oled/</link><description>Recent content in oled on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 21 Nov 2023 08:46:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/oled/index.xml" rel="self" type="application/rss+xml"/><item><title>OLED Display AutoHotkey Script for Automatically Dimming the Taskbar</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/oled-display-autohotkey-script-for-automatically-dimming-the-taskbar/</link><pubDate>Tue, 21 Nov 2023 08:46:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/oled-display-autohotkey-script-for-automatically-dimming-the-taskbar/</guid><description>&lt;h1 id="oled-display-autohotkey-script-for-automatically-dimming-the-taskbar">OLED Display AutoHotkey Script for Automatically Dimming the Taskbar&lt;/h1>
+&lt;h2 id="goal">Goal&lt;/h2>
+&lt;ol>
+&lt;li>Auto-dim the taskbar to prevent burn in.&lt;/li>
+&lt;li>Keep the dimming when an app is opened in full-screen on a second monitor.&lt;/li>
+&lt;li>Stop the dimming if an app is opened full-screen on the primary monitor.&lt;/li>
+&lt;/ol>
+&lt;h2 id="sources">Sources&lt;/h2>
+&lt;ul>
+&lt;li>Reddit source : &lt;a class="link" href="https://www.reddit.com/r/OLED_Gaming/comments/sa6clj/screensaver_and_taskbar_dimmer_for_protecting/" target="_blank" rel="noopener"
+>Screensaver and taskbar dimmer for protecting OLED displays during Windows desktop and gaming usage scenarios : r/OLED_Gaming&lt;/a>&lt;/li>
+&lt;li>StackOverflow reference with script : &lt;a class="link" href="https://superuser.com/a/1691664/1708452" target="_blank" rel="noopener"
+>How can I make icons in the Windows 10 taskbar/quicklaunch/tray darker to help prevent burn-in on my OLED display? - Super User&lt;/a>&lt;/li>
+&lt;li>Detecting full screen app to stop dimming : &lt;a class="link" href="https://www.autohotkey.com/board/topic/38882-detect-fullscreen-application/" target="_blank" rel="noopener"
+>Detect Fullscreen application? - Ask for Help - AutoHotkey Community&lt;/a>&lt;/li>
+&lt;li>Detecting the screen the current window is on : &lt;a class="link" href="https://www.autohotkey.com/board/topic/85457-detecting-the-screen-the-current-window-is-on/" target="_blank" rel="noopener"
+>Detecting the screen the current window is on - Ask for Help - AutoHotkey Community&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="script">Script&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ahk" data-lang="ahk">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="c1"> ; Get monitor dimensions&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">WorkArea&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorWorkArea&lt;/span>&lt;span class="c1"> ; Get monitor work-area without taskbar&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="n">dimtop&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">WorkAreaBottom&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="c1"> ; taskbar is assumed to start below the work-area&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="c1"> ; Black color&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Caption&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">ToolWindow&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">E0x20&lt;/span>&lt;span class="c1"> ; No title bar, No taskbar button, Transparent for clicks&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="n">Show&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">X0&lt;/span> &lt;span class="n">Y&lt;/span>&lt;span class="nv">%dimtop%&lt;/span> &lt;span class="n">W&lt;/span>&lt;span class="nv">%MonitorRight%&lt;/span> &lt;span class="n">H63&lt;/span>&lt;span class="c1"> ; Create a semi-transparent cover window&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinGet&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1"> ; Get its HWND/handle ID&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Winset&lt;/span> &lt;span class="n">AlwaysOnTop&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ON&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Keep it always on the top&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinSet&lt;/span> &lt;span class="n">Transparent&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">99&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Transparency 99/256&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">SetTimer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">coverIt&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="c1"> ; Repeat setting it to be on top of the taskbar&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">return&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="n">GetCurrentMonitor&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">numberOfMonitors&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorCount&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGetPos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winX&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winY&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winWidth&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winHeight&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">winMidX&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="n">winX&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">winWidth&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="n">winY&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">winHeight&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">Loop&lt;/span> &lt;span class="nv">%numberOfMonitors%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">monArea&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">%A_Index%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">winMidX&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">monAreaLeft&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidX&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">monAreaRight&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">monAreaBottom&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">monAreaTop&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span> &lt;span class="nv">A_Index&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">primaryMonitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorPrimary&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span> &lt;span class="s">&amp;#34;No Monitor Found&amp;#34;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">coverIt:&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGet&lt;/span> &lt;span class="n">style&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Style&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1"> ; Get active window style and dimensions&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGetPos&lt;/span> &lt;span class="p">,,,&lt;/span>&lt;span class="n">winW&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">winH&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; 0x800000 is WS_BORDER.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; 0x20000000 is WS_MINIMIZE.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; check no border and not minimized&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">isfull&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">style&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="mh">0x20800000&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">winH&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nv">A_ScreenHeight&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">winW&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nv">A_ScreenWidth&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">isPrimaryMonitor&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">GetCurrentMonitor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">isfull&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">isPrimaryMonitor&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinHide&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="n">else&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinShow&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">Winset&lt;/span> &lt;span class="n">AlwaysOnTop&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ON&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Ensure it is still on the top&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

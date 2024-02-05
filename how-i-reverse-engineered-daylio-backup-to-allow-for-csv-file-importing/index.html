@@ -1,0 +1,385 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="How I Reverse Engineered Daylio Backup to Allow for Csv File Importing Introduction On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :
+Do my journaling (formerly Daylio) Manage my GTD setup for tasks and projects (formerly Todoist) Do some daily planning along with periodic reviews and goals (weekly, monthly, quarterly, yearly) Log my workouts Take notes alongside tasks, and manage my knowledge But I recently came to the conclusion that Obsidian is not cheap, and according to the Unix philosophy :"><title>How I Reverse Engineered Daylio Backup to Allow for Csv File Importing</title>
+<link rel=canonical href=https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing/><link rel=stylesheet href=/mathisgauthey.github.io_old/scss/style.min.abbd69b2908fdfcd5179898beaafd374514a86538d81639ddd2c58c06ae54e40.css><meta property="og:title" content="How I Reverse Engineered Daylio Backup to Allow for Csv File Importing"><meta property="og:description" content="How I Reverse Engineered Daylio Backup to Allow for Csv File Importing Introduction On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :
+Do my journaling (formerly Daylio) Manage my GTD setup for tasks and projects (formerly Todoist) Do some daily planning along with periodic reviews and goals (weekly, monthly, quarterly, yearly) Log my workouts Take notes alongside tasks, and manage my knowledge But I recently came to the conclusion that Obsidian is not cheap, and according to the Unix philosophy :"><meta property="og:url" content="https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing/"><meta property="og:site_name" content="Mathis Gauthey's Website"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="python"><meta property="article:tag" content="dev"><meta property="article:tag" content="script"><meta property="article:published_time" content="2024-01-23T16:47:00+01:00"><meta property="article:modified_time" content="2024-01-23T23:00:23+01:00"><meta name=twitter:title content="How I Reverse Engineered Daylio Backup to Allow for Csv File Importing"><meta name=twitter:description content="How I Reverse Engineered Daylio Backup to Allow for Csv File Importing Introduction On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :
+Do my journaling (formerly Daylio) Manage my GTD setup for tasks and projects (formerly Todoist) Do some daily planning along with periodic reviews and goals (weekly, monthly, quarterly, yearly) Log my workouts Take notes alongside tasks, and manage my knowledge But I recently came to the conclusion that Obsidian is not cheap, and according to the Unix philosophy :"><link rel="shortcut icon" href=/favicon.ico><script async src="https://www.googletagmanager.com/gtag/js?id=G-RE55XD3TM4"></script><script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-RE55XD3TM4",{anonymize_ip:!1})}</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label="Toggle Menu">
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><div class=site-meta><h1 class=site-name><a href=/mathisgauthey.github.io_old>Mathis Gauthey's Website</a></h1><h2 class=site-description>Knowledge is best shared.</h2></div></header><ol class=social-menu><li><a href=https://mathisgauthey.github.io/CV/ target=_blank title=CV rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-certificate" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M5 8V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2h-5"/><path d="M6 14m-3 0a3 3 0 106 0 3 3 0 10-6 0"/><path d="M4.5 17 3 22l3-1.5L9 22l-1.5-5"/></svg></a></li><li><a href=https://mathisgauthey.github.io/CV-pdf/ target=_blank title=CV-pdf rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-cv" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 001 1h4"/><path d="M17 21H7a2 2 0 01-2-2V5a2 2 0 012-2h7l5 5v11a2 2 0 01-2 2z"/><path d="M11 12.5a1.5 1.5.0 00-3 0v3a1.5 1.5.0 003 0"/><path d="M13 11l1.5 6 1.5-6"/></svg></a></li><li><a href=https://github.com/mathisgauthey target=_blank title=GitHub rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://www.linkedin.com/in/mathisgauthey/ target=_blank title=Linkedin rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-linkedin" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 11v5"/><path d="M8 8v.01"/><path d="M12 16v-5"/><path d="M16 16v-3a2 2 0 00-4 0"/></svg></a></li><li><a href=https://stackoverflow.com/users/18775070/mathisgauthey target=_blank title=StackOverflow rel=me><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-stackoverflow" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1"/><path d="M8 16h8"/><path d="M8.322 12.582l7.956.836"/><path d="M8.787 9.168l7.826 1.664"/><path d="M10.096 5.764l7.608 2.472"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/mathisgauthey.github.io_old/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/mathisgauthey.github.io_old/archives/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/mathisgauthey.github.io_old/search/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/mathisgauthey.github.io_old/about/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>About</span></a></li><li><a href=/mathisgauthey.github.io_old/contact-me/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M21 14l-3-3h-7a1 1 0 01-1-1V4a1 1 0 011-1h9a1 1 0 011 1v10"/><path d="M14 15v2a1 1 0 01-1 1H6l-3 3V11a1 1 0 011-1h2"/></svg>
+<span>Contact me</span></a></li><li><a href=/mathisgauthey.github.io_old/support-me/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pig-money" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 11v.01"/><path d="M5.173 8.378a3 3 0 114.656-1.377"/><path d="M16 4v3.803A6.019 6.019.0 0118.658 11h1.341a1 1 0 011 1v2a1 1 0 01-1 1h-1.342c-.336.95-.907 1.8-1.658 2.473V19.5a1.5 1.5.0 01-3 0v-.583a6.04 6.04.0 01-1 .083h-4a6.04 6.04.0 01-1-.083v.583a1.5 1.5.0 01-3 0v-2-.027A6 6 0 018.999 7h2.5l4.5-3h0z"/></svg>
+<span>Support me</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>Dark Mode</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">Table of contents</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#introduction>Introduction</a></li><li><a href=#exporting-my-journal-entries-from-obsidian>Exporting My Journal Entries From Obsidian</a><ol><li><a href=#the-idea>The Idea</a></li><li><a href=#the-goals-based-on-the-csv-export-of-daylio>The Goals (based on the Csv Export of Daylio)</a></li><li><a href=#the-script>The Script</a></li><li><a href=#difficulties-encountered>Difficulties Encountered</a></li></ol></li><li><a href=#importing-data-to-daylio>Importing Data to Daylio</a><ol><li><a href=#explanation>Explanation</a></li><li><a href=#the-script-1>The Script</a></li><li><a href=#difficulties-encountered-1>Difficulties Encountered</a></li></ol></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#sources-and-inspirations>Sources and Inspirations</a></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/mathisgauthey.github.io_old/categories/project/>project</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/mathisgauthey.github.io_old/how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing/>How I Reverse Engineered Daylio Backup to Allow for Csv File Importing</a></h2></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jan 23, 2024</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>9 minute read</time></div></footer></div></header><section class=article-content><span><a href=https://github.com/mathisgauthey/mathisgauthey.github.io/edit/main/content/post/How%20I%20Reverse%20Engineered%20Daylio%20Backup%20to%20Allow%20for%20Csv%20File%20Importing.md class=github-edit>Edit this page on GitHub</a></span><h1 id=how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing>How I Reverse Engineered Daylio Backup to Allow for Csv File Importing</h1><h2 id=introduction>Introduction</h2><p>On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :</p><ul><li>Do my journaling (formerly Daylio)</li><li>Manage my GTD setup for tasks and projects (formerly Todoist)</li><li>Do some daily planning along with periodic reviews and goals (weekly, monthly, quarterly, yearly)</li><li>Log my workouts</li><li>Take notes alongside tasks, and manage my knowledge</li></ul><p>But I recently came to the conclusion that Obsidian is not cheap, and according to the <a class=link href=https://www.wikiwand.com/en/Unix_philosophy#Origin target=_blank rel=noopener>Unix philosophy</a> :</p><blockquote><p>Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new &ldquo;features&rdquo;.</p></blockquote><p>Well, I use Obsidian for saving articles and files, taking notes from these resources, and sharing them on my website. <strong>It&rsquo;s all about knowledge, and it should stay this way</strong>.</p><p>I moved my workflow to respective software :</p><ul><li>Workout logging ⇒ Hevy</li><li>GTD and planning ⇒ TickTick and Google Calendar</li><li>Journaling ⇒ Daylio</li></ul><p>Daylio was set to make a come back, but how could I transfert my data back ? Well, as there is no officially supported way to import data to Daylio, I needed to find one.</p><p>I remember I used to export my Daylio to csv and use <a class=link href=https://github.com/DeutscheGabanna/Obsidian-Daylio-Parser target=_blank rel=noopener>Obsidian-Daylio-Parser</a> to import them to Obsidian. Maybe I can take the other route ?</p><h2 id=exporting-my-journal-entries-from-obsidian>Exporting My Journal Entries From Obsidian</h2><h3 id=the-idea>The Idea</h3><p>My journaling workflow was simple on Obsidian.</p><p><img src=/images/2024-01-23_18-36-15_journal_entry_example.png loading=lazy alt=2024-01-23_18-36-15_journal_entry_example.png></p><p>I took note on my daily note (<code>YYYY-MM-DD.md</code>) in the <code>## Journal 📔</code> section. The section naming evolved, but always had the <code>Journal</code> keyword.</p><p>That&rsquo;s a start. I used to query my daily notes journal entries using this dataviewjs script :</p><p><img src=/images/2024-01-23_18-37-06_journal_query.png loading=lazy alt=2024-01-23_18-37-06_journal_query.png></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=kr>const</span> <span class=nx>header</span> <span class=o>=</span> <span class=s1>&#39;#+ [^\n]*?Journal[^\n]*?&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// You can update this to filter as you like - filtering for just your daily notes would be good
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>pages</span> <span class=o>=</span> <span class=nx>dv</span><span class=p>.</span><span class=nx>pages</span><span class=p>(</span><span class=s1>&#39;&#34;-Daily-Notes&#34;&#39;</span><span class=p>).</span><span class=nx>filter</span><span class=p>(</span><span class=nx>page</span> <span class=p>=&gt;</span> <span class=nx>page</span><span class=p>.</span><span class=nx>file</span><span class=p>.</span><span class=nx>name</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s2>&#34;2024&#34;</span><span class=p>)).</span><span class=nx>sort</span><span class=p>(</span><span class=nx>x</span> <span class=p>=&gt;</span> <span class=nx>x</span><span class=p>.</span><span class=nx>file</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span> <span class=s1>&#39;desc&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// This regex will return text from the Summary header, until it reaches
+</span></span></span><span class=line><span class=cl><span class=c1>// the next header, a horizontal line, or the end of the file
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>regex</span> <span class=o>=</span> <span class=k>new</span> <span class=nb>RegExp</span><span class=p>(</span><span class=sb>`\n</span><span class=si>${</span><span class=nx>header</span><span class=si>}</span><span class=sb>\r?\n(.*?)(\n#+ |\n---|$)`</span><span class=p>,</span> <span class=s1>&#39;s&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=p>(</span><span class=kr>const</span> <span class=nx>page</span> <span class=k>of</span> <span class=nx>pages</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>file</span> <span class=o>=</span> <span class=nx>app</span><span class=p>.</span><span class=nx>vault</span><span class=p>.</span><span class=nx>getAbstractFileByPath</span><span class=p>(</span><span class=nx>page</span><span class=p>.</span><span class=nx>file</span><span class=p>.</span><span class=nx>path</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Read the file contents
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>contents</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>app</span><span class=p>.</span><span class=nx>vault</span><span class=p>.</span><span class=nx>read</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// Extract the summary via regex
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kr>const</span> <span class=nx>summary</span> <span class=o>=</span> <span class=nx>contents</span><span class=p>.</span><span class=nx>match</span><span class=p>(</span><span class=nx>regex</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span><span class=nx>summary</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=c1>// Output the header and summary
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>dv</span><span class=p>.</span><span class=nx>header</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=s2>&#34;[[&#34;</span><span class=o>+</span><span class=nx>file</span><span class=p>.</span><span class=nx>basename</span><span class=o>+</span><span class=s2>&#34;]]&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nx>dv</span><span class=p>.</span><span class=nx>paragraph</span><span class=p>(</span><span class=nx>summary</span><span class=p>[</span><span class=mi>1</span><span class=p>].</span><span class=nx>trim</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Basically, I search for files in my <code>-Daily-Notes</code> folder, sort them, look for the journal section and take the notes inside with a clickable filename.</p><p>But I also had some heatmap-calendar script to query moods :</p><p><img src=/images/2024-01-23_18-12-58_mood_tracking.png loading=lazy alt=2024-01-23_18-12-58_mood_tracking.png></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=nx>dv</span><span class=p>.</span><span class=nx>span</span><span class=p>(</span><span class=s2>&#34;Journal Mood 📈&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>calendarData</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>year</span><span class=o>:</span> <span class=mi>2024</span><span class=p>,</span>  <span class=c1>// (optional) defaults to current year
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>colors</span><span class=o>:</span> <span class=p>{</span>    <span class=c1>// (optional) defaults to green
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>scale</span><span class=o>:</span>        <span class=p>[</span><span class=s2>&#34;#f2120d&#34;</span><span class=p>,</span> <span class=s2>&#34;#ef7626&#34;</span><span class=p>,</span> <span class=s2>&#34;#faed03&#34;</span><span class=p>,</span> <span class=s2>&#34;#0af508&#34;</span><span class=p>,</span> <span class=s2>&#34;#051ac3&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>showCurrentDayBorder</span><span class=o>:</span> <span class=kc>true</span><span class=p>,</span> <span class=c1>// (optional) defaults to true
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>defaultEntryIntensity</span><span class=o>:</span> <span class=mi>4</span><span class=p>,</span>   <span class=c1>// (optional) defaults to 4
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>intensityScaleStart</span><span class=o>:</span> <span class=mi>1</span><span class=p>,</span>    <span class=c1>// (optional) defaults to lowest value passed to entries.intensity
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>intensityScaleEnd</span><span class=o>:</span> <span class=mi>5</span><span class=p>,</span>     <span class=c1>// (optional) defaults to highest value passed to entries.intensity
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>entries</span><span class=o>:</span> <span class=p>[],</span>                <span class=c1>// (required) populated in the DataviewJS loop below
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>//DataviewJS loop
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>for</span> <span class=p>(</span><span class=kd>let</span> <span class=nx>page</span> <span class=k>of</span> <span class=nx>dv</span><span class=p>.</span><span class=nx>pages</span><span class=p>(</span><span class=s1>&#39;&#34;-Daily-Notes&#34;&#39;</span><span class=p>).</span><span class=nx>where</span><span class=p>(</span><span class=nx>p</span> <span class=p>=&gt;</span> <span class=nx>p</span><span class=p>.</span><span class=nx>mood</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>//dv.span(&#34;&lt;br&gt;&#34; + page.file.name) // uncomment for troubleshooting
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>calendarData</span><span class=p>.</span><span class=nx>entries</span><span class=p>.</span><span class=nx>push</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>        <span class=nx>date</span><span class=o>:</span> <span class=nx>page</span><span class=p>.</span><span class=nx>file</span><span class=p>.</span><span class=nx>name</span><span class=p>,</span>     <span class=c1>// (required) Format YYYY-MM-DD
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>intensity</span><span class=o>:</span> <span class=nx>page</span><span class=p>.</span><span class=nx>mood</span><span class=p>,</span> <span class=c1>// (required) the data you want to track, will map color intensities automatically
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>content</span><span class=o>:</span> <span class=kr>await</span> <span class=nx>dv</span><span class=p>.</span><span class=nx>span</span><span class=p>(</span><span class=sb>`[](</span><span class=si>${</span><span class=nx>page</span><span class=p>.</span><span class=nx>file</span><span class=p>.</span><span class=nx>name</span><span class=si>}</span><span class=sb>)`</span><span class=p>),</span> <span class=c1>// (optional) Add text to the date cell
+</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>color</span><span class=o>:</span> <span class=s2>&#34;&#34;</span><span class=p>,</span>          <span class=c1>// (optional) Reference from *calendarData.colors*. If no color is supplied; colors[0] is used
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>renderHeatmapCalendar</span><span class=p>(</span><span class=k>this</span><span class=p>.</span><span class=nx>container</span><span class=p>,</span> <span class=nx>calendarData</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>And finally, some sort of title on journal entries inspired from reddit : <code>An Interesting Title : TITLE</code>.</p><p>I need to be able parse all that to Daylio. Let&rsquo;s recap.</p><h3 id=the-goals-based-on-the-csv-export-of-daylio>The Goals (based on the Csv Export of Daylio)</h3><ul><li>Take the date from the filename, add an arbitrary time and create an <a class=link href=https://www.epochconverter.com/ target=_blank rel=noopener>epoch timestamp</a>.</li><li>Query the entire <code>Journal</code> section of each daily-note.</li><li>Take the <code>mood::x</code> key and add it as a daily evaluation from 1 to 5 for Daylio moods. And remove that part afterward.</li><li>Take the title for the new Daylio note title. And remove that part afterward.</li></ul><h3 id=the-script>The Script</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span><span class=lnt>86
+</span><span class=lnt>87
+</span><span class=lnt>88
+</span><span class=lnt>89
+</span><span class=lnt>90
+</span><span class=lnt>91
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># encoding: utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>os</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>re</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>pandas</span> <span class=k>as</span> <span class=nn>pd</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>csv</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>datetime</span> <span class=kn>import</span> <span class=n>datetime</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Columns for the CSV file</span>
+</span></span><span class=line><span class=cl><span class=n>columns_names</span> <span class=o>=</span> <span class=p>[</span><span class=s2>&#34;date&#34;</span><span class=p>,</span> <span class=s2>&#34;time&#34;</span><span class=p>,</span> <span class=s2>&#34;datetime&#34;</span><span class=p>,</span> <span class=s2>&#34;mood&#34;</span><span class=p>,</span> <span class=s2>&#34;note_title&#34;</span><span class=p>,</span> <span class=s2>&#34;note&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create an empty dataframe with the columns</span>
+</span></span><span class=line><span class=cl><span class=n>df</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>DataFrame</span><span class=p>(</span><span class=n>columns</span><span class=o>=</span><span class=n>columns_names</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Source directory of the markdown files</span>
+</span></span><span class=line><span class=cl><span class=n>src_dir</span> <span class=o>=</span> <span class=s2>&#34;src/auto/&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Get the list of files in the source directory</span>
+</span></span><span class=line><span class=cl><span class=n>filenames</span> <span class=o>=</span> <span class=n>os</span><span class=o>.</span><span class=n>listdir</span><span class=p>(</span><span class=n>src_dir</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>filenames</span><span class=o>.</span><span class=n>sort</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create an empty list to store the data</span>
+</span></span><span class=line><span class=cl><span class=n>csv_rows</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Regex patterns</span>
+</span></span><span class=line><span class=cl><span class=n>header</span> <span class=o>=</span> <span class=s1>&#39;#+ [^</span><span class=se>\n</span><span class=s1>]*?Journal[^</span><span class=se>\n</span><span class=s1>]*?&#39;</span> <span class=c1># Matches the header of the journal section</span>
+</span></span><span class=line><span class=cl><span class=n>journal_section</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=sa>fr</span><span class=s1>&#39;\n</span><span class=si>{</span><span class=n>header</span><span class=si>}</span><span class=s1>\r?\n(.*?)(\n#+ |\n---|$)&#39;</span><span class=p>,</span> <span class=n>re</span><span class=o>.</span><span class=n>DOTALL</span><span class=p>)</span> <span class=c1># Matches the journal section</span>
+</span></span><span class=line><span class=cl><span class=n>mood_entry</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;(?i)(?&lt;=mood::)\d+&#39;</span><span class=p>)</span> <span class=c1># Matches the mood entry</span>
+</span></span><span class=line><span class=cl><span class=n>title</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>compile</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;An Interesting Title\s*:\s*(.*)&#39;</span><span class=p>)</span> <span class=c1># Matches the title of the note</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Dictionary to convert the mood to a number according to daylio backup format</span>
+</span></span><span class=line><span class=cl><span class=n>mood_dict</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;1&#34;</span><span class=p>:</span> <span class=s2>&#34;5&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;2&#34;</span><span class=p>:</span> <span class=s2>&#34;4&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;3&#34;</span><span class=p>:</span> <span class=s2>&#34;3&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;4&#34;</span><span class=p>:</span> <span class=s2>&#34;2&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;5&#34;</span><span class=p>:</span> <span class=s2>&#34;1&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>filename</span> <span class=ow>in</span> <span class=n>filenames</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>src_dir</span> <span class=o>+</span> <span class=n>filename</span><span class=p>,</span> <span class=s2>&#34;r&#34;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Get the date from the filename</span>
+</span></span><span class=line><span class=cl>        <span class=n>date</span> <span class=o>=</span> <span class=n>filename</span><span class=o>.</span><span class=n>replace</span><span class=p>(</span><span class=s2>&#34;.md&#34;</span><span class=p>,</span> <span class=s2>&#34;&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>time</span> <span class=o>=</span> <span class=s2>&#34;23-59-59&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Convert the date and time to epoch timestamp</span>
+</span></span><span class=line><span class=cl>        <span class=n>datetime_str</span> <span class=o>=</span> <span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>date</span><span class=si>}</span><span class=s2> </span><span class=si>{</span><span class=n>time</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>datetime_object</span> <span class=o>=</span> <span class=n>datetime</span><span class=o>.</span><span class=n>strptime</span><span class=p>(</span><span class=n>datetime_str</span><span class=p>,</span> <span class=s2>&#34;%Y-%m-</span><span class=si>%d</span><span class=s2> %H-%M-%S&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>epoch_timestamp</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>datetime_object</span><span class=o>.</span><span class=n>timestamp</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Initialize the variables</span>
+</span></span><span class=line><span class=cl>        <span class=n>mood</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>note_title</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=n>journal_entry</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Read the file content</span>
+</span></span><span class=line><span class=cl>        <span class=n>file_content</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Get the journal section</span>
+</span></span><span class=line><span class=cl>        <span class=n>section_match</span> <span class=o>=</span> <span class=n>journal_section</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>file_content</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>section_match</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>journal_entry</span> <span class=o>=</span> <span class=n>section_match</span><span class=o>.</span><span class=n>group</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># Get the mood entry</span>
+</span></span><span class=line><span class=cl>            <span class=n>mood_match</span> <span class=o>=</span> <span class=n>mood_entry</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>journal_entry</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>mood_match</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>mood</span> <span class=o>=</span> <span class=n>mood_match</span><span class=o>.</span><span class=n>group</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>mood</span> <span class=o>=</span> <span class=n>mood_dict</span><span class=p>[</span><span class=n>mood</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>                <span class=n>journal_entry</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>sub</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;^[Mm]ood::\d$&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>journal_entry</span><span class=p>,</span> <span class=n>flags</span><span class=o>=</span><span class=n>re</span><span class=o>.</span><span class=n>MULTILINE</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># Get the note title</span>
+</span></span><span class=line><span class=cl>            <span class=n>title_match</span> <span class=o>=</span> <span class=n>title</span><span class=o>.</span><span class=n>search</span><span class=p>(</span><span class=n>journal_entry</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>title_match</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=n>note_title</span> <span class=o>=</span> <span class=n>title_match</span><span class=o>.</span><span class=n>group</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=n>journal_entry</span> <span class=o>=</span> <span class=n>re</span><span class=o>.</span><span class=n>sub</span><span class=p>(</span><span class=sa>r</span><span class=s1>&#39;An Interesting Title\s*:\s*(.*)&#39;</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>,</span> <span class=n>journal_entry</span><span class=p>,</span> <span class=n>flags</span><span class=o>=</span><span class=n>re</span><span class=o>.</span><span class=n>MULTILINE</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=c1># Remove the leading and trailing newlines</span>
+</span></span><span class=line><span class=cl>            <span class=n>journal_entry</span> <span class=o>=</span> <span class=n>journal_entry</span><span class=o>.</span><span class=n>lstrip</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span><span class=o>.</span><span class=n>rstrip</span><span class=p>(</span><span class=s1>&#39;</span><span class=se>\n</span><span class=s1>&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=c1># Replace the newlines with HTML line breaks like in the daylio backup format</span>
+</span></span><span class=line><span class=cl>            <span class=c1># journal_entry = journal_entry.replace(&#39;\n&#39;, &#39;&lt;br&gt;&#39;)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Add the data to the list</span>
+</span></span><span class=line><span class=cl>        <span class=n>csv_rows</span><span class=o>.</span><span class=n>append</span><span class=p>([</span><span class=n>date</span><span class=p>,</span> <span class=n>time</span><span class=p>,</span> <span class=n>epoch_timestamp</span><span class=p>,</span> <span class=n>mood</span><span class=p>,</span> <span class=n>note_title</span><span class=p>,</span> <span class=n>journal_entry</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Create a dataframe from the list</span>
+</span></span><span class=line><span class=cl><span class=n>df_extended</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>DataFrame</span><span class=p>(</span><span class=n>csv_rows</span><span class=p>,</span> <span class=n>columns</span><span class=o>=</span><span class=n>columns_names</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Concatenate the dataframes</span>
+</span></span><span class=line><span class=cl><span class=n>df</span> <span class=o>=</span> <span class=n>pd</span><span class=o>.</span><span class=n>concat</span><span class=p>([</span><span class=n>df</span><span class=p>,</span> <span class=n>df_extended</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Export the dataframe to a CSV file</span>
+</span></span><span class=line><span class=cl><span class=n>df</span><span class=o>.</span><span class=n>to_csv</span><span class=p>(</span><span class=s2>&#34;output.csv&#34;</span><span class=p>,</span> <span class=n>index</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=difficulties-encountered>Difficulties Encountered</h3><ul><li>The regex. They are a pain. I won&rsquo;t explain much because ChatGPT exists, and you can use <a class=link href=https://regex101.com/ target=_blank rel=noopener>regex101 to build, test, and debug regex</a>.</li></ul><h2 id=importing-data-to-daylio>Importing Data to Daylio</h2><p>Well, at first I thought I could import from CSV just like I exported as CSV. Nope. And support told me no as well, it&rsquo;s related to their take on privacy policies.</p><p>So… I searched the internet and found two interesting links (that you can take a look at, if you go further down this article). I needed to reverse engineer the Daylio backup file.</p><h3 id=explanation>Explanation</h3><p>Basically :</p><ol><li>A Daylio backup is a file like that : <code>backup_DATE.daylio</code>. Actually, it&rsquo;s a zip file. So you can use 7zip to open it.</li><li>You then found yourself with a <code>backup.daylio</code> file which is just a base64 encoded json, and an <code>assets</code> folder for pictures. Copy the <code>backup.daylio</code> file out of the archive.</li><li>You need to use a <a class=link href=https://www.base64decode.org/ target=_blank rel=noopener>tool</a> to decode the base64 file.</li><li>Then you can lint it so that it become easier to modify.</li><li>I then created a script to convert my CSV file from above to some json entries that I&rsquo;ll paste inside the <code>"dayEntries": []</code> part of the json file.</li><li>You can also edit the <code>"metadata" > "number_of_entries"</code> key as well, even thought it changed nothing appart from the detected amount of notes when using Daylio import functionality.</li><li>You then need to use another <a class=link href=https://codebeautify.org/jsonminifier target=_blank rel=noopener>tool</a> to compress the json.</li><li>Finally, you <a class=link href=https://www.base64encode.org/ target=_blank rel=noopener>encore</a> it back and replace the old one in the <code>.daylio</code> archive.</li><li>Go to <code>Daylio > More > Backup & Restore > Advanced Options > Import</code> and select your backup zip file <code>backup_DATE.daylio</code> that you previously modified by changing the <code>backup.daylio</code> file inside.</li></ol><h3 id=the-script-1>The Script</h3><p>Nothing too hard here, just some csv to json parsing :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>csv</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>json</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>datetime</span> <span class=kn>import</span> <span class=n>datetime</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>csv_file_path</span> <span class=o>=</span> <span class=s1>&#39;output.csv&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>json_file_path</span> <span class=o>=</span> <span class=s1>&#39;output.json&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>data</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl><span class=nb>id</span> <span class=o>=</span> <span class=mi>1790</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>csv_file_path</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>csv_file</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>csv_reader</span> <span class=o>=</span> <span class=n>csv</span><span class=o>.</span><span class=n>DictReader</span><span class=p>(</span><span class=n>csv_file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>row</span> <span class=ow>in</span> <span class=n>csv_reader</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Convert date and time to datetime object</span>
+</span></span><span class=line><span class=cl>        <span class=n>date_obj</span> <span class=o>=</span> <span class=n>datetime</span><span class=o>.</span><span class=n>strptime</span><span class=p>(</span><span class=n>row</span><span class=p>[</span><span class=s1>&#39;date&#39;</span><span class=p>]</span> <span class=o>+</span> <span class=s1>&#39; &#39;</span> <span class=o>+</span> <span class=n>row</span><span class=p>[</span><span class=s1>&#39;time&#39;</span><span class=p>],</span> <span class=s1>&#39;%Y-%m-</span><span class=si>%d</span><span class=s1> %H-%M-%S&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>mood</span><span class=o>=</span><span class=mi>3</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>row</span><span class=p>[</span><span class=s1>&#39;mood&#39;</span><span class=p>]:</span>
+</span></span><span class=line><span class=cl>            <span class=n>mood</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>row</span><span class=p>[</span><span class=s1>&#39;mood&#39;</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=c1># Prepare data for JSON</span>
+</span></span><span class=line><span class=cl>        <span class=n>entry</span> <span class=o>=</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;id&#34;</span><span class=p>:</span> <span class=nb>id</span><span class=p>,</span>  <span class=c1># You can generate an ID here if needed</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;minute&#34;</span><span class=p>:</span> <span class=n>date_obj</span><span class=o>.</span><span class=n>minute</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;hour&#34;</span><span class=p>:</span> <span class=n>date_obj</span><span class=o>.</span><span class=n>hour</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;day&#34;</span><span class=p>:</span> <span class=n>date_obj</span><span class=o>.</span><span class=n>day</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;month&#34;</span><span class=p>:</span> <span class=n>date_obj</span><span class=o>.</span><span class=n>month</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;year&#34;</span><span class=p>:</span> <span class=n>date_obj</span><span class=o>.</span><span class=n>year</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;datetime&#34;</span><span class=p>:</span> <span class=nb>int</span><span class=p>(</span><span class=n>date_obj</span><span class=o>.</span><span class=n>timestamp</span><span class=p>()</span> <span class=o>*</span> <span class=mi>1000</span><span class=p>),</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;timeZoneOffset&#34;</span><span class=p>:</span> <span class=mi>7200000</span><span class=p>,</span>  <span class=c1># Assuming a constant offset</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;mood&#34;</span><span class=p>:</span> <span class=n>mood</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;note&#34;</span><span class=p>:</span> <span class=n>row</span><span class=p>[</span><span class=s1>&#39;note&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;note_title&#34;</span><span class=p>:</span> <span class=n>row</span><span class=p>[</span><span class=s1>&#39;note_title&#39;</span><span class=p>],</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;tags&#34;</span><span class=p>:</span> <span class=p>[],</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;assets&#34;</span><span class=p>:</span> <span class=p>[],</span>
+</span></span><span class=line><span class=cl>            <span class=s2>&#34;isFavorite&#34;</span><span class=p>:</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>        <span class=n>data</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>entry</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>id</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 2. **Write to JSON File**: Save the transformed data to a JSON file.</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>json_file_path</span><span class=p>,</span> <span class=s1>&#39;w&#39;</span><span class=p>,</span> <span class=n>encoding</span><span class=o>=</span><span class=s2>&#34;utf-8&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>json_file</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>json</span><span class=o>.</span><span class=n>dump</span><span class=p>({</span><span class=s2>&#34;dayEntries&#34;</span><span class=p>:</span> <span class=n>data</span><span class=p>},</span> <span class=n>json_file</span><span class=p>,</span> <span class=n>indent</span><span class=o>=</span><span class=mi>2</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=difficulties-encountered-1>Difficulties Encountered</h3><ul><li>Daylio export to csv functionnality is using a scale from terrible (1) to wonderful (5) day. That&rsquo;s what I used in Obsidian. The json is storing it in reverse, so I needed to adapt my <code>markdown-to-csv.py</code> script to make it different.</li><li>Daylio is using some weird numbering on months. January is 0, December is 11. It was what was making my app crash when importing my modified backup. I couldn&rsquo;t find out until I tried to just add a random new entry and the month was not the one I specified.</li><li>Epoch timestamp was using milliseconds, and I was using seconds at first, leading to issues.</li><li>I needed to find the timeZoneOffset for my region, fortunately, it already <a class=link href=https://www.epochconverter.com/timezones target=_blank rel=noopener>exists</a>.</li><li>I needed to increment an ID, even thought it seems like Daylio does it on backup export only as it is reversed… Don&rsquo;t tell me Daylio is changing the ID of all entries when adding a new one. Please. Anyway, I incremented.</li></ul><h2 id=conclusion>Conclusion</h2><p>I managed to move my notes from Obsidian to Daylio, using pandas, manipulating encoded json files, and epoch timestamps. It was fun, and instructive. I became lazy and did not automate the whole process as this is just a one-time job. But I sure hope it&rsquo;ll help some other people.</p><h2 id=sources-and-inspirations>Sources and Inspirations</h2><ul><li><a class=link href="https://www.reddit.com/r/Daylio/comments/s2c6en/comment/hvc7i8r/?utm_source=share&amp;utm_medium=web2x&amp;context=3" target=_blank rel=noopener>Sorry but how the f*ck isn&rsquo;t there a 3rd party import option? : r/Daylio</a></li><li><a class=link href=https://www.joelotter.com/posts/2022/01/daylio/ target=_blank rel=noopener>Reverse-engineering Daylio backups | Joel Auterson</a></li></ul></section><footer class=article-footer><section class=article-tags><a href=/mathisgauthey.github.io_old/tags/python/>python</a>
+<a href=/mathisgauthey.github.io_old/tags/dev/>dev</a>
+<a href=/mathisgauthey.github.io_old/tags/script/>script</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>Last updated on Jan 23, 2024 23:00 CET</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>Related content</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/mathisgauthey.github.io_old/web-development-project-calculator-project-in-html-css-js/><div class=article-details><h2 class=article-title>Web Development Project - Calculator Project in HTML, CSS, JS</h2></div></a></article><article><a href=/mathisgauthey.github.io_old/conception-et-installation-du-r%C3%A9seau-%C3%A9lectrique-dun-van/><div class=article-details><h2 class=article-title>Conception Et Installation Du Réseau Électrique D'un Van</h2></div></a></article><article><a href=/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-des-travaux-dam%C3%A9nagement-dun-van/><div class=article-details><h2 class=article-title>Modélisation Et Réalisation Des Travaux D'aménagement D'un Van</h2></div></a></article><article><a href=/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-dun-r%C3%A9chaud-%C3%A0-bois/><div class=article-details><h2 class=article-title>Modélisation Et Réalisation D'un Réchaud À Bois</h2></div></a></article><article><a href=/mathisgauthey.github.io_old/projet-industriel-de-fin-d%C3%A9tudes-chariot-de-course-%C3%A0-assistance-%C3%A9lectrique/><div class=article-details><h2 class=article-title>Projet Industriel De Fin D'études - Chariot De Course À Assistance Électrique</h2></div></a></article></div></div></aside><script src=https://giscus.app/client.js data-repo=mathisgauthey/mathisgauthey.github.io data-repo-id=R_kgDOJ83Y6Q data-category=Announcements data-category-id=DIC_kwDOJ83Y6c4CX9m5 data-mapping=title data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=light data-lang=en crossorigin=anonymous async></script><script>function setGiscusTheme(e){let t=document.querySelector("iframe.giscus-frame");t&&t.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}(function(){addEventListener("message",t=>{if(event.origin!=="https://giscus.app")return;e()}),window.addEventListener("onColorSchemeChange",e);function e(){setGiscusTheme(document.documentElement.dataset.scheme==="light"?"light":"dark_dimmed")}})()</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 Mathis Gauthey's Website</section><section class=powerby>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.20.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/mathisgauthey.github.io_old/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>upload on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/upload/</link><description>Recent content in upload on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 Oct 2023 14:45:00 +0200</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/upload/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-a-slow-upload-speed-with-a-killer-e2400-gigabit-ethernet-controller/</link><pubDate>Thu, 26 Oct 2023 14:45:00 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-a-slow-upload-speed-with-a-killer-e2400-gigabit-ethernet-controller/</guid><description>&lt;h1 id="how-to-fix-a-slow-upload-speed-with-a-killer-e2400-gigabit-ethernet-controller">How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>You are having Google Drive upload issues and can&amp;rsquo;t figure out what&amp;rsquo;s wrong ? You go to &lt;a class="link" href="https://www.nperf.com/en/" target="_blank" rel="noopener"
+>nPerf.com&lt;/a> and you see that you have an issue.&lt;/p>
+&lt;blockquote>
+&lt;p>Why am I having such a bad upload speed, what&amp;rsquo;s going on ? I&amp;rsquo;m having 95mbps download but 3mbps upload.&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;strong>Proceeds to check cables, router, drivers, everything seems to be good… I&amp;rsquo;m clueless.&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;p>Well there mate, your issue is that you have a &lt;strong>Killer device&lt;/strong> !&lt;/p>
+&lt;h2 id="how-to-fix-this-crap">How to Fix This Crap&lt;/h2>
+&lt;ol>
+&lt;li>First, go to your Windows control center or app manager and get rid of everything that has Killer in the name. Killer performance suite, killer network manager, killer network center, whatever the name, get rid of it.&lt;/li>
+&lt;li>Then, you&amp;rsquo;ll need to go to MajorGeeks and download their &lt;a class="link" href="https://www.majorgeeks.com/files/details/killer_software_uninstaller.html" target="_blank" rel="noopener"
+>Killer Uninstaller tool&lt;/a>. Don&amp;rsquo;t worry, it&amp;rsquo;s safe, it just &amp;ldquo;assists in the uninstalling of all Killer Performance Suite services as well as any associated file and registry remnants&amp;rdquo;.&lt;/li>
+&lt;li>&lt;strong>Scan for installed Killer Software&lt;/strong> → It will scan your computer, searching for that stupid software.&lt;/li>
+&lt;li>&lt;strong>Remove Killer Software&lt;/strong> → It&amp;rsquo;ll get rid of everything you left behind.&lt;/li>
+&lt;li>&lt;strong>Disable Killer Software&lt;/strong> → It&amp;rsquo;ll deactivate every single Killer services running.&lt;/li>
+&lt;/ol>
+&lt;p>Yeah ! You get back to &lt;a class="link" href="https://www.nperf.com/en/" target="_blank" rel="noopener"
+>nPerf.com&lt;/a> and everything is back to normal !&lt;/p>
+&lt;h2 id="it-came-back-help">It Came back… Help&lt;/h2>
+&lt;p>Well then mate, something is installing it in the background. Three things to try :&lt;/p>
+&lt;ul>
+&lt;li>Disable what&amp;rsquo;s installing it back, being windows update or something else. It was a pain to find out, so I did not do that.&lt;/li>
+&lt;li>Launch the Uninstaller back and just use &lt;strong>Disable Killer Software&lt;/strong>. The software is installed but not launched, better live with an unarmed enemy than a constantly respawning one.&lt;/li>
+&lt;li>Manually search for and launch &lt;strong>services.msc&lt;/strong> on your computer, and disable every single Killer services like in the image bellow.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-26_14-57-20_disable_killer_services.png"
+loading="lazy"
+alt="2023-10-26_14-57-20_disable_killer_services.png"
+>&lt;/p></description></item></channel></rss>

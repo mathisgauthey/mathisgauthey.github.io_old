@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>html on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/html/</link><description>Recent content in html on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 22 Dec 2023 19:03:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/html/index.xml" rel="self" type="application/rss+xml"/><item><title>Web Development Project - Calculator Project in HTML, CSS, JS</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/web-development-project-calculator-project-in-html-css-js/</link><pubDate>Fri, 22 Dec 2023 19:03:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/web-development-project-calculator-project-in-html-css-js/</guid><description>&lt;h1 id="web-development-project---calculator-project-in-html-css-js">Web Development Project - Calculator Project in HTML, CSS, JS&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>During my formation as a mechanical engineer, I learned how to use C, C++, Python, and Matlab. I also discovered Linux and Bash, parallel computing with MPI, and some scripting tools like Ansys APDL for mechanical engineering.&lt;/p>
+&lt;p>Even though I manipulated and used a lot of CSS and JS during my Obsidian learning journey, I never really made any project using the three languages of web-dev.&lt;/p>
+&lt;p>So after looking at some &lt;a class="link" href="https://github.com/florinpop17/app-ideas/tree/master" target="_blank" rel="noopener"
+>project ideas&lt;/a> online, I settled on creating a &lt;a class="link" href="https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Calculator-App.md" target="_blank" rel="noopener"
+>calculator app&lt;/a> while looking for a job.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-22_20-13-21_calculator_image.png"
+loading="lazy"
+alt="2023-12-22_20-13-21_calculator_image.png"
+>&lt;/p>
+&lt;p>While it might not be the most beautiful one, I did exactly what I wanted to do with it.&lt;/p>
+&lt;p>It is available online &lt;a class="link" href="https://mathisgauthey.github.io/webCalculator/" target="_blank" rel="noopener"
+>here&lt;/a> and the source code is public on &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator" target="_blank" rel="noopener"
+>Github&lt;/a>.&lt;/p>
+&lt;p>But how did it end up this way ? Well, let&amp;rsquo;s find out.&lt;/p>
+&lt;h2 id="chronology-of-dev">Chronology of Dev&lt;/h2>
+&lt;h3 id="first-draft">First Draft&lt;/h3>
+&lt;p>First of all, I did a bunch of spaghetti programing to grasp the basics :&lt;/p>
+&lt;ol>
+&lt;li>I learned how to organise HTML documents.&lt;/li>
+&lt;li>I learned some CSS basics, but mainly I know how to use Flexbox and Grid.&lt;/li>
+&lt;li>I learned how to write functions in Javascript and use &lt;code>onclick&lt;/code> events to call them.&lt;/li>
+&lt;/ol>
+&lt;p>But here are the problems I encountered :&lt;/p>
+&lt;ul>
+&lt;li>I was doing things while learning by searching for things online. I lacked a structure and goals, I just did what I thought would be great to add.&lt;/li>
+&lt;li>Debugging was manual, and I couldn&amp;rsquo;t test that my changes were not breaking things.&lt;/li>
+&lt;/ul>
+&lt;h3 id="rebuild-with-object-programming-and-unit-testing">Rebuild with Object Programming and Unit-testing&lt;/h3>
+&lt;p>Now that I knew the functions that I wanted to have on my calculator, I completely &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/1" target="_blank" rel="noopener"
+>rewritten&lt;/a> it using a &lt;code>Calculator&lt;/code> class. It allowed me to use &lt;a class="link" href="https://jestjs.io/" target="_blank" rel="noopener"
+>jest&lt;/a> to test the logic part of my app with some unit-testing that I learned on the &lt;a class="link" href="https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications" target="_blank" rel="noopener"
+>Openclassroom Java Unit-Testing Course&lt;/a>.&lt;/p>
+&lt;p>I separated the my app in different parts :&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>index.html&lt;/code> for organizing elements.&lt;/li>
+&lt;li>&lt;code>styles.css&lt;/code> for styling.&lt;/li>
+&lt;li>&lt;code>script.js&lt;/code> for input and &lt;code>eventListeners&lt;/code>.&lt;/li>
+&lt;li>&lt;code>Calculator.js&lt;/code> for logics and calculations, with an &lt;code>updateViewer()&lt;/code> method to update the view.&lt;/li>
+&lt;li>&lt;code>Calculator.test.js&lt;/code> for jest unit-testing.&lt;/li>
+&lt;/ul>
+&lt;p>I could now use TDD&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> to make sure that adding functionalities wasn&amp;rsquo;t breaking anything.&lt;/p>
+&lt;h3 id="fixes-and-quality-of-life-improvement">Fixes and Quality of Life Improvement&lt;/h3>
+&lt;p>Then I asked some people to try the calculator and I used it myself while comparing it to the calculator provided by Windows. I then planned a few bug fixes and quality of life improvements and integrated &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/2" target="_blank" rel="noopener"
+>them&lt;/a> to the app.&lt;/p>
+&lt;h3 id="handling-big-numbers-and-loads-of-decimals">Handling Big Numbers and Loads of Decimals&lt;/h3>
+&lt;p>At first, my app was using the javascript &lt;code>eval()&lt;/code> function. I know, I could do a parser myself, but the goal of this project was more to practice unit testing while discovering some web-dev, not to break my head against mathematical stuff.&lt;/p>
+&lt;p>But still, how was my calculator handling numbers with loads of decimals ? Well, it was rounding up things badly.&lt;/p>
+&lt;p>And how was my calculator endling big numbers ? Well, text overflowed.&lt;/p>
+&lt;p>So I needed to fix things up, and I did.&lt;/p>
+&lt;h4 id="how-to-handle-number-with-decimals-">How to Handle Number with Decimals ?&lt;/h4>
+&lt;p>As always numbers in programming must be handled with care. Javascript numbers are treated using &lt;a class="link" href="https://www.wikiwand.com/en/Decimal_floating_point" target="_blank" rel="noopener"
+>decimal floating point&lt;/a>. The issue of such a representation is that addition and other operations could end up with a small rounding error. While it was just a beginner project and the scope wasn&amp;rsquo;t to get a scientific calculator, I still wanted to &lt;strong>learn how to implement a library&lt;/strong> that would manage big numbers and numbers with loads of decimal precisely.&lt;/p>
+&lt;p>So I added &lt;a class="link" href="https://mathjs.org/" target="_blank" rel="noopener"
+>mathjs&lt;/a> to my &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/3" target="_blank" rel="noopener"
+>project&lt;/a>. It uses &lt;a class="link" href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="noopener"
+>decimal.js&lt;/a>.&lt;/p>
+&lt;p>Here&amp;rsquo;s a few other alternatives to consider :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/royNiladri/js-big-decimal" target="_blank" rel="noopener"
+>GitHub - royNiladri/js-big-decimal: Work with large numbers on the client side with high precision.&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/decimal.js: An arbitrary-precision Decimal type for JavaScript&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/bignumber.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/bignumber.js: A JavaScript library for arbitrary-precision decimal and non-decimal arithmetic&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/big.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/big.js: A small, fast JavaScript library for arbitrary-precision decimal arithmetic.&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>And the differences between the last three are explained &lt;a class="link" href="https://github.com/MikeMcl/big.js/wiki" target="_blank" rel="noopener"
+>here&lt;/a>.&lt;/p>
+&lt;p>So now, my decimal rounding was working as expected :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">before : 0.1 + 0.2 = 0.30000000000000004
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">now : 0.1 + 0.2 = 0.3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="how-to-handle-big-numbers-">How to Handle Big Numbers ?&lt;/h4>
+&lt;p>Well, I simply limited the user input of numbers to 16 characters and added an overflow and slider to the formula accumulation at the top ! It made playing with huge numbers even more fun !&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>I learned a lot on that side project that occupied me just between sending email for jobs. It was fun, and I now understand web-dev much better.&lt;/p>
+&lt;p>Most importantly, I learned that no project is too small to be entertaining. I had fun doing that small app, and I will definitely keep doing such projects !&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Test Driven Development : A programming method that begins by creating tests before programming some stuff. At first, test fails, then one must write the appropriate code to make the tests pass and so on.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

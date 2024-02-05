@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>journal on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/journal/</link><description>Recent content in journal on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 06 Dec 2020 21:37:36 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/journal/index.xml" rel="self" type="application/rss+xml"/><item><title>Using Daylio on Your PC</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-daylio-on-your-pc/</link><pubDate>Sun, 06 Dec 2020 21:37:36 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-daylio-on-your-pc/</guid><description>&lt;h1 id="using-daylio-on-your-pc">Using Daylio on Your PC&lt;/h1>
+&lt;p>Hi everyone !&lt;/p>
+&lt;p>After asking on this sub for a PC support of Daylio in order to type long journal entries, I&amp;rsquo;m back here to help you set everything up !&lt;/p>
+&lt;p>The solution I&amp;rsquo;ve found the most simple and lightweight to use is scrcpy. Basically, it&amp;rsquo;s a Vysor alternative for free and open-source.&lt;/p>
+&lt;p>Best (and free) android remote control from PC I&amp;rsquo;ve found : &lt;a class="link" href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener"
+>https://github.com/Genymobile/scrcpy&lt;/a>&lt;/p>
+&lt;p>Guide to make it work wireless (same wifi) : &lt;a class="link" href="https://developer.android.com/studio/command-line/adb#wireless" target="_blank" rel="noopener"
+>https://developer.android.com/studio/command-line/adb#wireless&lt;/a>&lt;/p>
+&lt;p>Video guides I&amp;rsquo;ve found to be clear and complete :&lt;/p>
+&lt;p>Installation : &lt;a class="link" href="https://www.youtube.com/watch?v=aVLgyxqhKqE" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=aVLgyxqhKqE&lt;/a>&lt;/p>
+&lt;p>Wireless configuration : &lt;a class="link" href="https://www.youtube.com/watch?v=vuTdxa-w1js" target="_blank" rel="noopener"
+>https://www.youtube.com/watch?v=vuTdxa-w1js&lt;/a>&lt;/p>
+&lt;p>(Link to old post :&lt;a class="link" href="https://www.reddit.com/r/Daylio/comments/k02ckb/am_i_the_only_one_wanting_to_type_things_down/" target="_blank" rel="noopener"
+>https://www.reddit.com/r/Daylio/comments/k02ckb/am_i_the_only_one_wanting_to_type_things_down/&lt;/a>)&lt;/p>
+&lt;p>Have a nice day ! Hope it helps !&lt;/p></description></item></channel></rss>

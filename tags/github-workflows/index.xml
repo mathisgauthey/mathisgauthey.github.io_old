@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>github-workflows on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/github-workflows/</link><description>Recent content in github-workflows on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 18 Jan 2024 08:25:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/github-workflows/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Enforce Commit Conventions and Automate the Release and Changelog Process</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process/</link><pubDate>Thu, 18 Jan 2024 08:25:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process/</guid><description>&lt;h1 id="how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process">How to Enforce Commit Conventions and Automate the Release and Changelog Process&lt;/h1>
+&lt;h2 id="what-is-what-">What is What ?&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://semver.org/" target="_blank" rel="noopener"
+>Semantic Versioning&lt;/a> is a simple set of rules and requirements that dictate how version numbers are assigned and incremented.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.conventionalcommits.org/en/v1.0.0/" target="_blank" rel="noopener"
+>Conventional Commits&lt;/a> is a specification for adding human and machine readable meaning to commit messages. That&amp;rsquo;s the one we&amp;rsquo;ll use in every configuration here, it is close to the Angular specifications but has a few more types I reckon.&lt;/li>
+&lt;/ul>
+&lt;p>Common types according to &lt;a class="link" href="https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum" target="_blank" rel="noopener"
+>commitlint-config-conventional (based on the Angular convention)&lt;/a> can be:&lt;/p>
+&lt;ul>
+&lt;li>build&lt;/li>
+&lt;li>chore&lt;/li>
+&lt;li>ci&lt;/li>
+&lt;li>docs&lt;/li>
+&lt;li>feat&lt;/li>
+&lt;li>fix&lt;/li>
+&lt;li>perf&lt;/li>
+&lt;li>refactor&lt;/li>
+&lt;li>revert&lt;/li>
+&lt;li>style&lt;/li>
+&lt;li>test&lt;/li>
+&lt;/ul>
+&lt;h2 id="tools-well-use">Tools We&amp;rsquo;ll Use&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener"
+>semantic-release&lt;/a> to automate the release process and changelog based on the Semantic Versioning rules.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/commitizen/cz-cli" target="_blank" rel="noopener"
+>commitizen&lt;/a> to add a prompt when commiting changes that will use conventional commits specifications.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/conventional-changelog/commitlint" target="_blank" rel="noopener"
+>commitlint&lt;/a> to check and enforce that commit messages meet the conventional commit format&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/conventional-changelog/conventional-changelog/tree/master" target="_blank" rel="noopener"
+>conventional-changelog&lt;/a> is also used for presets.&lt;/li>
+&lt;li>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits" target="_blank" rel="noopener"
+>VS Code extension&lt;/a> for conventional commits modal.&lt;/li>
+&lt;/ul>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/404" >Install Nvm, Npm, Yarn - Setting up Node&lt;/a>&lt;/li>
+&lt;li>A git repository&lt;/li>
+&lt;/ul>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;h3 id="semantic-release">Semantic Release&lt;/h3>
+&lt;p>Go inside your git repository. Install the package locally using the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install --save-dev semantic-release
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/commit-analyzer -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/release-notes-generator -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/github -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install conventional-changelog-conventionalcommits -D
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Note : It can also be installed globally, but it&amp;rsquo;s not our goal as we just want to automate the release process of our repository here.&lt;/p>
+&lt;p>It should create a &lt;code>package.json&lt;/code> and &lt;code>package.lock&lt;/code> file in your repository. Don&amp;rsquo;t forget to add &lt;code>node_modules/&lt;/code> to your &lt;code>.gitignore&lt;/code> file.&lt;/p>
+&lt;p>Then, create a configuration file named &lt;code>.releaserc&lt;/code> at the root of your repository. More on that &lt;a class="link" href="https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration" target="_blank" rel="noopener"
+>here&lt;/a>, but just copy and paste that for now :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;branches&amp;#34;: [&amp;#34;main&amp;#34;],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;debug&amp;#34;: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;ci&amp;#34;: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;dryRun&amp;#34;: false,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;plugins&amp;#34;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;@semantic-release/commit-analyzer&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;preset&amp;#34;: &amp;#34;conventionalcommits&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;@semantic-release/release-notes-generator&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;preset&amp;#34;: &amp;#34;conventionalcommits&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="commitizen">Commitizen&lt;/h3>
+&lt;p>Install globally using :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install -g commitizen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Simply use &lt;code>git cz&lt;/code> or just &lt;code>cz&lt;/code> instead of &lt;code>git commit&lt;/code> when committing. You can also use &lt;code>git-cz&lt;/code>, which is an alias for &lt;code>cz&lt;/code>. If you use npm 5.2+, you can also use &lt;code>npx cz&lt;/code>.&lt;/p>
+&lt;h3 id="commitlint">Commitlint&lt;/h3>
+&lt;p>At the root of your project, execute the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Install commitlint cli and conventional config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install --save-dev @commitlint/&lt;span class="o">{&lt;/span>config-conventional,cli&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Configure commitlint to use conventional config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;module.exports = {extends: [&amp;#39;@commitlint/config-conventional&amp;#39;]}&amp;#34;&lt;/span> &amp;gt; commitlint.config.js
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Install Husky v6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install husky --save-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Activate hooks&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx husky install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add hook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx husky add .husky/commit-msg &lt;span class="s1">&amp;#39;npx --no -- commitlint --edit ${1}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="vs-code-extension">VS Code Extension&lt;/h3>
+&lt;p>It &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits" target="_blank" rel="noopener"
+>exists&lt;/a>. Simply install and use.&lt;/p></description></item></channel></rss>

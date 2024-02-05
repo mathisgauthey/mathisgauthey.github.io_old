@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>batch on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/batch/</link><description>Recent content in batch on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 16 Jan 2023 13:31:35 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/batch/index.xml" rel="self" type="application/rss+xml"/><item><title>Windows Post-Install Script for Gaming</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script-for-gaming/</link><pubDate>Mon, 16 Jan 2023 13:31:35 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script-for-gaming/</guid><description>&lt;h1 id="windows-post-install-script-for-gaming">Windows Post-Install Script for Gaming&lt;/h1>
+&lt;h2 id="sources">Sources&lt;/h2>
+&lt;p>Source : &lt;a class="link" href="https://winstall.app/" target="_blank" rel="noopener"
+>Browse the winget repository - winstall&lt;/a>&lt;/p>
+&lt;h2 id="scrips">Scrips&lt;/h2>
+&lt;h3 id="core-game-launchers">Core Game Launchers&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Valve.Steam -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=EpicGames.EpicGamesLauncher -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="other-stuff">Other Stuff&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=GOG.Galaxy -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=ElectronicArts.EADesktop -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Ubisoft.Connect -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nvidia-specific">Nvidia Specific&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=TechPowerUp.NVCleanstall -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Only check :&lt;/p>
+&lt;ul>
+&lt;li>Check &lt;code>Disable Installer Telemetry &amp;amp; Advertising&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Perform a Clean Installation&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="mouses">Mouses&lt;/h3>
+&lt;h4 id="logitech-specific">Logitech Specific&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Logitech.GHUB -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="razer-specific">Razer Specific&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=RazerInc.RazerInstaller -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="msi-gl75-specifics">MSI GL75 Specifics&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=SteelSeries.GG -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-a-slow-upload-speed-with-a-killer-e2400-gigabit-ethernet-controller/" >How to Fix a Slow Upload Speed with a Killer E2400 Gigabit Ethernet Controller&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Windows Post-Install Script</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script/</link><pubDate>Mon, 16 Jan 2023 13:31:14 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script/</guid><description>&lt;h1 id="windows-post-install-script">Windows Post-Install Script&lt;/h1>
+&lt;h2 id="sources">Sources&lt;/h2>
+&lt;p>Source : &lt;a class="link" href="https://winstall.app/" target="_blank" rel="noopener"
+>Browse the winget repository - winstall&lt;/a>&lt;/p>
+&lt;h2 id="scripts">Scripts&lt;/h2>
+&lt;h3 id="main-tools">Main Tools&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Microsoft.VisualStudioCode -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Microsoft.PowerShell -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Git.Git -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=TortoiseGit.TortoiseGit -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Doist.Todoist -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Obsidian.Obsidian -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=JohannesMillan.superProductivity -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Mozilla.Firefox -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Google.GoogleDrive -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Google.ChromeRemoteDesktop -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Cryptomator.Cryptomator -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Armin2208.WindowsAutoNightMode -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=ShareX.ShareX -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::winget install --id=TGRMNSoftware.BulkRenameUtility -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=WinMerge.WinMerge -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Microsoft.PowerToys -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=7zip.7zip -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=AutoHotkey.AutoHotkey -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=JAMSoftware.TreeSize.Free -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=DeepL.DeepL -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=SumatraPDF.SumatraPDF -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=TheDocumentFoundation.LibreOffice -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Stremio.Stremio -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::winget install --id=WindscribeLimited.Windscribe -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Spotify.Spotify -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=VideoLAN.VLC -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=OBSProject.OBSStudio -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">winget install --id=Discord.Discord -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Install &lt;a class="link" href="https://www.bulkrenameutility.co.uk/Download.php" target="_blank" rel="noopener"
+>Bulk Rename Utility&lt;/a> manually as command is not working atm.&lt;/li>
+&lt;li>Install &lt;a class="link" href="https://windscribe.com/download" target="_blank" rel="noopener"
+>Windscribe&lt;/a> manually as command not working atm.&lt;/li>
+&lt;/ul>
+&lt;h3 id="terminal-now-included-in-windows">Terminal (now Included in windows)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Microsoft.WindowsTerminal -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="torrents">Torrents&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=qBittorrent.qBittorrent -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="component-temperature">Component Temperature&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=CPUID.HWMonitor -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="music">Music&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Musescore.Musescore.3 -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="encryption">Encryption&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=IDRIX.VeraCrypt -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="python-dev">Python Dev&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Anaconda.Anaconda3 -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="linux-iso-boot-key">Linux ISO Boot Key&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">winget install --id=Balena.Etcher -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="file-server">File Server&lt;/h3>
+&lt;ul>
+&lt;li>Filezilla&lt;/li>
+&lt;/ul></description></item></channel></rss>

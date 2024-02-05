@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>git on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/git/</link><description>Recent content in git on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 18 Jan 2024 08:25:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Enforce Commit Conventions and Automate the Release and Changelog Process</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process/</link><pubDate>Thu, 18 Jan 2024 08:25:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process/</guid><description>&lt;h1 id="how-to-enforce-commit-conventions-and-automate-the-release-and-changelog-process">How to Enforce Commit Conventions and Automate the Release and Changelog Process&lt;/h1>
+&lt;h2 id="what-is-what-">What is What ?&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://semver.org/" target="_blank" rel="noopener"
+>Semantic Versioning&lt;/a> is a simple set of rules and requirements that dictate how version numbers are assigned and incremented.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.conventionalcommits.org/en/v1.0.0/" target="_blank" rel="noopener"
+>Conventional Commits&lt;/a> is a specification for adding human and machine readable meaning to commit messages. That&amp;rsquo;s the one we&amp;rsquo;ll use in every configuration here, it is close to the Angular specifications but has a few more types I reckon.&lt;/li>
+&lt;/ul>
+&lt;p>Common types according to &lt;a class="link" href="https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum" target="_blank" rel="noopener"
+>commitlint-config-conventional (based on the Angular convention)&lt;/a> can be:&lt;/p>
+&lt;ul>
+&lt;li>build&lt;/li>
+&lt;li>chore&lt;/li>
+&lt;li>ci&lt;/li>
+&lt;li>docs&lt;/li>
+&lt;li>feat&lt;/li>
+&lt;li>fix&lt;/li>
+&lt;li>perf&lt;/li>
+&lt;li>refactor&lt;/li>
+&lt;li>revert&lt;/li>
+&lt;li>style&lt;/li>
+&lt;li>test&lt;/li>
+&lt;/ul>
+&lt;h2 id="tools-well-use">Tools We&amp;rsquo;ll Use&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/semantic-release/semantic-release" target="_blank" rel="noopener"
+>semantic-release&lt;/a> to automate the release process and changelog based on the Semantic Versioning rules.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/commitizen/cz-cli" target="_blank" rel="noopener"
+>commitizen&lt;/a> to add a prompt when commiting changes that will use conventional commits specifications.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/conventional-changelog/commitlint" target="_blank" rel="noopener"
+>commitlint&lt;/a> to check and enforce that commit messages meet the conventional commit format&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/conventional-changelog/conventional-changelog/tree/master" target="_blank" rel="noopener"
+>conventional-changelog&lt;/a> is also used for presets.&lt;/li>
+&lt;li>&lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits" target="_blank" rel="noopener"
+>VS Code extension&lt;/a> for conventional commits modal.&lt;/li>
+&lt;/ul>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/404" >Install Nvm, Npm, Yarn - Setting up Node&lt;/a>&lt;/li>
+&lt;li>A git repository&lt;/li>
+&lt;/ul>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;h3 id="semantic-release">Semantic Release&lt;/h3>
+&lt;p>Go inside your git repository. Install the package locally using the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install --save-dev semantic-release
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/commit-analyzer -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/release-notes-generator -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install @semantic-release/github -D
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install conventional-changelog-conventionalcommits -D
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Note : It can also be installed globally, but it&amp;rsquo;s not our goal as we just want to automate the release process of our repository here.&lt;/p>
+&lt;p>It should create a &lt;code>package.json&lt;/code> and &lt;code>package.lock&lt;/code> file in your repository. Don&amp;rsquo;t forget to add &lt;code>node_modules/&lt;/code> to your &lt;code>.gitignore&lt;/code> file.&lt;/p>
+&lt;p>Then, create a configuration file named &lt;code>.releaserc&lt;/code> at the root of your repository. More on that &lt;a class="link" href="https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#configuration" target="_blank" rel="noopener"
+>here&lt;/a>, but just copy and paste that for now :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">{
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;branches&amp;#34;: [&amp;#34;main&amp;#34;],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;debug&amp;#34;: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;ci&amp;#34;: true,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;dryRun&amp;#34;: false,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;plugins&amp;#34;:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;@semantic-release/commit-analyzer&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;preset&amp;#34;: &amp;#34;conventionalcommits&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ],
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> [
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;@semantic-release/release-notes-generator&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;preset&amp;#34;: &amp;#34;conventionalcommits&amp;#34;,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="commitizen">Commitizen&lt;/h3>
+&lt;p>Install globally using :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install -g commitizen
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Simply use &lt;code>git cz&lt;/code> or just &lt;code>cz&lt;/code> instead of &lt;code>git commit&lt;/code> when committing. You can also use &lt;code>git-cz&lt;/code>, which is an alias for &lt;code>cz&lt;/code>. If you use npm 5.2+, you can also use &lt;code>npx cz&lt;/code>.&lt;/p>
+&lt;h3 id="commitlint">Commitlint&lt;/h3>
+&lt;p>At the root of your project, execute the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Install commitlint cli and conventional config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install --save-dev @commitlint/&lt;span class="o">{&lt;/span>config-conventional,cli&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Configure commitlint to use conventional config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;module.exports = {extends: [&amp;#39;@commitlint/config-conventional&amp;#39;]}&amp;#34;&lt;/span> &amp;gt; commitlint.config.js
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Install Husky v6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm install husky --save-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Activate hooks&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx husky install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Add hook&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npx husky add .husky/commit-msg &lt;span class="s1">&amp;#39;npx --no -- commitlint --edit ${1}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="vs-code-extension">VS Code Extension&lt;/h3>
+&lt;p>It &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=vivaxy.vscode-conventional-commits" target="_blank" rel="noopener"
+>exists&lt;/a>. Simply install and use.&lt;/p></description></item><item><title>How to Use Obsidian Git Sync on Android</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/</link><pubDate>Wed, 18 Jan 2023 18:43:21 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/</guid><description>&lt;h1 id="how-to-use-obsidian-git-sync-on-android">How to Use Obsidian Git Sync on Android&lt;/h1>
+&lt;h2 id="inspirations">Inspirations&lt;/h2>
+&lt;ul>
+&lt;li>My &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/" >old guide&lt;/a> using cron jobs with time intervals instead of tasker&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/v6otbu/how_to_sync_your_obsidian_vault_on_mobile_using/" target="_blank" rel="noopener"
+>How to sync your obsidian vault on mobile using git&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://werzum.github.io/tech/2022/02/13/Obsidian-Mobile-Sync.html" target="_blank" rel="noopener"
+>Mobile Sync for Obsidian | Some Thoughts&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://gist.github.com/yuvve/013977d93ddc3b0c4780de950ba53d89" target="_blank" rel="noopener"
+>Automatically sync notes to and from git repository whenever you open and close Obsidian on mobile. · GitHub&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://pulinagrawal.github.io/Obsidian-Sync-Alternative/" target="_blank" rel="noopener"
+>Obsidian Syncing Alternative (For Android and iOS) | Obsidian-Sync-Alternative&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-required-tools">Install the Required Tools&lt;/h2>
+&lt;p>Install &lt;a class="link" href="https://tasker.joaoapps.com/download.html" target="_blank" rel="noopener"
+>Tasker&lt;/a> from the official website (7 days trial) or from the Google Play Store (~3.5€).&lt;/p>
+&lt;p>Install &lt;a class="link" href="https://f-droid.org/en/packages/com.termux/" target="_blank" rel="noopener"
+>Termux&lt;/a>, &lt;a class="link" href="https://f-droid.org/en/packages/com.termux.widget/" target="_blank" rel="noopener"
+>Termux Widget&lt;/a>, &lt;a class="link" href="https://f-droid.org/packages/com.termux.tasker/" target="_blank" rel="noopener"
+>Termux Tasker&lt;/a> on F-droid or on the official Termux Github repository.&lt;/p>
+&lt;blockquote>
+&lt;p>[!attention] Never use the play store version
+Trust me it is depreciated.&lt;/p>
+&lt;/blockquote>
+&lt;p>Give Termux access to your storage using the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="setup-git-and-github-for-manipulating-repositories">Setup Git and Github for Manipulating Repositories&lt;/h2>
+&lt;p>Use the following commands to &lt;a class="link" href="https://www.techrepublic.com/article/how-to-install-git-on-android/" target="_blank" rel="noopener"
+>setup git and github via HTTPS&lt;/a> :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg update &amp;amp;&amp;amp; pkg upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install gh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>You can use SSH or an access token as well instead of using gh&lt;/em>&lt;/p>
+&lt;p>Login to your Github account :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Update the git configs :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.name &amp;#34;name&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.email &amp;#34;email&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Go into the shared folder :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd ~/storage/shared/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Clone your repo :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git clone https://github.com/YOUR_GH_USERNAME/Lifewiki.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Try using the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>[!Attention] Android 12 warning
+If you are on Android 12, you&amp;rsquo;ll get an error with the command required to add the repository to a security list or something like that. Do it, and these commands should work.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="change-the-default-termux-working-directory">Change the Default Termux Working Directory&lt;/h2>
+&lt;p>Edit the bashrc file :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nano /data/data/com.termux/files/usr/etc/bash.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And append this line to the end of the file :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd ~/storage/shared/Lifewiki
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Restart your terminal, and you will find that it always opens up in your desired directory!&lt;/p>
+&lt;h2 id="setup-tasker">Setup Tasker&lt;/h2>
+&lt;p>Launch Tasker and do the basic setup (setting battery optimisation and stuff).&lt;/p>
+&lt;blockquote>
+&lt;p>[!Done] Give Tasker some important Termux permissions
+Android Settings -&amp;gt; Apps -&amp;gt; Tasker -&amp;gt; Permissions -&amp;gt;Additional permissions -&amp;gt; Run commands in Termux environment.&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Launch Termux&lt;/li>
+&lt;li>&lt;code>mkdir ~/.termux/tasker/&lt;/code>&lt;/li>
+&lt;li>&lt;code>cd ~/.termux/tasker/&lt;/code>&lt;/li>
+&lt;li>nano pull.sh&lt;/li>
+&lt;li>Add the following script :&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>nano backup.sh&lt;/li>
+&lt;li>Add the following script :&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>git add -A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Don&amp;rsquo;t forget to edit permissions to termux home folder :&lt;/p>
+&lt;p>&lt;code>chmod 700 -R /data/data/com.termux/files/home/.termux&lt;/code>&lt;/p>
+&lt;p>Create an Obsidian profile :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Obsidian_profile.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Obsidian_profile.png"
+>&lt;/p>
+&lt;p>Setup the following task :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_backup.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_backup.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_backup_task.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_backup_task.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_stdout.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_stdout.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_stderr.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_stderr.png"
+>&lt;/p>
+&lt;h2 id="setup-the-error-handling-shortcut-for-merge-conflict">Setup the Error Handling Shortcut for Merge Conflict&lt;/h2>
+&lt;p>Create a directory for the shortcuts :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> -R /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nano debug.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Add the following script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the widget and add it to your home screen. That&amp;rsquo;s it, you just need to launch it to solve merging errors.&lt;/p>
+&lt;h2 id="setting-up-an-automatic-execution-of-the-script-not-recommended-if-you-want-to-avoid-merge-issues">Setting up an Automatic Execution of the Script (Not Recommended if You Want to Avoid Merge issues)&lt;/h2>
+&lt;p>If you want to automatically &lt;strong>sync your vault every hour&lt;/strong>, for instance, you can do it using a &lt;a class="link" href="https://ostechnix.com/a-beginners-guide-to-cron-jobs/" target="_blank" rel="noopener"
+>Cron job&lt;/a> (like described in this &lt;a class="link" href="https://forum.obsidian.md/t/obsidian-github-integration-for-sync-and-version-control/6369" target="_blank" rel="noopener"
+>thread&lt;/a> or this &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/qep4gn/guide_obsidian_vault_github_sync_cron_on_termux/" target="_blank" rel="noopener"
+>one&lt;/a>).&lt;/p>
+&lt;p>First, create the auto sync task folders :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> -R /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script inside &lt;code>.shortcut/tasks&lt;/code> :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>[!info] Difference between .shortcuts and .shortcuts/tasks folders
+What is run inside .shortcuts are just scripts launching Termux. If it is run under the tasks folder, it will launch it as an underground task.&lt;/p>
+&lt;/blockquote>
+&lt;p>First, you need to install Cron :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg install cronie termux-services
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then, you&amp;rsquo;ll restart Termux and then run the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sv-enable crond
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crontab -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Finally, you&amp;rsquo;ll end up with the &lt;code>crontab -e&lt;/code> command in the &lt;strong>nano&lt;/strong> text editor. Add the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> * * * * bash ~/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You just need to keep Termux opened in order for the job to be able to launch.&lt;/p>
+&lt;p>You can find information about Cron job easily on the internet.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_11-57-30_cron-job-format-1.png"
+loading="lazy"
+alt="2023-03-09_11-57-30_cron-job-format-1.png"
+>&lt;/p>
+&lt;p>Edit : I already uploaded a guide to do it with a cron job. I kept this part, but I wanted something less energy consuming. Hence I learned how to use Tasker and did it this way. I find it as simple as the obsidian-git plugin on computer, but on mobile ! Hope it helps !&lt;/p></description></item><item><title>Using Git to sync your Obsidian vault on Android devices</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/</link><pubDate>Sat, 06 Aug 2022 09:45:37 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/</guid><description>&lt;h1 id="using-git-to-sync-your-obsidian-vault-on-android-devices">Using Git to Sync Your Obsidian Vault on Android Devices&lt;/h1>
+&lt;p>My &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/" >new guide&lt;/a> using tasker to sync on app start-up and close instead of using cron jobs at time intervals.&lt;/p>
+&lt;p>Hi everyone! As I&amp;rsquo;m using Obsidian Git on my laptop, and it isn&amp;rsquo;t available on android (yet?), I searched for ways to make it simple on Android. I wrote myself a tutorial and wanted to share it with you all! This one is not using SSH keys which might be too complicated for the standard user. But if you do use a SSH key, remember not to use a passphrase if you want the process to be automated and or fast with your widget!&lt;/p>
+&lt;p>Install Termux and Termux Widget&lt;/p>
+&lt;p>From &lt;a class="link" href="https://github.com/termux/termux-app" target="_blank" rel="noopener"
+>Github Termux&lt;/a>, &lt;a class="link" href="https://github.com/termux/termux-widget" target="_blank" rel="noopener"
+>Github Termux Widget&lt;/a>  download the APKs and install them. You can use F-Droid as well.&lt;/p>
+&lt;p>Give Termux access to your storage using the following command &lt;a class="link" href="https://www.techrepublic.com/article/how-to-install-git-on-android/" target="_blank" rel="noopener"
+>How to install Git on Android with Termux (Step-by-Step Guide)&lt;/a>] :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Setup Git and Github for manipulating repositories&lt;/p>
+&lt;p>Use the following commands to setup git and github via HTTPS :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg update &amp;amp;&amp;amp; pkg upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install gh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>You can use SSH as well&lt;/em>&lt;/p>
+&lt;p>Login to your Github account :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Update the git configs :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.name &amp;#34;name&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.email &amp;#34;email&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now you should clone your repository, try to use the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you are on Android 12, you&amp;rsquo;ll get an error with the command required to add the repository to a security list or something like that. Do it, and these commands should work.&lt;/p>
+&lt;p>Setup the sync script shortcut&lt;/p>
+&lt;p>Create a directory for the shortcuts (&lt;a class="link" href="https://werzum.github.io/tech/2022/02/13/Obsidian-Mobile-Sync.html" target="_blank" rel="noopener"
+>Mobile Sync for Obsidian | Some Thoughts&lt;/a> and &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/v6otbu/how_to_sync_your_obsidian_vault_on_mobile_using/" target="_blank" rel="noopener"
+>How to sync your obsidian vault on mobile using git : ObsidianMD&lt;/a>) :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod 700 -R /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nano /data/data/com.termux/files/home/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Add the following script (&lt;a class="link" href="https://github.com/git-guides/git-add" target="_blank" rel="noopener"
+>Git Guides - git add · GitHub&lt;/a> and &lt;a class="link" href="https://stackoverflow.com/questions/4654437/how-to-set-current-date-as-git-commit-message" target="_blank" rel="noopener"
+>bash - How to set current date as git commit message - Stack Overflow&lt;/a>) :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the widget and add it to your home screen. That&amp;rsquo;s it, you just need to launch it to sync your Obsidian vault. It means you need to launch it before and after editing notes. If you putted your script inside ~/.shortcuts it will launch in the foreground, and if it was inside ~/.shortcuts/tasks then it will launch in the background.&lt;/p>
+&lt;p>Setting up an Automatic Execution of the Script&lt;/p>
+&lt;p>If you want to automatically &lt;strong>sync your vault every hour&lt;/strong>, for instance, you can do it using a Cron job. (&lt;a class="link" href="https://pulinagrawal.github.io/Obsidian-Sync-Alternative/" target="_blank" rel="noopener"
+>Obsidian Syncing Alternative | Obsidian-Sync-Alternative&lt;/a> and &lt;a class="link" href="https://forum.obsidian.md/t/obsidian-github-integration-for-sync-and-version-control/6369" target="_blank" rel="noopener"
+>Obsidian Github Integration for Sync and Version Control - Share &amp;amp; showcase - Obsidian Forum&lt;/a> and &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/qep4gn/guide_obsidian_vault_github_sync_cron_on_termux/" target="_blank" rel="noopener"
+>Guide: Obsidian vault github sync cron on termux : ObsidianMD&lt;/a>)&lt;/p>
+&lt;p>First, you need to install Cron :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install cronie termux-services
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then, you&amp;rsquo;ll restart Termux then run the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sv-enable crond
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crontab -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Finally, you&amp;rsquo;ll end up with the &lt;code>crontab -e&lt;/code> command in the &lt;strong>nano&lt;/strong> text editor. Add the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">0 * * * * bash ~/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You just need to keep Termux opened in order for the job to be able to launch.&lt;/p>
+&lt;p>You can find information about Cron job easily on the internet. (&lt;a class="link" href="https://ostechnix.com/a-beginners-guide-to-cron-jobs/" target="_blank" rel="noopener"
+>A Beginners Guide To Cron Jobs - OSTechNix&lt;/a>)&lt;/p></description></item></channel></rss>

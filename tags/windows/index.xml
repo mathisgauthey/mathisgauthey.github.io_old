@@ -1,0 +1,1047 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/windows/</link><description>Recent content in windows on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 12 Jan 2024 12:02:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Fix Windows Spotlight Not Working (ADMTheme issue)</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-windows-spotlight-not-working-admtheme-issue/</link><pubDate>Fri, 12 Jan 2024 12:02:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-windows-spotlight-not-working-admtheme-issue/</guid><description>&lt;h1 id="how-to-fix-windows-spotlight-not-working-admtheme-issue">How to Fix Windows Spotlight Not Working (ADMTheme issue)&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Recently, I came across an issue. I love to use &lt;code>Windows Spotlight&lt;/code> for my Background and Lockscreen. But on my MSI laptop, the background settings would always revert back to &lt;code>Picture&lt;/code> with a default wallpaper.&lt;/p>
+&lt;p>I tried, and you should try as well, the following fixes :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.elevenforum.com/t/reset-and-re-register-windows-spotlight-in-windows-11.5248/#post-285757" target="_blank" rel="noopener"
+>Reset and register Windows Spotlight&lt;/a>&lt;/li>
+&lt;li>Go into &lt;code>Control Panel &amp;gt; Hardware and Sound &amp;gt; Power Options &amp;gt; Edit Plan Settings&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>Change advanced power settings&lt;/code>&lt;/li>
+&lt;li>&lt;code>Desktop Background settings &amp;gt; Slide Show&lt;/code> ⇒ &lt;code>Paused&lt;/code> for both.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>And finally I figured what was wrong. A theme was auto-applied on start-up. How ?&lt;/p>
+&lt;ul>
+&lt;li>Search &lt;code>msconfig&lt;/code> on Windows :
+&lt;ul>
+&lt;li>&lt;code>System Configuration &amp;gt; Services&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Search start-up applications on the &lt;code>Windows Task Manager&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Found nothing unusual. But the auto-applie theme was called &lt;code>ADMTheme&lt;/code>. It was related to &lt;a class="link" href="https://www.reddit.com/r/Windows11/comments/10hry9s/comment/j5awaqx/?utm_source=share&amp;amp;utm_medium=web2x&amp;amp;context=3" target="_blank" rel="noopener"
+>AutoDarkMode apparently&lt;/a>, a Windows tool to automatically switch your Windows color scheme.&lt;/p>
+&lt;h2 id="fix">Fix&lt;/h2>
+&lt;p>The fix is quite simple.&lt;/p>
+&lt;ol>
+&lt;li>Uninstall AutoDarkMode&lt;/li>
+&lt;li>Go into &lt;code>C:\Users\%USERPROFILE%\AppData\Roaming\AutoDarkMode&lt;/code> and delete this folder.&lt;/li>
+&lt;li>Reboot&lt;/li>
+&lt;li>Open a CMD as admin and type in the following command : &lt;code>winget install --id=Armin2208.WindowsAutoNightMode -e&lt;/code>&lt;/li>
+&lt;li>Reboot&lt;/li>
+&lt;/ol>
+&lt;p>Now you can open AutoDarkMode, configure it to change with &lt;code>From sunset to sunrize (location services)&lt;/code>, and configure your windows background and lockscreen.&lt;/p>
+&lt;p>Your theme will be kept as &lt;code>ADMTheme&lt;/code>, but it&amp;rsquo;ll keep your changes.&lt;/p>
+&lt;p>The issue was probably caused by an old update of AutoDarkMode I reckon. Anyway, it&amp;rsquo;s now fixed.&lt;/p></description></item><item><title>Windows Clean Install Guide</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-clean-install-guide/</link><pubDate>Mon, 16 Jan 2023 19:23:03 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-clean-install-guide/</guid><description>&lt;h1 id="windows-clean-install-guide">Windows Clean Install Guide&lt;/h1>
+&lt;blockquote>
+&lt;p>[!warning]
+Do not use ShutUp10, BleachBit and other scripts that could explode Windows. Don&amp;rsquo;t touch the OS, the OS must remain intact.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="verify-windows-version">Verify Windows Version&lt;/h2>
+&lt;ul>
+&lt;li>Verify you&amp;rsquo;re on Windows 11 Pro. Otherwise, buy or change it. There&amp;rsquo;s cheap grey market keys everywhere.&lt;/li>
+&lt;/ul>
+&lt;h2 id="remove-unwanted-programs">Remove Unwanted Programs&lt;/h2>
+&lt;h3 id="control-panel">Control Panel&lt;/h3>
+&lt;ul>
+&lt;li>One Drive → &lt;strong>Unlick computer before removing…&lt;/strong>
+&lt;ol>
+&lt;li>Sign int&lt;/li>
+&lt;li>Remove everything in backup folder settings&lt;/li>
+&lt;li>Uncheck every sync in the sync settings&lt;/li>
+&lt;li>Remove OneDrive folder from User folder&lt;/li>
+&lt;li>Unlink account&lt;/li>
+&lt;li>Quit OneDrive&lt;/li>
+&lt;li>Uninstall&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Remote Desktop Connection&lt;/li>
+&lt;/ul>
+&lt;h3 id="add-or-remove-programs">Add or Remove Programs&lt;/h3>
+&lt;ul>
+&lt;li>You can safely remove almost… Everything.&lt;/li>
+&lt;li>Don&amp;rsquo;t forget to clean the start menu as well…&lt;/li>
+&lt;/ul>
+&lt;h3 id="updates">Updates&lt;/h3>
+&lt;ul>
+&lt;li>Microsoft updates should be fine by default.&lt;/li>
+&lt;li>But go launch Microsoft store apps updates manually now. It&amp;rsquo;ll helps for &lt;code>Terminal&lt;/code> settings.&lt;/li>
+&lt;/ul>
+&lt;h2 id="controls">Controls&lt;/h2>
+&lt;h3 id="enhance-mouse-precision">Enhance Mouse Precision&lt;/h3>
+&lt;ol>
+&lt;li>Settings &amp;gt; Mouse &amp;gt; Additional mouse settings &amp;gt; Pointer Options&lt;/li>
+&lt;li>Uncheck &lt;code>Enhance pointer precision&lt;/code>.&lt;/li>
+&lt;/ol>
+&lt;h3 id="disable-alt--maj-shortcut">Disable Alt + Maj Shortcut&lt;/h3>
+&lt;ol>
+&lt;li>Spam ALT+SHIFT&lt;/li>
+&lt;li>Click on the notification&lt;/li>
+&lt;li>Set key sequence to &lt;code>None&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h2 id="language--time">Language &amp;amp; Time&lt;/h2>
+&lt;h3 id="language">Language&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-07_20-45-30_windows_language_settings.png"
+loading="lazy"
+alt="2024-01-07_20-45-30_windows_language_settings.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Download &lt;code>language packs&lt;/code>, &lt;code>text to speech&lt;/code> and &lt;code>speech recognition&lt;/code> for your languages.&lt;/li>
+&lt;li>Language for non-unicode program should be English US in the &lt;code>region format&lt;/code>.&lt;/li>
+&lt;li>But then to &lt;a class="link" href="https://www.reddit.com/r/Windows10/comments/15p1psl/these_keyboard_layouts_got_added_to_my_pc_along/" target="_blank" rel="noopener"
+>make it save properly&lt;/a> :&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">1. Open Control Panel, select Clock and Region.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Click Region.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. Select Administrative tab.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">4. Click on Copy Settings.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. Under Copy your current settings to, check the box for Welcome screen and system accounts. Click OK and restart your PC.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="issues-with-old-language-keyboards">Issues with Old Language Keyboards&lt;/h4>
+&lt;p>If you have issues with languages and keyboard layouts coming back, try &lt;a class="link" href="https://superuser.com/questions/1360623/cant-remove-unneeded-keyboard-layouts-no-such-setting-anywhere" target="_blank" rel="noopener"
+>this&lt;/a> :&lt;/p>
+&lt;blockquote>
+&lt;p>[!success]
+I had a similar problem to the OP: for the English language, I had US, Canadian Multilingual Standard as well as Canadian French as keyboard layouts and I could not remove the last two.&lt;/p>
+&lt;p>As I do not have administrator rights on my work PC, I could not use @harrymc&amp;rsquo;s solution by editing the registry but I am able to edit language options. I tried the following and it worked for me:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Add&lt;/strong> the extra unwanted keyboard layouts using the &lt;em>PC Settings &amp;gt; Time &amp;amp; Language &amp;gt; Language&lt;/em> menu so they&amp;rsquo;re all actually listed.&lt;/li>
+&lt;li>Save.&lt;/li>
+&lt;li>Afterwards, come back to the Languages screen and remove the extra layouts.&lt;/li>
+&lt;li>Again, press Save.&lt;/li>
+&lt;/ol>
+&lt;p>I&amp;rsquo;m not quite sure how nor why but now those extra keyboard layouts are gone.&lt;/p>
+&lt;p>EDIT: I&amp;rsquo;m not sure if it&amp;rsquo;s new or it existed when I added that solution but this solution does not persist through reboots.&lt;/p>
+&lt;/blockquote>
+&lt;p>You can also try uninstalling old keyboard layouts using :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">WIN + R
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lpksetup # OPEN LANGUAGE PACK MANAGER
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lpksetup /u en-gb # EXAMPLE UNINSTALLING EN-GN KEYBOARD
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="time-zone">Time Zone&lt;/h3>
+&lt;ul>
+&lt;li>Make sure the &lt;code>Set time zone automatically&lt;/code> is checked as well as every other automated settings.&lt;/li>
+&lt;/ul>
+&lt;h2 id="colors-and-theme">Colors and Theme&lt;/h2>
+&lt;h3 id="remove-trash-icon">Remove Trash Icon&lt;/h3>
+&lt;ol>
+&lt;li>Start &amp;gt; Settings &amp;gt; Personalization &amp;gt; Themes &amp;gt; Desktop icon settings.&lt;/li>
+&lt;li>Uncheck &lt;code>RecycleBin&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="background">Background&lt;/h3>
+&lt;ol>
+&lt;li>Set &lt;code>Windows Spotlight&lt;/code>&lt;/li>
+&lt;li>Right clic to desktop &amp;gt; View &amp;gt; Uncheck &lt;code>Show Desktop Icons&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="colors">Colors&lt;/h3>
+&lt;ol>
+&lt;li>&lt;code>Dark mode&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Transparency effects&lt;/code>&lt;/li>
+&lt;li>Accent color to &lt;code>Automatic&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Show accent color on Start and taskbar&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Show accent color on title bars and windows borders&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="night-light">Night Light&lt;/h3>
+&lt;ul>
+&lt;li>Schedule &lt;code>sunset to sunrise&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="taskbar">Taskbar&lt;/h3>
+&lt;ol>
+&lt;li>Uncheck every &lt;code>taskbar items&lt;/code> settings&lt;/li>
+&lt;li>Uncheck every &lt;code>system tray icons&lt;/code> settings&lt;/li>
+&lt;li>Let the rest as default&lt;/li>
+&lt;/ol>
+&lt;h3 id="disable-new-context-menu-windows-11">Disable New Context Menu (Windows 11)&lt;/h3>
+&lt;p>&lt;strong>Disable new context menu:&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">reg.exe add &amp;#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32&amp;#34; /f /ve
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Restore new context menu:&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">reg.exe delete &amp;#34;HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}&amp;#34; /f
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="sound">Sound&lt;/h2>
+&lt;ul>
+&lt;li>Sound settings &amp;gt; Communications &amp;gt; &lt;code>Do Nothing&lt;/code>&lt;/li>
+&lt;li>If you use a Bose headset : &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/fix-bose-qc35-headset-communication-issue-on-windows-11/" >Fix Bose QC35 Headset Communication Issue on Windows 11&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">Storage&lt;/h2>
+&lt;h3 id="storage-sense">Storage Sense&lt;/h3>
+&lt;ol>
+&lt;li>Activate &lt;code>storage sense&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Cleanup of temporary files&lt;/code>&lt;/li>
+&lt;li>Check &lt;code>Automatic User content cleanup&lt;/code>
+&lt;ol>
+&lt;li>Run storage sense &lt;code>Every month&lt;/code>&lt;/li>
+&lt;li>Delete files in my recycle bin if they have been there for over &lt;code>30 days&lt;/code>&lt;/li>
+&lt;li>Delete files in my Downloads folder if they haven&amp;rsquo;t been opened for more than &lt;code>30 days&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="show-hidden-files-and-drives">Show Hidden Files and Drives&lt;/h3>
+&lt;ol>
+&lt;li>Win + E &amp;gt; Triple dots &amp;gt; Options &amp;gt; View&lt;/li>
+&lt;li>Check &lt;code>Show hidden files, folders and drives&lt;/code>&lt;/li>
+&lt;li>Uncheck &lt;code>Hide extensions for known file types&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h2 id="gaming">Gaming&lt;/h2>
+&lt;h3 id="disable-game-mode">Disable Game Mode&lt;/h3>
+&lt;ul>
+&lt;li>Basically, go inside windows settings, gaming, and uncheck &lt;strong>everything&lt;/strong>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="disable-core-isolation">Disable Core Isolation&lt;/h3>
+&lt;ul>
+&lt;li>Windows Security &amp;gt; Core isolation &amp;gt; Uncheck &lt;code>Memory integrity&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>[!caution] Attention
+Ne faire ceci qu&amp;rsquo;en cas de performances gaming pas suffisantes. Autant le laisser si aucun problème n&amp;rsquo;est à relever.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="power-options">Power Options&lt;/h2>
+&lt;h3 id="disable-fast-startup-and-hibernation">Disable Fast Startup and Hibernation&lt;/h3>
+&lt;ol>
+&lt;li>Go to &lt;code>Control Panel &amp;gt; Hardware and Sound &amp;gt; Power Options &amp;gt; System Settings&lt;/code>&lt;/li>
+&lt;li>Click &lt;code>Change settings that are currently unavailable&lt;/code>&lt;/li>
+&lt;li>Uncheck &lt;code>Turn on fast start-up&lt;/code>&lt;/li>
+&lt;li>Uncheck &lt;code>Hibernate&lt;/code> or use command &lt;code>powercfg -h off&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="closing-the-lid">Closing the Lid&lt;/h3>
+&lt;ul>
+&lt;li>Set everything to &lt;code>sleep&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="turn-off-display-and-sleep">Turn Off Display and Sleep&lt;/h3>
+&lt;ul>
+&lt;li>Auto turn of display after &lt;code>1 min&lt;/code>, but &lt;code>no auto sleep&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="remove-windows-telemetry">Remove Windows Telemetry&lt;/h2>
+&lt;h3 id="privacy-and-security--general">Privacy and Security &amp;gt; General&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--speech">Privacy and Security &amp;gt; Speech&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--inking--typing-personalization">Privacy and Security &amp;gt; Inking &amp;amp; Typing Personalization&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--diagnostics--feedback">Privacy and Security &amp;gt; Diagnostics &amp;amp; Feedback&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--activity-history">Privacy and Security &amp;gt; Activity History&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--search-permissions">Privacy and Security &amp;gt; Search Permissions&lt;/h3>
+&lt;ul>
+&lt;li>Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h3 id="privacy-and-security--searching-windows">Privacy and Security &amp;gt; Searching Windows&lt;/h3>
+&lt;ul>
+&lt;li>Change nothing.&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-scripts">Install Scripts&lt;/h2>
+&lt;h3 id="install-wsl">Install WSL&lt;/h3>
+&lt;ol>
+&lt;li>Open CMD as admin&lt;/li>
+&lt;li>&lt;code>wsl --install&lt;/code>&lt;/li>
+&lt;li>Reboot.&lt;/li>
+&lt;li>Username : &lt;code>mat&lt;/code>&lt;/li>
+&lt;li>Password : You know what.&lt;/li>
+&lt;/ol>
+&lt;h3 id="scripts">Scripts&lt;/h3>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script/" >Windows Post-Install Script&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/windows-post-install-script-for-gaming/" >Windows Post-Install Script for Gaming&lt;/a>&lt;/li>
+&lt;li>Reboot.&lt;/li>
+&lt;/ol>
+&lt;h3 id="taskbar-setup">Taskbar Setup&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-07_22-44-43_taskbar_setup.png"
+loading="lazy"
+alt="2024-01-07_22-44-43_taskbar_setup.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-07_22-59-19_tray_icons.png"
+loading="lazy"
+alt="2024-01-07_22-59-19_tray_icons.png"
+>&lt;/p>
+&lt;h3 id="windows-terminal">Windows Terminal&lt;/h3>
+&lt;h4 id="startup">Startup&lt;/h4>
+&lt;ul>
+&lt;li>Default profile &lt;code>Ubuntu&lt;/code>&lt;/li>
+&lt;li>Default terminal app &lt;code>Terminal&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="appearance">Appearance&lt;/h4>
+&lt;ul>
+&lt;li>Application theme &lt;code>Use windows theme&lt;/code>&lt;/li>
+&lt;li>&lt;code>Use acrylic in tab row&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="color-scheme">Color Scheme&lt;/h4>
+&lt;ol>
+&lt;li>Create new color scheme&lt;/li>
+&lt;li>Name it Github Dark&lt;/li>
+&lt;li>Copy &lt;a class="link" href="https://windowsterminalthemes.dev/?theme=GitHub%20Dark" target="_blank" rel="noopener"
+>this&lt;/a> in your &lt;code>settings.json&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;GitHub Dark&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;black&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#000000&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;red&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#f78166&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;green&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#56d364&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;yellow&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#e3b341&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#6ca4f8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;purple&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#db61a2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;cyan&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#2b7489&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;white&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#ffffff&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightBlack&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#4d4d4d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightRed&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#f78166&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightGreen&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#56d364&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightYellow&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#e3b341&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightBlue&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#6ca4f8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightPurple&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#db61a2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightCyan&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#2b7489&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brightWhite&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#ffffff&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;background&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#101216&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;foreground&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#8b949e&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;selectionBackground&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#3b5070&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;cursorColor&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;#c9d1d9&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="defaults">Defaults&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>Run as administrator&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="defaults--appearance">Defaults &amp;gt; Appearance&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>Retro terminal effect&lt;/code>&lt;/li>
+&lt;li>Automatically adjust lightness of indistinguishable text &lt;code>Always&lt;/code>&lt;/li>
+&lt;li>&lt;code>Enable acylic material 75%&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="powertoys">PowerToys&lt;/h3>
+&lt;ul>
+&lt;li>General &amp;gt; &lt;code>Always run as admin&lt;/code>&lt;/li>
+&lt;li>PowerRename :
+&lt;ul>
+&lt;li>&lt;code>\b&lt;/code>&lt;/li>
+&lt;li>Use regular expressions&lt;/li>
+&lt;li>&lt;code>$YYYY-$MM-$DD_$hh-$mm-$ss_&lt;/code>&lt;/li>
+&lt;li>Filename only&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="auto-dark-mode">Auto Dark Mode&lt;/h3>
+&lt;ol>
+&lt;li>Launch&lt;/li>
+&lt;li>Sunset sunrise (location service)&lt;/li>
+&lt;li>Settings &amp;gt; 24h clock&lt;/li>
+&lt;/ol>
+&lt;h3 id="firefox">Firefox&lt;/h3>
+&lt;ol>
+&lt;li>Login to Mozilla Acount&lt;/li>
+&lt;li>When prompted, choose &lt;code>never save password&lt;/code>&lt;/li>
+&lt;li>Wait for sync&lt;/li>
+&lt;li>Accept prompted extensions&lt;/li>
+&lt;li>Install &lt;a class="link" href="https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean" target="_blank" rel="noopener"
+>magnolia1234 / Bypass Paywalls Firefox Clean · GitLab&lt;/a>&lt;/li>
+&lt;li>Delete stupid bookmarks&lt;/li>
+&lt;li>Put extensions icons correctly : &lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-07_23-17-47_firefox_extensions.png"
+loading="lazy"
+alt="2024-01-07_23-17-47_firefox_extensions.png"
+>&lt;/li>
+&lt;li>Change shortcuts :
+&lt;ol>
+&lt;li>Bitwarden : &lt;code>CTRL+SHIFT+L&lt;/code>&lt;/li>
+&lt;li>Omnivore : &lt;code>ALT+A&lt;/code>&lt;/li>
+&lt;li>Tab Session Manager : &lt;code>ALT+W&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Log in to Tab Session manager, auto-save every 5min, check auto sync.&lt;/li>
+&lt;li>Log in to Bitwarden, remember me, unlock with pin (you know what password) and uncheck the master password on browser restart.&lt;/li>
+&lt;li>Log in to Omnivore&lt;/li>
+&lt;li>uBlock Origins → Filters Lists → Annoyances :
+&lt;ol>
+&lt;li>AdGuard&lt;/li>
+&lt;li>Easylist&lt;/li>
+&lt;li>uBlock&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Translate web page → Uncheck &lt;code>Show the button to translate the selected text&lt;/code>&lt;/li>
+&lt;li>Show bookmark toolbar&lt;/li>
+&lt;/ol>
+&lt;h3 id="google-drive">Google Drive&lt;/h3>
+&lt;ol>
+&lt;li>Sign in&lt;/li>
+&lt;li>Skip everything, you don&amp;rsquo;t need folder and photos backup&lt;/li>
+&lt;li>Mirror files for Google Drive&lt;/li>
+&lt;/ol>
+&lt;h3 id="obsidian">Obsidian&lt;/h3>
+&lt;ol>
+&lt;li>Log in&lt;/li>
+&lt;li>Enter vault password&lt;/li>
+&lt;li>&lt;strong>DONT SYNC NOW&lt;/strong>&lt;/li>
+&lt;li>Go to sync and check everything to sync&lt;/li>
+&lt;li>Resume sync&lt;/li>
+&lt;li>Wait forever&lt;/li>
+&lt;li>Turn on community plugin&lt;/li>
+&lt;li>Restart&lt;/li>
+&lt;li>Login to Todoist&lt;/li>
+&lt;li>Reorganise icons&lt;/li>
+&lt;li>Activate French et English spellcheck&lt;/li>
+&lt;/ol>
+&lt;h3 id="super-productivity">Super Productivity&lt;/h3>
+&lt;ol>
+&lt;li>Settings&lt;/li>
+&lt;li>Sync : Check &lt;code>Enable Syncing&lt;/code> &amp;amp; &lt;code>Enable Compression&lt;/code>&lt;/li>
+&lt;li>Log in to DropBox and copy the key&lt;/li>
+&lt;li>Keep remote&lt;/li>
+&lt;/ol>
+&lt;h3 id="todoist">Todoist&lt;/h3>
+&lt;ul>
+&lt;li>Log in&lt;/li>
+&lt;li>Settings &amp;gt; Theme &amp;gt; &lt;code>Mode sombre automatique&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="vs-code">VS Code&lt;/h3>
+&lt;ul>
+&lt;li>Backup and sync settings : Sign in with Github&lt;/li>
+&lt;/ul>
+&lt;h3 id="bulk-rename-utility">Bulk Rename Utility&lt;/h3>
+&lt;ul>
+&lt;li>REMOVE :
+&lt;ul>
+&lt;li>Digits&lt;/li>
+&lt;li>Sym.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>AUTO DATE :
+&lt;ul>
+&lt;li>Prefix&lt;/li>
+&lt;li>Modified (Current)&lt;/li>
+&lt;li>Fmt : Custom : &lt;code>%Y-%m-%d_%H-%M-%S_&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Then save settings using &lt;code>CTRL + S&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="tortoisegit">TortoiseGit&lt;/h3>
+&lt;ol>
+&lt;li>Advanced&lt;/li>
+&lt;li>OverlaysCaseSensitive : &lt;code>false&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;h3 id="sharex">ShareX&lt;/h3>
+&lt;h4 id="hotkey-settings">Hotkey Settings&lt;/h4>
+&lt;ul>
+&lt;li>Capture region : &lt;code>Print Screen&lt;/code>&lt;/li>
+&lt;li>Capture entire screen : &lt;code>CTRL + Print Screen&lt;/code>&lt;/li>
+&lt;li>Capture active window : &lt;code>SHIFT + Print Screen&lt;/code>&lt;/li>
+&lt;li>Scrolling capture : &lt;code>ALT + Print Screen&lt;/code>&lt;/li>
+&lt;li>Start/stop screen recording (GIF) : &lt;code>ALTGR + Print Screen = CTRL + ALT + Print Screen&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="application-settings">Application Settings&lt;/h4>
+&lt;ul>
+&lt;li>Use custom screenshots folder : &lt;code>Downloads&lt;/code>&lt;/li>
+&lt;li>History : Uncheck everything.&lt;/li>
+&lt;/ul>
+&lt;h4 id="task-settings">Task Settings&lt;/h4>
+&lt;ul>
+&lt;li>File naming : &lt;code>%yy-%mo-%d_%h-%mi-%s_%pn&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="ahk-scripts">AHK Scripts&lt;/h3>
+&lt;h4 id="launch-todoist-minimized">Launch Todoist Minimized&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/launch-todoist-minimized-on-windows-startup/" >Launch Todoist Minimized on Windows Startup&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ahk" data-lang="ahk">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">Run&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">%localappdata%&lt;/span>\&lt;span class="n">Programs&lt;/span>\&lt;span class="n">todoist&lt;/span>\&lt;span class="n">Todoist&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exe&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinWait&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_exe&lt;/span> &lt;span class="n">Todoist&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exe&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinClose&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_exe&lt;/span> &lt;span class="n">Todoist&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exe&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="auto-dim-taskbar">Auto-Dim Taskbar&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/oled-display-autohotkey-script-for-automatically-dimming-the-taskbar/" >OLED Display AutoHotkey Script for Automatically Dimming the Taskbar&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ahk" data-lang="ahk">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="c1"> ; Get monitor dimensions&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">WorkArea&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorWorkArea&lt;/span>&lt;span class="c1"> ; Get monitor work-area without taskbar&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="n">dimtop&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">WorkAreaBottom&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="c1"> ; taskbar is assumed to start below the work-area&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="n">Color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="c1"> ; Black color&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Caption&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">ToolWindow&lt;/span> &lt;span class="o">+&lt;/span>&lt;span class="n">E0x20&lt;/span>&lt;span class="c1"> ; No title bar, No taskbar button, Transparent for clicks&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Gui&lt;/span> &lt;span class="n">Show&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">X0&lt;/span> &lt;span class="n">Y&lt;/span>&lt;span class="nv">%dimtop%&lt;/span> &lt;span class="n">W&lt;/span>&lt;span class="nv">%MonitorRight%&lt;/span> &lt;span class="n">H63&lt;/span>&lt;span class="c1"> ; Create a semi-transparent cover window&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinGet&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1"> ; Get its HWND/handle ID&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">Winset&lt;/span> &lt;span class="n">AlwaysOnTop&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ON&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Keep it always on the top&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">WinSet&lt;/span> &lt;span class="n">Transparent&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">99&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Transparency 99/256&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">SetTimer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">coverIt&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="c1"> ; Repeat setting it to be on top of the taskbar&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="nb">return&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="n">GetCurrentMonitor&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">numberOfMonitors&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorCount&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGetPos&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winX&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winY&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winWidth&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">winHeight&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">winMidX&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="n">winX&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">winWidth&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="n">winY&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">winHeight&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">Loop&lt;/span> &lt;span class="nv">%numberOfMonitors%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">monArea&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Monitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nv">%A_Index%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">winMidX&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">monAreaLeft&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidX&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">monAreaRight&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">monAreaBottom&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">winMidY&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">monAreaTop&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span> &lt;span class="nv">A_Index&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">SysGet&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">primaryMonitor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">MonitorPrimary&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span> &lt;span class="s">&amp;#34;No Monitor Found&amp;#34;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nl">coverIt:&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGet&lt;/span> &lt;span class="n">style&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Style&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1"> ; Get active window style and dimensions&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinGetPos&lt;/span> &lt;span class="p">,,,&lt;/span>&lt;span class="n">winW&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">winH&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="c1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; 0x800000 is WS_BORDER.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; 0x20000000 is WS_MINIMIZE.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"> ; check no border and not minimized&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">isfull&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">style&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="mh">0x20800000&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">winH&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nv">A_ScreenHeight&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">winW&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="nv">A_ScreenWidth&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">isPrimaryMonitor&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">GetCurrentMonitor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="n">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">isfull&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">isPrimaryMonitor&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinHide&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="n">else&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">WinShow&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">Winset&lt;/span> &lt;span class="n">AlwaysOnTop&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ON&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">ahk_id&lt;/span> &lt;span class="nv">%ID%&lt;/span>&lt;span class="c1"> ; Ensure it is still on the top&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="p">}&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span> &lt;span class="nb">return&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="spotify">Spotify&lt;/h3>
+&lt;ol>
+&lt;li>Edit &amp;gt; Preferences &amp;gt; Startup and windows behavior&lt;/li>
+&lt;li>Don&amp;rsquo;t open on startup&lt;/li>
+&lt;li>Minimize on close&lt;/li>
+&lt;/ol>
+&lt;h3 id="discord">Discord&lt;/h3>
+&lt;ul>
+&lt;li>Don&amp;rsquo;t open on startup&lt;/li>
+&lt;/ul>
+&lt;h3 id="windscribe">Windscribe&lt;/h3>
+&lt;ul>
+&lt;li>Add Swiss Locations to favorites&lt;/li>
+&lt;li>Don&amp;rsquo;t open on startup&lt;/li>
+&lt;/ul>
+&lt;h3 id="stremio">Stremio&lt;/h3>
+&lt;ul>
+&lt;li>Log in&lt;/li>
+&lt;li>Touches directionnelles : 5s&lt;/li>
+&lt;li>SHIFT + touches directionnelles : 10s&lt;/li>
+&lt;/ul>
+&lt;h3 id="chrome-remote-desktop">Chrome Remote Desktop&lt;/h3>
+&lt;ol>
+&lt;li>Open &lt;a class="link" href="https://remotedesktop.google.com/access/" target="_blank" rel="noopener"
+>Chrome Remote Desktop&lt;/a>&lt;/li>
+&lt;li>Follow instructions under &lt;code>Set Up Remote Access&lt;/code>&lt;/li>
+&lt;li>Remove unwanted firefox extension&lt;/li>
+&lt;/ol>
+&lt;h2 id="bitlocker-drive-encryption">Bitlocker Drive Encryption&lt;/h2>
+&lt;ul>
+&lt;li>Add a classic Windows password resistant to dictionary attacks.&lt;/li>
+&lt;li>Encrypt the PC with Bitlocker.&lt;/li>
+&lt;/ul></description></item><item><title>How to Do an Encrypted Dual Boot Using Windows 11 and Linux Mint</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-do-an-encrypted-dual-boot-using-windows-11-and-linux-mint/</link><pubDate>Mon, 07 Nov 2022 11:09:05 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-do-an-encrypted-dual-boot-using-windows-11-and-linux-mint/</guid><description>&lt;h1 id="how-to-do-an-encrypted-dual-boot-using-windows-11-and-linux-mint">How to Do an Encrypted Dual Boot Using Windows 11 and Linux Mint&lt;/h1>
+&lt;h2 id="objective">Objective&lt;/h2>
+&lt;p>Our goal is to create a completely independant encrypted dual boot setup for Linux Mint and Windows 11. How is it independant ? We&amp;rsquo;ll make sure that GRUB (Linux Bootloader) will install itself on the Linux Drive, and won&amp;rsquo;t be on your Windows drive with Windows Bootloader. That means you&amp;rsquo;ll be able to remove any of the two drives and use them on any other machine you want.&lt;/p>
+&lt;p>The setup will work as follow :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-47-11_dual_boot_schema.png"
+loading="lazy"
+alt="2023-03-09_13-47-11_dual_boot_schema.png"
+>&lt;/p>
+&lt;h2 id="references">References&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://itsfoss.com/dual-boot-ubuntu-windows-bitlocker/" target="_blank" rel="noopener"
+>Dual Booting Ubuntu With Windows 10 Pro With BitLocker Encryption - It&amp;rsquo;s FOSS&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://superuser.com/questions/1287714/dual-boot-windows-linux-with-encryption" target="_blank" rel="noopener"
+>Dual boot Windows + Linux with encryption - Super User&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://itsfoss.community/t/how-to-encrypt-a-dual-boot-setup-with-two-drives-ssd/9272/2" target="_blank" rel="noopener"
+>How to encrypt a dual boot setup with two drives (SSD) - General Linux Question - It&amp;rsquo;s FOSS Community&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://forums.linuxmint.com/viewtopic.php?f=46&amp;amp;t=376911&amp;amp;p=2197098#p2197098" target="_blank" rel="noopener"
+>How to encrypt a dual boot setup with two drives (SSD) - Linux Mint Forums&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://forums.linuxmint.com/viewtopic.php?f=46&amp;amp;t=375199&amp;amp;p=2185321#p2185321" target="_blank" rel="noopener"
+>[SOLVED] Dual booting Mint on a second drive independently. - Linux Mint Forums&lt;/a>&lt;/li>
+&lt;li>Special thanks to AndyMH who helped me on Reddit, and kept helping me by mail and on the &lt;a class="link" href="https://forums.linuxmint.com/index.php" target="_blank" rel="noopener"
+>Linux Mint Forums&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="before-doing-anything">Before Doing Anything&lt;/h2>
+&lt;h3 id="requirement">Requirement&lt;/h3>
+&lt;p>In order to follow this guide you need :&lt;/p>
+&lt;ul>
+&lt;li>Two drives (SSD&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> or HDD,&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup> it doesn&amp;rsquo;t matter at all). Verify that the second drive you just installed is recognized by Windows by opening the Windows File Explorer.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>From now on during this guide, your C drive will be the one referenced as your Windows Drive. And your D drive as the one that will get Linux Mint.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Windows 11 Pro Edition : Cheap keys can be bought at Cdiscount for ~1€. That also means you need a motherboard that supports TPM 2.0 in order to have Windows 11 (At least that&amp;rsquo;s what I read on the internet).&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Alternative path : Using VeraCrypt instead of Bitlocker as an encrypting software for the Windows side of the dual boot. I don&amp;rsquo;t know anything about it, but you might pioneer something.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>A USB Key of at least 16 gb (I don&amp;rsquo;t know exactly, it just worked for me with that size).&lt;/li>
+&lt;li>A computer that might be compatible with Linux thanks to your hardware. If you want to verify, you can check with :
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://community.linuxmint.com/hardware/welcome" target="_blank" rel="noopener"
+>Linux Mint - Community&lt;/a> : Linux Mint known compatible devices.&lt;/li>
+&lt;li>&lt;a class="link" href="https://ubuntu.com/certified" target="_blank" rel="noopener"
+>Certified hardware | Ubuntu&lt;/a> : Ubuntu certified devices.&lt;/li>
+&lt;li>&lt;a class="link" href="https://doc.ubuntu-fr.org/liste_portables_msi" target="_blank" rel="noopener"
+>Ubuntu-MSI-laptops&lt;/a> : This is an example, but there is a page for many laptop brands for instance.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>An internet connection might help (a lot).&lt;/li>
+&lt;/ul>
+&lt;h3 id="backup">Backup.&lt;/h3>
+&lt;p>First, &lt;strong>backup your computer&lt;/strong>. If you follow this guide, it could work. But it might as well fail, and you&amp;rsquo;ll thank your past-self if you have a backup.&lt;/p>
+&lt;p>I am personnaly using &lt;a class="link" href="https://www.macrium.com/reflectfree" target="_blank" rel="noopener"
+>Macrium Software | Reflect Free Edition&lt;/a> and an eHDD (&lt;em>external hard drive&lt;/em>) to create a full image backup in case things get messy. Whatever you choose to do, do a backup.&lt;/p>
+&lt;h3 id="enable-and-disable-bitlocker-encryption-to-make-sure-it-works-well">Enable and Disable Bitlocker Encryption to Make Sure it Works Well&lt;/h3>
+&lt;p>&lt;strong>Before doing anything, we want to make sure that Bitlocker is working properly.&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Search on Windows for &amp;ldquo;Manage Bitlocker&amp;rdquo;.&lt;/li>
+&lt;li>Encrypt your C Drive. Use the &amp;ldquo;Encrypt entire drive&amp;rdquo; option along with the &amp;ldquo;New encryption mode&amp;rdquo; that will use your TPM.&lt;/li>
+&lt;li>Backup your recovery key. Print it, put it in the cloud, do whatever you want, but keep it.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;strong>Be careful. Every time you&amp;rsquo;ll exit the encryption wizard, the backup key is changing. So remember to back it up again if you cancelled it to prepare yourself some spaghetti.&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Let the encryption process do its thing.&lt;/li>
+&lt;li>Reboot and make sure it works.&lt;/li>
+&lt;li>Now that &lt;del>hopefully&lt;/del> everything works well, go back to &amp;ldquo;Manage Bitlocker&amp;rdquo; and &amp;ldquo;Turn off Bitlocker&amp;rdquo;. Yes, you heard me. Do you want a safe dual boot process ? We just verified that everything works well. That&amp;rsquo;s it.&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Make sure to turn if off completely. You don&amp;rsquo;t want to just suspend encryption, you want to turn it off.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;!-- raw HTML omitted -->Edit :&lt;!-- raw HTML omitted --> &lt;em>As we will remove the Windows Drive (physically or by using some manipulation with Gparted), it should also work if you keep it Bitlocker encrypted. Or if it isn&amp;rsquo;t yet encrypted. They should be completely independent anyway. But I&amp;rsquo;m a crazily paranoid man, that&amp;rsquo;s why I&amp;rsquo;m putting it here.&lt;/em>&lt;/p>
+&lt;h2 id="setup-preparation">Setup Preparation&lt;/h2>
+&lt;h3 id="preparing-your-windows-setup-for-the-dual-boot-experience">Preparing Your Windows Setup for the Dual Boot Experience&lt;/h3>
+&lt;p>Windows has many things that could make your dual-boot setup goes wrong. That&amp;rsquo;s why we&amp;rsquo;ll make sure everything goes as smooth as possible by doing the following things :&lt;/p>
+&lt;ul>
+&lt;li>Remove &lt;strong>fast-boot&lt;/strong> by going into the old alimentation settings of windows, choose actions when button pressed and remove fast boot, hibernate and (optional) sleep mode. Then, open a cmd as admin and type &lt;code>powercfg -h off&lt;/code>. &lt;em>Search for hiberfil.sys for additional information on how to deactivate fast-boot.&lt;/em>&lt;/li>
+&lt;li>Remove &lt;strong>fast boot&lt;/strong> from the Bios as well.&lt;/li>
+&lt;li>Remove &lt;strong>secure-boot&lt;/strong> from your Bios.&lt;/li>
+&lt;li>Remove &lt;strong>Intel Fast Start&lt;/strong> from Bios.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>I won&amp;rsquo;t be explaining much moredependentis dependent on your system. Google will be your best friend, but don&amp;rsquo;t hesitate to ask for help somewhere.&lt;/em>&lt;/p>
+&lt;h3 id="preparing-your-linux-mint-installation-medium">Preparing Your Linux Mint Installation Medium&lt;/h3>
+&lt;ul>
+&lt;li>Follow the instructions on the Linux Mint wiki and download the .iso (&lt;a class="link" href="https://linuxmint-installation-guide.readthedocs.io/en/latest/choose.html" target="_blank" rel="noopener"
+>Choose the right edition—Linux Mint Installation Guide documentation&lt;/a>).&lt;/li>
+&lt;li>Verify your ISO (integrity and authenticity : &lt;a class="link" href="https://linuxmint-installation-guide.readthedocs.io/en/latest/verify.html" target="_blank" rel="noopener"
+>Verify your ISO image—Linux Mint Installation Guide documentation&lt;/a>).&lt;/li>
+&lt;li>Create the bootable media with Etcher (&lt;a class="link" href="https://linuxmint-installation-guide.readthedocs.io/en/latest/burn.html" target="_blank" rel="noopener"
+>Create the bootable media—Linux Mint Installation Guide documentation&lt;/a>).&lt;/li>
+&lt;/ul>
+&lt;p>That&amp;rsquo;s it. &lt;strong>You&amp;rsquo;re ready&lt;/strong>. Things are going to become interesting now.&lt;/p>
+&lt;h2 id="beginning-the-dual-boot-process">Beginning the Dual-boot Process&lt;/h2>
+&lt;ul>
+&lt;li>Shut down your laptop.&lt;/li>
+&lt;li>Connect your USB key to the laptop and boot. It should go on Linux live by default, if not, change your boot order in your Bios.&lt;/li>
+&lt;/ul>
+&lt;h3 id="windows-hard-drive-disconnection">Windows Hard-drive Disconnection&lt;/h3>
+&lt;p>&lt;em>In order to create a completely independent dual-boot setup, we want to disconnect the Windows Drive before doing the Linux Mint installation. If you can physically disconnect the drive, go on, do it, and skip the following Gparted part. If you&amp;rsquo;re using a laptop and/or don&amp;rsquo;t want to bother, read the following.&lt;/em>&lt;/p>
+&lt;ul>
+&lt;li>Run Gparted by searching for it in the admin section of the applications. Find your Windows disk with 4 partitions (EFI, MS reserved, C:, and a recovery partition).&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>The drive may appear as nvme0n1 and the first partition as nvme0n1p1 if this is an nVME SSD. Otherwise, in linux, the first drive in the system is sda, the next sdb and so on. The first partition on a drive would be sda1, the next sda2 and so on.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Select the EFI partition (fat32, size less than 500mb, and flags &lt;strong>BOOT&lt;/strong> and &lt;strong>ESP&lt;/strong> set).&lt;/li>
+&lt;li>Select “manage flags”.&lt;/li>
+&lt;li>Uncheck the &lt;strong>BOOT&lt;/strong> and &lt;strong>ESP&lt;/strong> flags.&lt;/li>
+&lt;li>The partition will now appear with the &lt;strong>msftdata&lt;/strong> flag.&lt;/li>
+&lt;li>Close Gparted.&lt;/li>
+&lt;/ul>
+&lt;h3 id="installing-linux-mint">Installing Linux Mint&lt;/h3>
+&lt;ul>
+&lt;li>Launch install Mint. Follow the instructions (&lt;a class="link" href="https://linuxmint-installation-guide.readthedocs.io/en/latest/install.html" target="_blank" rel="noopener"
+>Install Linux Mint—Linux Mint Installation Guide documentation&lt;/a>). But &lt;strong>be careful&lt;/strong>, you will need to click on &amp;ldquo;Continue testing&amp;rdquo; at the end of the installation process if you chose to disconnect the Windows Drive virtually using Gparted and flags.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-19-01_Erase_disk_and_install_Mint.png"
+loading="lazy"
+alt="2023-03-09_19-19-01_Erase_disk_and_install_Mint.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Select &amp;ldquo;Erase disk and install Linux Mint&amp;rdquo;. Make sure there is no OS detected on the actual drive and that it is your second drive, and it will do his partitioning thing on the newly added drive. I think you can choose to use LVM and LUKS full disk encryption here. Do it. &lt;strong>But be careful, maybe you keyboard setup is not the one you physically have.&lt;/strong> Type your password on the search bar to be sure!&lt;/li>
+&lt;li>Choose a short computer and username. For instance, I&amp;rsquo;m using &amp;ldquo;MSI-GL75&amp;rdquo; as a computer name and my first name as my username. You&amp;rsquo;ll thank me later.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-26-55_encryption_process.png"
+loading="lazy"
+alt="2023-03-09_19-26-55_encryption_process.png"
+>&lt;/p>
+&lt;ul>
+&lt;li>Select &amp;ldquo;Require my password to log in&amp;rdquo; and tick &amp;ldquo;Encrypt my home folder&amp;rdquo;.&lt;/li>
+&lt;li>&lt;!-- raw HTML omitted --> &lt;strong>Select &amp;ldquo;Continue testing&amp;rdquo; at the end of the installation process.&lt;/strong>&lt;!-- raw HTML omitted -->&lt;/li>
+&lt;li>Run Gparted and enable back the &lt;strong>ESP&lt;/strong> and &lt;strong>BOOT&lt;/strong> flags on the EFI Windows partition.&lt;/li>
+&lt;li>Reboot and go into bios settings.&lt;/li>
+&lt;li>Put Ubuntu at the top of the list of the boot order.&lt;/li>
+&lt;li>You should now boot immediatelyinto Linux Mint instead Grub dual-boot menu. It is normal.&lt;/li>
+&lt;li>Open up a terminal with &lt;code>ctrl+alt+&lt;/code> and type &lt;code>sudo update-grub&lt;/code>. Grub config will be updated by finding the Windows EFI partition. Grub will now be working&lt;/li>
+&lt;/ul>
+&lt;p>Now you should have a working dual-boot setup with Linux Mint encrypted. But wait a bit, we still need to encrypt Windows and change a few things.&lt;/p>
+&lt;p>Oh, and don&amp;rsquo;t forget to &lt;strong>think about a backup for Linux Mint&lt;/strong>. You now have &lt;strong>Macrium Reflect&lt;/strong> for Windows. There&amp;rsquo;s &lt;strong>Timeshift&lt;/strong> and &lt;strong>Backintime&lt;/strong> that can help backing up your system files and personall files respectively.&lt;/p>
+&lt;h2 id="after-installing-linux-mint--a-few-things-to-change">After Installing Linux Mint : A Few Things to Change&lt;/h2>
+&lt;h3 id="a-beautiful-grub-menu">A Beautiful Grub Menu&lt;/h3>
+&lt;p>You want a beautiful Grub boot menu like that and not just a command line type of dual-boot screen ? Follow these instructions : &lt;a class="link" href="https://linuxmint-user-guide.readthedocs.io/en/latest/grub.html" target="_blank" rel="noopener"
+>Grub Boot Menu — Linux Mint User Guide documentation&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-19-01_Grub_menu.png"
+loading="lazy"
+alt="2023-03-09_19-19-01_Grub_menu.png"
+>&lt;/p>
+&lt;p>Open a terminal, and type the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">apt install --reinstall -o Dpkg::Options::=&amp;#34;--force-confmiss&amp;#34; grub2-theme-mint
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Or if you have a high-DPI screen :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">apt install --reinstall -o Dpkg::Options::=&amp;#34;--force-confmiss&amp;#34; grub2-theme-mint-2k
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Don&amp;rsquo;t forget to do a &lt;code>sudo update-grub&lt;/code> afterward to update the Grub config file.&lt;/p>
+&lt;h3 id="a-grub-menu-that-remembers-the-last-os-you-chose">A Grub Menu That Remembers the Last OS You Chose&lt;/h3>
+&lt;p>Self-explicit.&lt;/p>
+&lt;p>I followed &lt;a class="link" href="https://askubuntu.com/users/30982/keepitsimpleengineer" target="_blank" rel="noopener"
+>keepitsimpleengineer&lt;/a>&amp;rsquo;s answer in this topic :&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://askubuntu.com/questions/52963/how-do-i-set-windows-to-boot-as-the-default-in-the-boot-loader/82965#82965" target="_blank" rel="noopener"
+>grub2 - How do I set Windows to boot as the default in the boot loader? - Ask Ubuntu&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>You just need to open a terminal and type the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo nano -B /etc/default/grub
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Change the value of &lt;code>GRUB_DEFAULT&lt;/code> to &lt;code>saved&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">GRUB_DEFAULT=saved
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Enable the &lt;a class="link" href="http://www.gnu.org/software/grub/manual/grub.html#Simple-configuration" target="_blank" rel="noopener"
+>SAVEDEFAULT functionality&lt;/a> by adding the following line bellow &lt;code>GRUB_DEFAULT&lt;/code> :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">GRUB_SAVEDEFAULT=true
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now you have to run&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo update-grub
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>to update the system generated &lt;code>grub.cfg&lt;/code> file in the &lt;code>/boot/grub/&lt;/code> directory.&lt;/p>
+&lt;h3 id="solve-timezone-issues-when-you-switch-os">Solve Timezone Issues When You Switch OS&lt;/h3>
+&lt;p>If you &lt;a class="link" href="https://itsfoss.com/install-ubuntu-1404-dual-boot-mode-windows-8-81-uefi/" target="_blank" rel="noopener"
+>dual boot Windows and Ubuntu&lt;/a> or any other Linux distribution, you might have noticed a time difference between the two operating systems.&lt;/p>
+&lt;p>When you &lt;a class="link" href="https://itsfoss.com/why-use-linux/" target="_blank" rel="noopener"
+>use Linux&lt;/a>, it shows the correct time. But when you boot into Windows, it shows the wrong time. Sometimes, it is the opposite and Linux shows the wrong time and Windows has the correct time.&lt;/p>
+&lt;p>That’s strange specially because you are connected to the internet and your date and time is set to be used automatically.&lt;/p>
+&lt;p>Don’t worry! You are not the only one to face this issue. You can fix it by using the following command in the Linux terminal:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">timedatectl set-local-rtc 1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you want some explanations, follow this link to get the full guide :&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://itsfoss.com/wrong-time-dual-boot/" target="_blank" rel="noopener"
+>[Solved] Wrong Time in Windows 10 After Dual Boot With Linux&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="prepare-group-policies-for-windows-encryption">Prepare Group Policies for Windows Encryption&lt;/h3>
+&lt;h3 id="allow-complexe-password-and-not-just-pin">Allow Complexe Password and Not Just Pin&lt;/h3>
+&lt;ul>
+&lt;li>Open the Group Policy Editor (type &lt;code>gpedit&lt;/code> after opening the start menu) and navigate to Administrative Templates &amp;gt; Windows Components &amp;gt; Bitlocker Drive Encryption &amp;gt; Operating System Drives&lt;/li>
+&lt;li>Enable &amp;ldquo;Allow enhanced PINS for startup&amp;rdquo; : Allows you to use a real password and not just numbers for your encryption.&lt;/li>
+&lt;/ul>
+&lt;h3 id="add-a-password-at-startup">Add a Password at Startup&lt;/h3>
+&lt;p>You can follow &lt;a class="link" href="https://www.howtogeek.com/author/chrishoffman/" target="_blank" rel="noopener"
+>Chris Hoffman&lt;/a>&amp;rsquo;s guide entirely, as this is the one I used here :&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://www.howtogeek.com/262720/how-to-enable-a-pre-boot-bitlocker-pin-on-windows/" target="_blank" rel="noopener"
+>How to Enable a Pre-Boot BitLocker PIN on Windows&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="step-one-enable-bitlocker-if-you-havent-already">Step One: Enable BitLocker (If You Haven’t Already)&lt;/h4>
+&lt;p>&lt;img src="https://www.howtogeek.com/wp-content/uploads/2016/07/img_5786ae1550c80.png?trim=1,1&amp;amp;bg-color=000&amp;amp;pad=1,1"
+loading="lazy"
+>&lt;/p>
+&lt;p>This is a BitLocker feature, so you have to use BitLocker encryption to set a pre-boot PIN. This is only available on Professional and Enterprise editions of Windows. Before you can set a PIN, you have to &lt;a class="link" href="https://www.howtogeek.com/192894/how-to-set-up-bitlocker-encryption-on-windows/" target="_blank" rel="noopener"
+>enable BitLocker for your system drive&lt;/a>.&lt;/p>
+&lt;p>Note that, if you go out of your way to &lt;a class="link" href="https://www.howtogeek.com/howto/6229/how-to-use-bitlocker-on-drives-without-tpm/" target="_blank" rel="noopener"
+>enable BitLocker on a computer without a TPM&lt;/a>, you’ll be prompted to create a startup password that’s used instead of the TPM. The below steps are only necessary when enabling BitLocker on computers with TPMs, which &lt;a class="link" href="https://www.howtogeek.com/237232/what-is-a-tpm-and-why-does-windows-need-one-for-disk-encryption/" target="_blank" rel="noopener"
+>most modern computers have&lt;/a>.&lt;/p>
+&lt;p>If you have a Home version of Windows, you won’t be able to use BitLocker. You may have the &lt;a class="link" href="https://www.howtogeek.com/173592/windows-8.1-will-start-encrypting-hard-drives-by-default-everything-you-need-to-know/" target="_blank" rel="noopener"
+>Device Encryption&lt;/a> feature instead, but this works differently from BitLocker and doesn’t allow you to provide a startup key.&lt;/p>
+&lt;h4 id="step-two-enable-the-startup-pin-in-group-policy-editor">Step Two: Enable the Startup PIN in Group Policy Editor&lt;/h4>
+&lt;p>Once you’ve enabled BitLocker, you’ll need to go out of your way to enable a PIN with it. This requires a Group Policy settings change. To open the Group Policy Editor, press Windows+R, type “gpedit.msc” into the Run dialog, and press Enter.&lt;/p>
+&lt;p>Head to Computer Configuration &amp;gt; Administrative Templates &amp;gt; Windows Components &amp;gt; BitLocker Drive Encryption &amp;gt; Operating System Drives in the Group Policy window.&lt;/p>
+&lt;p>Double-click the “Require Additional Authentication at Startup” Option in the right pane.&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/wp-content/uploads/2016/07/img_5786abcd0a826.png?trim=1,1&amp;amp;bg-color=000&amp;amp;pad=1,1"
+loading="lazy"
+>&lt;/p>
+&lt;p>Select “Enabled” at the top of the window here. Then, click the box under “Configure TPM Startup PIN” and select the “Require Startup PIN With TPM” option. Click “OK” to save your changes.&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/wp-content/uploads/2016/07/img_5786abfab6c70.jpg?trim=1,1&amp;amp;bg-color=000&amp;amp;pad=1,1"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="step-three-add-a-pin-to-your-drive">Step Three: Add a PIN to Your Drive&lt;/h4>
+&lt;p>You can now use the &lt;code>manage-bde&lt;/code> command to add the PIN to your BitLocker-encrypted drive.&lt;/p>
+&lt;p>To do this, launch a Command Prompt window as Administrator. On Windows 10 or 8, right-click the Start button and select “Command Prompt (Admin)”. On Windows 7, find the “Command Prompt” shortcut in the Start menu, right-click it, and select “Run as Administrator”&lt;/p>
+&lt;p>Run the following command. The below command works on your C: drive, so if you want to require a startup key for another drive, enter its drive letter instead of &lt;code>c:&lt;/code> .&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">manage-bde -protectors -add c: -TPMAndPIN
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You’ll be prompted to enter your PIN here. The next time you boot, you’ll be asked for this PIN.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Tip:&lt;/strong> If you see an error, run the &lt;code>gpupdate&lt;/code> command on its own line before running the &lt;code>manage-bde&lt;/code> command shown above. This will force Windows to apply your group policy changes.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://www.howtogeek.com/wp-content/uploads/2016/07/img_5786adbd62a1e.png?trim=1,1&amp;amp;bg-color=000&amp;amp;pad=1,1"
+loading="lazy"
+>&lt;/p>
+&lt;p>To double-check whether the TPMAndPIN protector was added, you can run the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">manage-bde -status
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>(The “Numerical Password” key protector displayed here is your recovery key.)&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/wp-content/uploads/2016/07/img_5786ad56af029.png?trim=1,1&amp;amp;bg-color=000&amp;amp;pad=1,1"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="how-to-change-your-bitlocker-pin">How to Change Your BitLocker PIN&lt;/h4>
+&lt;p>To change the PIN in the future, open a Command Prompt window as Administrator and run the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">manage-bde -changepin c:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You’ll need to type and confirm your new PIN before continuing.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-26-55_Change_PIN.png"
+loading="lazy"
+alt="2023-03-09_19-26-55_Change_PIN.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/pagespeed_static/1.JiBnMqyl6S.gif"
+loading="lazy"
+>&lt;/p>
+&lt;h4 id="how-to-remove-the-pin-requirement">How to Remove the PIN Requirement&lt;/h4>
+&lt;p>If you change your mind and want to stop using the PIN later, you can undo this change.&lt;/p>
+&lt;p>First, you’ll need to head to the Group Policy window and change the option back to “Allow Startup PIN With TPM”. You can’t leave the option set to “Require Startup PIN With TPM” or Windows won’t allow you to remove the PIN.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-26-55_Windows_TPM_and_PIN.png"
+loading="lazy"
+alt="2023-03-09_19-26-55_Windows_TPM_and_PIN.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/pagespeed_static/1.JiBnMqyl6S.gif"
+loading="lazy"
+>&lt;/p>
+&lt;p>Next, open a Command Prompt window as Administrator and run the following command:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">manage-bde -protectors -add c: -TPM
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>This will replace the “TPMandPIN” requirement with a “TPM” requirement, deleting the PIN. Your BitLocker drive will automatically unlock via your computer’s TPM when you boot.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-26-55_manage_protector_TPM.png"
+loading="lazy"
+alt="2023-03-09_19-26-55_manage_protector_TPM.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://www.howtogeek.com/pagespeed_static/1.JiBnMqyl6S.gif"
+loading="lazy"
+>&lt;/p>
+&lt;p>To check that this completed successfully, run the status command again:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">manage-bde -status c:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://www.howtogeek.com/pagespeed_static/1.JiBnMqyl6S.gif"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_19-26-55_bitlocker_protection_status.png"
+loading="lazy"
+alt="2023-03-09_19-26-55_bitlocker_protection_status.png"
+>&lt;/p>
+&lt;p>If you forget the PIN, you’ll need to provide the BitLocker recovery code you should have saved somewhere safe when you enabled BitLocker for your system drive.&lt;/p>
+&lt;h3 id="prevent-bitlocker-from-asking-for-your-recovery-code-everytime-you-boot">Prevent Bitlocker From Asking for Your Recovery Code Everytime You Boot&lt;/h3>
+&lt;p>Link to the answer by &lt;a class="link" href="https://superuser.com/users/872535/ouk" target="_blank" rel="noopener"
+>ouk&lt;/a> :&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://superuser.com/questions/1278841/bitlocker-asking-for-protection-code-after-ubuntu-installation/1714144#1714144" target="_blank" rel="noopener"
+>windows 10 - BitLocker asking for protection code after Ubuntu installation - Super User&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Open the Group Policy Editor (type &lt;code>gpedit&lt;/code> after opening the start menu) and navigate to Administrative Templates &amp;gt; Windows Components &amp;gt; Bitlocker Drive Encryption &amp;gt; Operating System Drives&lt;/li>
+&lt;li>Enable &amp;ldquo;Configure TPM platform validation profile for native UEFI firmware configurations&amp;rdquo; : The standard configuration includes PCR 0, 2, 4, 7 and 11. You should only keep 0, 2 and 11.
+&lt;ul>
+&lt;li>PCR 7 is disabled when Secure Boot is.&lt;/li>
+&lt;li>PCR 4 should be disabled to allow Grub to work properly with the &lt;code>GRUB_DEFAULT=saved&lt;/code> feature enabled.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="activate-bitlocker">Activate Bitlocker&lt;/h2>
+&lt;p>Just turn on Bitlocker like before on your Windows drive, don&amp;rsquo;t forget to save the recovery key because it will change, and that&amp;rsquo;s it, you&amp;rsquo;ve done it.&lt;/p>
+&lt;p>You can now be a proud encrypted dual-boot user. Tell it to your mom, it&amp;rsquo;s quite uncommon for people to do it I guess.&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Solid State Drive : &lt;a class="link" href="https://www.wikiwand.com/en/Solid-state_drive" target="_blank" rel="noopener"
+>Solid-state drive - Wikiwand&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Hard Drive Disk : &lt;a class="link" href="https://www.wikiwand.com/en/Hard_disk_drive" target="_blank" rel="noopener"
+>Hard disk drive - Wikiwand&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

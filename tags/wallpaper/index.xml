@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>wallpaper on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/wallpaper/</link><description>Recent content in wallpaper on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 12 Jan 2024 12:02:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/wallpaper/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Fix Windows Spotlight Not Working (ADMTheme issue)</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-windows-spotlight-not-working-admtheme-issue/</link><pubDate>Fri, 12 Jan 2024 12:02:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-windows-spotlight-not-working-admtheme-issue/</guid><description>&lt;h1 id="how-to-fix-windows-spotlight-not-working-admtheme-issue">How to Fix Windows Spotlight Not Working (ADMTheme issue)&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Recently, I came across an issue. I love to use &lt;code>Windows Spotlight&lt;/code> for my Background and Lockscreen. But on my MSI laptop, the background settings would always revert back to &lt;code>Picture&lt;/code> with a default wallpaper.&lt;/p>
+&lt;p>I tried, and you should try as well, the following fixes :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.elevenforum.com/t/reset-and-re-register-windows-spotlight-in-windows-11.5248/#post-285757" target="_blank" rel="noopener"
+>Reset and register Windows Spotlight&lt;/a>&lt;/li>
+&lt;li>Go into &lt;code>Control Panel &amp;gt; Hardware and Sound &amp;gt; Power Options &amp;gt; Edit Plan Settings&lt;/code>
+&lt;ul>
+&lt;li>&lt;code>Change advanced power settings&lt;/code>&lt;/li>
+&lt;li>&lt;code>Desktop Background settings &amp;gt; Slide Show&lt;/code> ⇒ &lt;code>Paused&lt;/code> for both.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>And finally I figured what was wrong. A theme was auto-applied on start-up. How ?&lt;/p>
+&lt;ul>
+&lt;li>Search &lt;code>msconfig&lt;/code> on Windows :
+&lt;ul>
+&lt;li>&lt;code>System Configuration &amp;gt; Services&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Search start-up applications on the &lt;code>Windows Task Manager&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>Found nothing unusual. But the auto-applie theme was called &lt;code>ADMTheme&lt;/code>. It was related to &lt;a class="link" href="https://www.reddit.com/r/Windows11/comments/10hry9s/comment/j5awaqx/?utm_source=share&amp;amp;utm_medium=web2x&amp;amp;context=3" target="_blank" rel="noopener"
+>AutoDarkMode apparently&lt;/a>, a Windows tool to automatically switch your Windows color scheme.&lt;/p>
+&lt;h2 id="fix">Fix&lt;/h2>
+&lt;p>The fix is quite simple.&lt;/p>
+&lt;ol>
+&lt;li>Uninstall AutoDarkMode&lt;/li>
+&lt;li>Go into &lt;code>C:\Users\%USERPROFILE%\AppData\Roaming\AutoDarkMode&lt;/code> and delete this folder.&lt;/li>
+&lt;li>Reboot&lt;/li>
+&lt;li>Open a CMD as admin and type in the following command : &lt;code>winget install --id=Armin2208.WindowsAutoNightMode -e&lt;/code>&lt;/li>
+&lt;li>Reboot&lt;/li>
+&lt;/ol>
+&lt;p>Now you can open AutoDarkMode, configure it to change with &lt;code>From sunset to sunrize (location services)&lt;/code>, and configure your windows background and lockscreen.&lt;/p>
+&lt;p>Your theme will be kept as &lt;code>ADMTheme&lt;/code>, but it&amp;rsquo;ll keep your changes.&lt;/p>
+&lt;p>The issue was probably caused by an old update of AutoDarkMode I reckon. Anyway, it&amp;rsquo;s now fixed.&lt;/p></description></item></channel></rss>

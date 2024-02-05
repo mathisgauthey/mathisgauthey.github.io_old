@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>project on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/categories/project/</link><description>Recent content in project on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 23 Jan 2024 16:47:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/categories/project/index.xml" rel="self" type="application/rss+xml"/><item><title>How I Reverse Engineered Daylio Backup to Allow for Csv File Importing</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing/</link><pubDate>Tue, 23 Jan 2024 16:47:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing/</guid><description>&lt;h1 id="how-i-reverse-engineered-daylio-backup-to-allow-for-csv-file-importing">How I Reverse Engineered Daylio Backup to Allow for Csv File Importing&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>On May 1st 2023, I decided to use Obsidian as my all-in-one organisation app. It used to allow me to :&lt;/p>
+&lt;ul>
+&lt;li>Do my journaling (formerly Daylio)&lt;/li>
+&lt;li>Manage my GTD setup for tasks and projects (formerly Todoist)&lt;/li>
+&lt;li>Do some daily planning along with periodic reviews and goals (weekly, monthly, quarterly, yearly)&lt;/li>
+&lt;li>Log my workouts&lt;/li>
+&lt;li>Take notes alongside tasks, and manage my knowledge&lt;/li>
+&lt;/ul>
+&lt;p>But I recently came to the conclusion that Obsidian is not cheap, and according to the &lt;a class="link" href="https://www.wikiwand.com/en/Unix_philosophy#Origin" target="_blank" rel="noopener"
+>Unix philosophy&lt;/a> :&lt;/p>
+&lt;blockquote>
+&lt;p>Make each program do one thing well. To do a new job, build afresh rather than complicate old programs by adding new &amp;ldquo;features&amp;rdquo;.&lt;/p>
+&lt;/blockquote>
+&lt;p>Well, I use Obsidian for saving articles and files, taking notes from these resources, and sharing them on my website. &lt;strong>It&amp;rsquo;s all about knowledge, and it should stay this way&lt;/strong>.&lt;/p>
+&lt;p>I moved my workflow to respective software :&lt;/p>
+&lt;ul>
+&lt;li>Workout logging ⇒ Hevy&lt;/li>
+&lt;li>GTD and planning ⇒ TickTick and Google Calendar&lt;/li>
+&lt;li>Journaling ⇒ Daylio&lt;/li>
+&lt;/ul>
+&lt;p>Daylio was set to make a come back, but how could I transfert my data back ? Well, as there is no officially supported way to import data to Daylio, I needed to find one.&lt;/p>
+&lt;p>I remember I used to export my Daylio to csv and use &lt;a class="link" href="https://github.com/DeutscheGabanna/Obsidian-Daylio-Parser" target="_blank" rel="noopener"
+>Obsidian-Daylio-Parser&lt;/a> to import them to Obsidian. Maybe I can take the other route ?&lt;/p>
+&lt;h2 id="exporting-my-journal-entries-from-obsidian">Exporting My Journal Entries From Obsidian&lt;/h2>
+&lt;h3 id="the-idea">The Idea&lt;/h3>
+&lt;p>My journaling workflow was simple on Obsidian.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-23_18-36-15_journal_entry_example.png"
+loading="lazy"
+alt="2024-01-23_18-36-15_journal_entry_example.png"
+>&lt;/p>
+&lt;p>I took note on my daily note (&lt;code>YYYY-MM-DD.md&lt;/code>) in the &lt;code>## Journal 📔&lt;/code> section. The section naming evolved, but always had the &lt;code>Journal&lt;/code> keyword.&lt;/p>
+&lt;p>That&amp;rsquo;s a start. I used to query my daily notes journal entries using this dataviewjs script :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-23_18-37-06_journal_query.png"
+loading="lazy"
+alt="2024-01-23_18-37-06_journal_query.png"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">header&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;#+ [^\n]*?Journal[^\n]*?&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// You can update this to filter as you like - filtering for just your daily notes would be good
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">pages&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">pages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#34;-Daily-Notes&amp;#34;&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">filter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">page&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;2024&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="nx">sort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;desc&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// This regex will return text from the Summary header, until it reaches
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// the next header, a horizontal line, or the end of the file
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">RegExp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`\n&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">header&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">\r?\n(.*?)(\n#+ |\n---|$)`&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;s&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">page&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">pages&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vault&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getAbstractFileByPath&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Read the file contents
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">contents&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vault&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">read&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Extract the summary via regex
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">summary&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">contents&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">regex&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">summary&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Output the header and summary
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;[[&amp;#34;&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">basename&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="s2">&amp;#34;]]&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">paragraph&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">summary&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">trim&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Basically, I search for files in my &lt;code>-Daily-Notes&lt;/code> folder, sort them, look for the journal section and take the notes inside with a clickable filename.&lt;/p>
+&lt;p>But I also had some heatmap-calendar script to query moods :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2024-01-23_18-12-58_mood_tracking.png"
+loading="lazy"
+alt="2024-01-23_18-12-58_mood_tracking.png"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">span&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Journal Mood 📈&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">calendarData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">year&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2024&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) defaults to current year
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">colors&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// (optional) defaults to green
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">scale&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;#f2120d&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#ef7626&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#faed03&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#0af508&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;#051ac3&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">showCurrentDayBorder&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) defaults to true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">defaultEntryIntensity&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) defaults to 4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">intensityScaleStart&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) defaults to lowest value passed to entries.intensity
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">intensityScaleEnd&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) defaults to highest value passed to entries.intensity
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">entries&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[],&lt;/span> &lt;span class="c1">// (required) populated in the DataviewJS loop below
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//DataviewJS loop
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">page&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">pages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#34;-Daily-Notes&amp;#34;&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">where&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mood&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//dv.span(&amp;#34;&amp;lt;br&amp;gt;&amp;#34; + page.file.name) // uncomment for troubleshooting
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">calendarData&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">entries&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">date&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (required) Format YYYY-MM-DD
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">intensity&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">mood&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (required) the data you want to track, will map color intensities automatically
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">content&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">dv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">span&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`[](&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">page&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">file&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">)`&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="c1">// (optional) Add text to the date cell
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// (optional) Reference from *calendarData.colors*. If no color is supplied; colors[0] is used
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">renderHeatmapCalendar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">container&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">calendarData&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And finally, some sort of title on journal entries inspired from reddit : &lt;code>An Interesting Title : TITLE&lt;/code>.&lt;/p>
+&lt;p>I need to be able parse all that to Daylio. Let&amp;rsquo;s recap.&lt;/p>
+&lt;h3 id="the-goals-based-on-the-csv-export-of-daylio">The Goals (based on the Csv Export of Daylio)&lt;/h3>
+&lt;ul>
+&lt;li>Take the date from the filename, add an arbitrary time and create an &lt;a class="link" href="https://www.epochconverter.com/" target="_blank" rel="noopener"
+>epoch timestamp&lt;/a>.&lt;/li>
+&lt;li>Query the entire &lt;code>Journal&lt;/code> section of each daily-note.&lt;/li>
+&lt;li>Take the &lt;code>mood::x&lt;/code> key and add it as a daily evaluation from 1 to 5 for Daylio moods. And remove that part afterward.&lt;/li>
+&lt;li>Take the title for the new Daylio note title. And remove that part afterward.&lt;/li>
+&lt;/ul>
+&lt;h3 id="the-script">The Script&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;span class="lnt">86
+&lt;/span>&lt;span class="lnt">87
+&lt;/span>&lt;span class="lnt">88
+&lt;/span>&lt;span class="lnt">89
+&lt;/span>&lt;span class="lnt">90
+&lt;/span>&lt;span class="lnt">91
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># encoding: utf-8&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">re&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">pandas&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">pd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">csv&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">datetime&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Columns for the CSV file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">columns_names&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;date&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;time&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;datetime&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;mood&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;note_title&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;note&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create an empty dataframe with the columns&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">DataFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">columns&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">columns_names&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Source directory of the markdown files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">src_dir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;src/auto/&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Get the list of files in the source directory&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filenames&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">listdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">src_dir&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">filenames&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sort&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create an empty list to store the data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">csv_rows&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Regex patterns&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">header&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;#+ [^&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">]*?Journal[^&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">]*?&amp;#39;&lt;/span> &lt;span class="c1"># Matches the header of the journal section&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">journal_section&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">fr&lt;/span>&lt;span class="s1">&amp;#39;\n&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">header&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">\r?\n(.*?)(\n#+ |\n---|$)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">DOTALL&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Matches the journal section&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mood_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;(?i)(?&amp;lt;=mood::)\d+&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Matches the mood entry&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;An Interesting Title\s*:\s*(.*)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Matches the title of the note&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Dictionary to convert the mood to a number according to daylio backup format&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">mood_dict&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;2&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;4&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;4&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;5&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">filename&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">filenames&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">src_dir&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">filename&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;r&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Get the date from the filename&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">date&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">filename&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.md&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;23-59-59&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Convert the date and time to epoch timestamp&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">datetime_str&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">date&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">time&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">datetime_object&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">datetime&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strptime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datetime_str&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;%Y-%m-&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s2"> %H-%M-%S&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">epoch_timestamp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">datetime_object&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">timestamp&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Initialize the variables&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">note_title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">journal_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Read the file content&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_content&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">read&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Get the journal section&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">section_match&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">journal_section&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">file_content&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">section_match&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">journal_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">section_match&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Get the mood entry&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood_match&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mood_entry&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">journal_entry&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">mood_match&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mood_match&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mood_dict&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">mood&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">journal_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;^[Mm]ood::\d$&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">journal_entry&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flags&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">MULTILINE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Get the note title&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">title_match&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">title&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">journal_entry&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">title_match&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">note_title&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">title_match&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">journal_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s1">&amp;#39;An Interesting Title\s*:\s*(.*)&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">journal_entry&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">flags&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">MULTILINE&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Remove the leading and trailing newlines&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">journal_entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">journal_entry&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">lstrip&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">rstrip&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Replace the newlines with HTML line breaks like in the daylio backup format&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># journal_entry = journal_entry.replace(&amp;#39;\n&amp;#39;, &amp;#39;&amp;lt;br&amp;gt;&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Add the data to the list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">csv_rows&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">date&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">time&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">epoch_timestamp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">mood&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">note_title&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">journal_entry&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create a dataframe from the list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df_extended&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">DataFrame&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">csv_rows&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">columns&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">columns_names&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Concatenate the dataframes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">pd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">concat&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">df&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">df_extended&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Export the dataframe to a CSV file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">df&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">to_csv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;output.csv&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">index&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="difficulties-encountered">Difficulties Encountered&lt;/h3>
+&lt;ul>
+&lt;li>The regex. They are a pain. I won&amp;rsquo;t explain much because ChatGPT exists, and you can use &lt;a class="link" href="https://regex101.com/" target="_blank" rel="noopener"
+>regex101 to build, test, and debug regex&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;h2 id="importing-data-to-daylio">Importing Data to Daylio&lt;/h2>
+&lt;p>Well, at first I thought I could import from CSV just like I exported as CSV. Nope. And support told me no as well, it&amp;rsquo;s related to their take on privacy policies.&lt;/p>
+&lt;p>So… I searched the internet and found two interesting links (that you can take a look at, if you go further down this article). I needed to reverse engineer the Daylio backup file.&lt;/p>
+&lt;h3 id="explanation">Explanation&lt;/h3>
+&lt;p>Basically :&lt;/p>
+&lt;ol>
+&lt;li>A Daylio backup is a file like that : &lt;code>backup_DATE.daylio&lt;/code>. Actually, it&amp;rsquo;s a zip file. So you can use 7zip to open it.&lt;/li>
+&lt;li>You then found yourself with a &lt;code>backup.daylio&lt;/code> file which is just a base64 encoded json, and an &lt;code>assets&lt;/code> folder for pictures. Copy the &lt;code>backup.daylio&lt;/code> file out of the archive.&lt;/li>
+&lt;li>You need to use a &lt;a class="link" href="https://www.base64decode.org/" target="_blank" rel="noopener"
+>tool&lt;/a> to decode the base64 file.&lt;/li>
+&lt;li>Then you can lint it so that it become easier to modify.&lt;/li>
+&lt;li>I then created a script to convert my CSV file from above to some json entries that I&amp;rsquo;ll paste inside the &lt;code>&amp;quot;dayEntries&amp;quot;: []&lt;/code> part of the json file.&lt;/li>
+&lt;li>You can also edit the &lt;code>&amp;quot;metadata&amp;quot; &amp;gt; &amp;quot;number_of_entries&amp;quot;&lt;/code> key as well, even thought it changed nothing appart from the detected amount of notes when using Daylio import functionality.&lt;/li>
+&lt;li>You then need to use another &lt;a class="link" href="https://codebeautify.org/jsonminifier" target="_blank" rel="noopener"
+>tool&lt;/a> to compress the json.&lt;/li>
+&lt;li>Finally, you &lt;a class="link" href="https://www.base64encode.org/" target="_blank" rel="noopener"
+>encore&lt;/a> it back and replace the old one in the &lt;code>.daylio&lt;/code> archive.&lt;/li>
+&lt;li>Go to &lt;code>Daylio &amp;gt; More &amp;gt; Backup &amp;amp; Restore &amp;gt; Advanced Options &amp;gt; Import&lt;/code> and select your backup zip file &lt;code>backup_DATE.daylio&lt;/code> that you previously modified by changing the &lt;code>backup.daylio&lt;/code> file inside.&lt;/li>
+&lt;/ol>
+&lt;h3 id="the-script-1">The Script&lt;/h3>
+&lt;p>Nothing too hard here, just some csv to json parsing :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">csv&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">json&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">datetime&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">datetime&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">csv_file_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;output.csv&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">json_file_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;output.json&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1790&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">csv_file_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;r&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">csv_file&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">csv_reader&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">csv&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">DictReader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">csv_file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">row&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">csv_reader&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Convert date and time to datetime object&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">date_obj&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">datetime&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">strptime&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;date&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39; &amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;time&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="s1">&amp;#39;%Y-%m-&lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1"> %H-%M-%S&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;mood&amp;#39;&lt;/span>&lt;span class="p">]:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mood&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;mood&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Prepare data for JSON&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">entry&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># You can generate an ID here if needed&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;minute&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">minute&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;hour&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">hour&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;day&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">day&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;month&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">month&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;year&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">year&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;datetime&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">date_obj&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">timestamp&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;timeZoneOffset&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">7200000&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># Assuming a constant offset&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;mood&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">mood&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;note&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;note&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;note_title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">row&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;note_title&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;tags&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;assets&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;isFavorite&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">entry&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">id&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2. **Write to JSON File**: Save the transformed data to a JSON file.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">json_file_path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;w&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">json_file&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">json&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dump&lt;/span>&lt;span class="p">({&lt;/span>&lt;span class="s2">&amp;#34;dayEntries&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">data&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="n">json_file&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">indent&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="difficulties-encountered-1">Difficulties Encountered&lt;/h3>
+&lt;ul>
+&lt;li>Daylio export to csv functionnality is using a scale from terrible (1) to wonderful (5) day. That&amp;rsquo;s what I used in Obsidian. The json is storing it in reverse, so I needed to adapt my &lt;code>markdown-to-csv.py&lt;/code> script to make it different.&lt;/li>
+&lt;li>Daylio is using some weird numbering on months. January is 0, December is 11. It was what was making my app crash when importing my modified backup. I couldn&amp;rsquo;t find out until I tried to just add a random new entry and the month was not the one I specified.&lt;/li>
+&lt;li>Epoch timestamp was using milliseconds, and I was using seconds at first, leading to issues.&lt;/li>
+&lt;li>I needed to find the timeZoneOffset for my region, fortunately, it already &lt;a class="link" href="https://www.epochconverter.com/timezones" target="_blank" rel="noopener"
+>exists&lt;/a>.&lt;/li>
+&lt;li>I needed to increment an ID, even thought it seems like Daylio does it on backup export only as it is reversed… Don&amp;rsquo;t tell me Daylio is changing the ID of all entries when adding a new one. Please. Anyway, I incremented.&lt;/li>
+&lt;/ul>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>I managed to move my notes from Obsidian to Daylio, using pandas, manipulating encoded json files, and epoch timestamps. It was fun, and instructive. I became lazy and did not automate the whole process as this is just a one-time job. But I sure hope it&amp;rsquo;ll help some other people.&lt;/p>
+&lt;h2 id="sources-and-inspirations">Sources and Inspirations&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.reddit.com/r/Daylio/comments/s2c6en/comment/hvc7i8r/?utm_source=share&amp;amp;utm_medium=web2x&amp;amp;context=3" target="_blank" rel="noopener"
+>Sorry but how the f*ck isn&amp;rsquo;t there a 3rd party import option? : r/Daylio&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.joelotter.com/posts/2022/01/daylio/" target="_blank" rel="noopener"
+>Reverse-engineering Daylio backups | Joel Auterson&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Web Development Project - Calculator Project in HTML, CSS, JS</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/web-development-project-calculator-project-in-html-css-js/</link><pubDate>Fri, 22 Dec 2023 19:03:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/web-development-project-calculator-project-in-html-css-js/</guid><description>&lt;h1 id="web-development-project---calculator-project-in-html-css-js">Web Development Project - Calculator Project in HTML, CSS, JS&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>During my formation as a mechanical engineer, I learned how to use C, C++, Python, and Matlab. I also discovered Linux and Bash, parallel computing with MPI, and some scripting tools like Ansys APDL for mechanical engineering.&lt;/p>
+&lt;p>Even though I manipulated and used a lot of CSS and JS during my Obsidian learning journey, I never really made any project using the three languages of web-dev.&lt;/p>
+&lt;p>So after looking at some &lt;a class="link" href="https://github.com/florinpop17/app-ideas/tree/master" target="_blank" rel="noopener"
+>project ideas&lt;/a> online, I settled on creating a &lt;a class="link" href="https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Calculator-App.md" target="_blank" rel="noopener"
+>calculator app&lt;/a> while looking for a job.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-12-22_20-13-21_calculator_image.png"
+loading="lazy"
+alt="2023-12-22_20-13-21_calculator_image.png"
+>&lt;/p>
+&lt;p>While it might not be the most beautiful one, I did exactly what I wanted to do with it.&lt;/p>
+&lt;p>It is available online &lt;a class="link" href="https://mathisgauthey.github.io/webCalculator/" target="_blank" rel="noopener"
+>here&lt;/a> and the source code is public on &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator" target="_blank" rel="noopener"
+>Github&lt;/a>.&lt;/p>
+&lt;p>But how did it end up this way ? Well, let&amp;rsquo;s find out.&lt;/p>
+&lt;h2 id="chronology-of-dev">Chronology of Dev&lt;/h2>
+&lt;h3 id="first-draft">First Draft&lt;/h3>
+&lt;p>First of all, I did a bunch of spaghetti programing to grasp the basics :&lt;/p>
+&lt;ol>
+&lt;li>I learned how to organise HTML documents.&lt;/li>
+&lt;li>I learned some CSS basics, but mainly I know how to use Flexbox and Grid.&lt;/li>
+&lt;li>I learned how to write functions in Javascript and use &lt;code>onclick&lt;/code> events to call them.&lt;/li>
+&lt;/ol>
+&lt;p>But here are the problems I encountered :&lt;/p>
+&lt;ul>
+&lt;li>I was doing things while learning by searching for things online. I lacked a structure and goals, I just did what I thought would be great to add.&lt;/li>
+&lt;li>Debugging was manual, and I couldn&amp;rsquo;t test that my changes were not breaking things.&lt;/li>
+&lt;/ul>
+&lt;h3 id="rebuild-with-object-programming-and-unit-testing">Rebuild with Object Programming and Unit-testing&lt;/h3>
+&lt;p>Now that I knew the functions that I wanted to have on my calculator, I completely &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/1" target="_blank" rel="noopener"
+>rewritten&lt;/a> it using a &lt;code>Calculator&lt;/code> class. It allowed me to use &lt;a class="link" href="https://jestjs.io/" target="_blank" rel="noopener"
+>jest&lt;/a> to test the logic part of my app with some unit-testing that I learned on the &lt;a class="link" href="https://openclassrooms.com/en/courses/5661466-use-testing-in-java-to-achieve-quality-applications" target="_blank" rel="noopener"
+>Openclassroom Java Unit-Testing Course&lt;/a>.&lt;/p>
+&lt;p>I separated the my app in different parts :&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>index.html&lt;/code> for organizing elements.&lt;/li>
+&lt;li>&lt;code>styles.css&lt;/code> for styling.&lt;/li>
+&lt;li>&lt;code>script.js&lt;/code> for input and &lt;code>eventListeners&lt;/code>.&lt;/li>
+&lt;li>&lt;code>Calculator.js&lt;/code> for logics and calculations, with an &lt;code>updateViewer()&lt;/code> method to update the view.&lt;/li>
+&lt;li>&lt;code>Calculator.test.js&lt;/code> for jest unit-testing.&lt;/li>
+&lt;/ul>
+&lt;p>I could now use TDD&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> to make sure that adding functionalities wasn&amp;rsquo;t breaking anything.&lt;/p>
+&lt;h3 id="fixes-and-quality-of-life-improvement">Fixes and Quality of Life Improvement&lt;/h3>
+&lt;p>Then I asked some people to try the calculator and I used it myself while comparing it to the calculator provided by Windows. I then planned a few bug fixes and quality of life improvements and integrated &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/2" target="_blank" rel="noopener"
+>them&lt;/a> to the app.&lt;/p>
+&lt;h3 id="handling-big-numbers-and-loads-of-decimals">Handling Big Numbers and Loads of Decimals&lt;/h3>
+&lt;p>At first, my app was using the javascript &lt;code>eval()&lt;/code> function. I know, I could do a parser myself, but the goal of this project was more to practice unit testing while discovering some web-dev, not to break my head against mathematical stuff.&lt;/p>
+&lt;p>But still, how was my calculator handling numbers with loads of decimals ? Well, it was rounding up things badly.&lt;/p>
+&lt;p>And how was my calculator endling big numbers ? Well, text overflowed.&lt;/p>
+&lt;p>So I needed to fix things up, and I did.&lt;/p>
+&lt;h4 id="how-to-handle-number-with-decimals-">How to Handle Number with Decimals ?&lt;/h4>
+&lt;p>As always numbers in programming must be handled with care. Javascript numbers are treated using &lt;a class="link" href="https://www.wikiwand.com/en/Decimal_floating_point" target="_blank" rel="noopener"
+>decimal floating point&lt;/a>. The issue of such a representation is that addition and other operations could end up with a small rounding error. While it was just a beginner project and the scope wasn&amp;rsquo;t to get a scientific calculator, I still wanted to &lt;strong>learn how to implement a library&lt;/strong> that would manage big numbers and numbers with loads of decimal precisely.&lt;/p>
+&lt;p>So I added &lt;a class="link" href="https://mathjs.org/" target="_blank" rel="noopener"
+>mathjs&lt;/a> to my &lt;a class="link" href="https://github.com/mathisgauthey/webCalculator/pull/3" target="_blank" rel="noopener"
+>project&lt;/a>. It uses &lt;a class="link" href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="noopener"
+>decimal.js&lt;/a>.&lt;/p>
+&lt;p>Here&amp;rsquo;s a few other alternatives to consider :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/royNiladri/js-big-decimal" target="_blank" rel="noopener"
+>GitHub - royNiladri/js-big-decimal: Work with large numbers on the client side with high precision.&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/decimal.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/decimal.js: An arbitrary-precision Decimal type for JavaScript&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/bignumber.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/bignumber.js: A JavaScript library for arbitrary-precision decimal and non-decimal arithmetic&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/MikeMcl/big.js" target="_blank" rel="noopener"
+>GitHub - MikeMcl/big.js: A small, fast JavaScript library for arbitrary-precision decimal arithmetic.&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>And the differences between the last three are explained &lt;a class="link" href="https://github.com/MikeMcl/big.js/wiki" target="_blank" rel="noopener"
+>here&lt;/a>.&lt;/p>
+&lt;p>So now, my decimal rounding was working as expected :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-text" data-lang="text">&lt;span class="line">&lt;span class="cl">before : 0.1 + 0.2 = 0.30000000000000004
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">now : 0.1 + 0.2 = 0.3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="how-to-handle-big-numbers-">How to Handle Big Numbers ?&lt;/h4>
+&lt;p>Well, I simply limited the user input of numbers to 16 characters and added an overflow and slider to the formula accumulation at the top ! It made playing with huge numbers even more fun !&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>I learned a lot on that side project that occupied me just between sending email for jobs. It was fun, and I now understand web-dev much better.&lt;/p>
+&lt;p>Most importantly, I learned that no project is too small to be entertaining. I had fun doing that small app, and I will definitely keep doing such projects !&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Test Driven Development : A programming method that begins by creating tests before programming some stuff. At first, test fails, then one must write the appropriate code to make the tests pass and so on.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Conception Et Installation Du Réseau Électrique D'un Van</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/conception-et-installation-du-r%C3%A9seau-%C3%A9lectrique-dun-van/</link><pubDate>Thu, 05 Oct 2023 16:09:29 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/conception-et-installation-du-r%C3%A9seau-%C3%A9lectrique-dun-van/</guid><description>&lt;h1 id="conception-et-installation-du-réseau-électrique-dun-van">Conception Et Installation Du Réseau Électrique D&amp;rsquo;un Van&lt;/h1>
+&lt;p>Un des gros chantiers que nous avons dû réaliser pour notre voyage a été de refaire entièrement le réseau électrique du van.&lt;/p>
+&lt;h2 id="etat-initial">Etat Initial&lt;/h2>
+&lt;p>Lorsque nous avons acheté le van, il était équipé des éléments suivants :&lt;/p>
+&lt;ul>
+&lt;li>Un &lt;a class="link" href="https://www.camping-car-plus.com/high-tech-electricite/source-d-energie/panneaux-solaires/kit-panneau-solaire-e-ssential-inovtech-80w-5831.html" target="_blank" rel="noopener"
+>panneau solaire de 80W&lt;/a>&lt;/li>
+&lt;li>Une &lt;a class="link" href="https://www.camping-car-plus.com/high-tech-electricite/source-d-energie/batteries/batterie-varta-professional-dual-purpose-agm-95-ah-6602.html" target="_blank" rel="noopener"
+>batterie auxiliaire VARTA Professional Dual Purpose AGM 95 Ah / 105 AH&lt;/a> que nous pouvions relier à la batterie de démarrage du véhicule en parallèle pour la recharger à l&amp;rsquo;aide de l&amp;rsquo;alternateur.&lt;/li>
+&lt;li>Un &lt;a class="link" href="https://lcg-loisirs.fr/energie-high-tech/convertisseur-vechline-LCG3953" target="_blank" rel="noopener"
+>convertisseur de tension Vechline 600W quasi-sinus&lt;/a>&lt;/li>
+&lt;li>Un &lt;a class="link" href="https://www.cdiscount.com/auto/camping-car-caravaning/refrigerateur-a-poser-trimixte-xc-43g-40-litres/f-13330100101-inc3700628230212.html" target="_blank" rel="noopener"
+>frigo Trimixte XC-43G de 40L&lt;/a>&lt;/li>
+&lt;li>Une &lt;a class="link" href="https://www.amazon.fr/dp-Flojet-Triplex-2-9-12-V-25psi/dp/B01JUN0NDG/ref=as_li_ss_tl?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;amp;dchild=1&amp;amp;keywords=flojet&amp;#43;12v&amp;amp;qid=1582580597&amp;amp;sr=8-1&amp;amp;linkCode=ll1&amp;amp;tag=fourgonamen07-21&amp;amp;linkId=b02653e5b721120ad7a1ab65ab86a8cf&amp;amp;language=fr_FR" target="_blank" rel="noopener"
+>pompe à eau Flojet Triplex 2.9 12V 25 psi&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-16-33_photo_elec_ancien_proprio.png"
+loading="lazy"
+alt="2023-10-05_16-16-33_photo_elec_ancien_proprio.png"
+>&lt;/p>
+&lt;p>Et là vous vous dites, et bien parfait, quel est le problème ?&lt;/p>
+&lt;p>Il y en a plusieurs :&lt;/p>
+&lt;ol>
+&lt;li>Il n&amp;rsquo;y a que le convertisseur et le panneau solaire qui sont protégées par un fusible. Aucun des autres appareils n&amp;rsquo;est aux normes.&lt;/li>
+&lt;li>Le convertisseur de tension est un quasi-sinus, il est donc déconseillé pour les appareils informatiques (téléphones, ordinateurs, etc.)&lt;/li>
+&lt;li>La batterie auxiliaire est reliée directement à la batterie de démarrage lorsque l&amp;rsquo;on enclenche une clef. Malheureusement, cela rend le système soumis à l&amp;rsquo;erreur humaine, et démarrer après avoir branché le système peut provoquer une montée de tension trop brusque pour la batterie auxiliaire.&lt;/li>
+&lt;li>Notre frigo consomme beaucoup trop d&amp;rsquo;électricité (~100W) pour une technologie de refroidissement inefficace.&lt;/li>
+&lt;li>Nous n&amp;rsquo;avons aucun moyen de contrôler le niveau de charge de la batterie.&lt;/li>
+&lt;li>Nous n&amp;rsquo;avons aucun moyen de protéger la batterie auxiliaire en l&amp;rsquo;empêchant de descendre sous les 50% et ainsi respecter son DOD.&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>&lt;/li>
+&lt;/ol>
+&lt;h2 id="améliorations-proposées">Améliorations Proposées&lt;/h2>
+&lt;p>Etant donnée notre consommation prévue d&amp;rsquo;électricité, nous avons conservé la batterie et le système de charge solaire. Nos améliorations ont porté sur :&lt;/p>
+&lt;ol>
+&lt;li>Achat et installation d&amp;rsquo;un &lt;a class="link" href="https://www.amazon.fr/gp/product/B07YDF3WJX/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&amp;amp;psc=1" target="_blank" rel="noopener"
+>porte fusible complet&lt;/a> pour protéger chaque circuit selon les normes.&lt;/li>
+&lt;li>Changement du convertisseur de tension pour un &lt;a class="link" href="https://www.h2r-equipements.com/convertisseur-12v-230v-transformateur-bateau/17056-victron-phoenix-vedirect-12-375.html" target="_blank" rel="noopener"
+>Victron Phoenix VE.Direct 12/375&lt;/a>.&lt;/li>
+&lt;li>Installation d&amp;rsquo;un coupleur &lt;a class="link" href="https://www.h2r-equipements.com/coupleur-separateur-camping-car-fourgon-amenage/2376-victron-energy-cyrix-ct.html" target="_blank" rel="noopener"
+>séparateur Victron Energy Cyrix-CT 120A&lt;/a>.&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;/li>
+&lt;li>Changement du frigo pour une glacière à compression &lt;a class="link" href="https://www.amazon.fr/MOBICOOL-Glaci%C3%A8re-compresseur-refroidissement-cong%C3%A9lateur/dp/B07ZZC6816" target="_blank" rel="noopener"
+>Mobicool MCF40 de 38L&lt;/a>. Consommation moyenne de 48W en 12V (~25Ah/24h).&lt;/li>
+&lt;li>Installation d&amp;rsquo;un &lt;a class="link" href="https://www.amazon.fr/gp/product/B0793PJSJM/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&amp;amp;th=1" target="_blank" rel="noopener"
+>voltmètre&lt;/a> pour contrôler la tension de la batterie. Attention, cela ne suffit absolument pas à connaitre l&amp;rsquo;état de charge d&amp;rsquo;une batterie, un capteur intelligent comme le &lt;a class="link" href="https://www.amazon.fr/Victron-Energy-BMV-712-Moniteur-Batterie/dp/B075RTSTKS/ref=sr_1_1?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;amp;crid=BADP7PRIKLOB&amp;amp;keywords=victron&amp;#43;bmv&amp;amp;qid=1696516595&amp;amp;sprefix=victron&amp;#43;bmv%2Caps%2C112&amp;amp;sr=8-1" target="_blank" rel="noopener"
+>Victron BMV-712&lt;/a> est requis pour tenir compte de l&lt;a class="link" href="https://esoxiste.com/la-batterie-pour-les-nuls/" target="_blank" rel="noopener"
+>&amp;rsquo;effet Peukert&lt;/a>, mais nous auront tout de même une indication.&lt;/li>
+&lt;li>L&amp;rsquo;ajout d&amp;rsquo;un &lt;a class="link" href="https://www.h2r-equipements.com/protection-basse-tension-fourgon-amenage-camping-car/18131-victron-battery-protect-65-a.html" target="_blank" rel="noopener"
+>Victron Battery Protect 65A&lt;/a> afin de couper le courant à la batterie si une certaine tension est atteinte et réenclencher le circuit uniquement lorsqu&amp;rsquo;une nouvelle tension jugée suffisante est atteinte. Cela nous permet, en ayant la correspondance tension-capacité restante d&amp;rsquo;une batterie AGM, de bloquer la décharge à 50% de DOD. Du moins, lorsque le panneau solaire ne fonctionne pas : en effet, lorsque le panneau solaire charge la batterie, la tension augmente mais la batterie n&amp;rsquo;a pas pour autant récupéré sa charge.&lt;/li>
+&lt;/ol>
+&lt;h2 id="schéma-électrique-final">Schéma Électrique Final&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-41-21_schema_electrique_final.png"
+loading="lazy"
+alt="2023-10-05_16-41-21_schema_electrique_final.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-44-29_panneau_electrique.jpg"
+loading="lazy"
+alt="2023-10-05_16-44-29_panneau_electrique.jpg"
+>&lt;/p>
+&lt;p>Remarque : Le câble noir permettant de contrôler l&amp;rsquo;allumage du convertisseur de tension par le batterie protect n&amp;rsquo;a pas été utilisé étant donné que notre convertisseur de tension possède une sécurité intégrée pour éviter les décharges lourdes de batterie.&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>&lt;strong>Depth of discharge&lt;/strong> (&lt;strong>DoD&lt;/strong>) is an important parameter appearing in the context of rechargeable battery operation. More informations &lt;a class="link" href="https://www.solaris-store.com/content/43-principe-de-fonctionnement-d-une-batterie-solaire" target="_blank" rel="noopener"
+>here&lt;/a>.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Plus d&amp;rsquo;informations sur les coupleurs séparateurs et leur fonctionnement &lt;a class="link" href="https://www.youtube.com/watch?v=YIDDCP6phbo&amp;amp;t" target="_blank" rel="noopener"
+>ici&lt;/a>.&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>Modélisation Et Réalisation Des Travaux D'aménagement D'un Van</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-des-travaux-dam%C3%A9nagement-dun-van/</link><pubDate>Thu, 05 Oct 2023 12:37:32 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-des-travaux-dam%C3%A9nagement-dun-van/</guid><description>&lt;h1 id="modélisation-et-réalisation-des-travaux-daménagement-dun-van">Modélisation Et Réalisation Des Travaux D&amp;rsquo;aménagement D&amp;rsquo;un Van&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>Le 17 avril 2023, nous sommes partis avec ma copine pour une aventure de 6 mois en Angleterre, au Pays de Galles, en Ecosse et en Irlande.&lt;/p>
+&lt;p>Mais pour réaliser ce voyage, nous avons fait l&amp;rsquo;aquisition d&amp;rsquo;un van aménagé. Après deux week-ends de test, nous avons pu voir les améliorations qui nous semblaient nécessaires à l&amp;rsquo;acomplissement de notre petit rêve. Et nous avons ainsi rédigé notre petit &lt;strong>cahier des charges&lt;/strong>.&lt;/p>
+&lt;h2 id="mesures-et-modélisations">Mesures Et Modélisations&lt;/h2>
+&lt;p>La premiere étape de notre travail fut de prendre nos mesures afin de modéliser l&amp;rsquo;état initial du van.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-16-24_photo_etat_initial_van.jpg"
+loading="lazy"
+alt="2023-10-05_14-16-24_photo_etat_initial_van.jpg"
+>&lt;/p>
+&lt;p>Nous avons donc utilisé &lt;a class="link" href="https://www.onshape.com/fr/" target="_blank" rel="noopener"
+>Onshape&lt;/a> qui propose un outil cloud gratuit et pratique pour collaborer à deux.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-20-11_vue_iso_initiale_van.png"
+loading="lazy"
+alt="2023-10-05_14-20-11_vue_iso_initiale_van.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-20-38_vue_iso_initiale_van.png"
+loading="lazy"
+alt="2023-10-05_14-20-38_vue_iso_initiale_van.png"
+>&lt;/p>
+&lt;h2 id="les-premières-améliorations-rapides-et-pratiques">Les Premières Améliorations Rapides Et Pratiques&lt;/h2>
+&lt;p>Les premières modification étaient simples à apporter :&lt;/p>
+&lt;ul>
+&lt;li>Ajout de 2 portes de placard (15x33cm).
+&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-24-40_porte_placard.png"
+loading="lazy"
+alt="2023-10-05_14-24-40_porte_placard.png"
+>&lt;/li>
+&lt;li>Ajout de charnières et de loquets sur le placard de la pompe à eau, du réservoir d&amp;rsquo;eau et du système électrique pour obtenir un accès plus rapide et pratique pour y effectuer des modifications ou des réparations à l&amp;rsquo;avenir.
+&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-29-44_charniere_et_lockets.jpg"
+loading="lazy"
+alt="2023-10-05_14-29-44_charniere_et_lockets.jpg"
+>&lt;/li>
+&lt;li>Ajout d&amp;rsquo;un petit &lt;a class="link" href="https://www.amazon.fr/Dronjons-Rangement-mural-crochets-Blanc/dp/B09NQL6B8T" target="_blank" rel="noopener"
+>rangement mural&lt;/a> afin d&amp;rsquo;avoir accès facilement à des affaires depuis le lit.
+&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-28-35_rangement_mural_van.jpg"
+loading="lazy"
+alt="2023-10-05_14-28-35_rangement_mural_van.jpg"
+>&lt;/li>
+&lt;li>Ajout d&amp;rsquo;un support de savon et d&amp;rsquo;éponges pour l&amp;rsquo;évier.
+&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-33-24_evier.png"
+loading="lazy"
+alt="2023-10-05_14-33-24_evier.png"
+>&lt;/li>
+&lt;li>Ajout d&amp;rsquo;&lt;a class="link" href="https://www.amazon.fr/gp/product/B09PBCCQ5D/ref=ppx_yo_dt_b_asin_title_o09_s00?ie=UTF8&amp;amp;th=1" target="_blank" rel="noopener"
+>embouts réducteurs de débit d&amp;rsquo;eau sur le robinet&lt;/a> et changement du &lt;a class="link" href="https://www.castorama.fr/pommeau-de-douche-rechargeable-a-billes-eco-thermales-1-jet-coloris-argent/3700766966738_CAFR.prd" target="_blank" rel="noopener"
+>pommeau de douchette&lt;/a> pour un modèle à économie d&amp;rsquo;eau.&lt;/li>
+&lt;/ul>
+&lt;h2 id="ajout-dun-placard-complet-de-rangement-sous-le-lit">Ajout D&amp;rsquo;un Placard Complet De Rangement Sous Le Lit&lt;/h2>
+&lt;p>A l&amp;rsquo;origine, nous n&amp;rsquo;avions pas d&amp;rsquo;espace de rangement autre que le coffre pour y déposer notre linge ou nos affaires personnelles. Cependant, étant donnés les pays où nous nous dirigions, une situation de pluie le matin et le soir au moment de se changer était plus que probable. Nous devions avoir accès à nos vêtements depuis la zone habitable du van.&lt;/p>
+&lt;p>Nous avons donc modélisé une solution de placard en lieu et place du poteau de support, et l&amp;rsquo;avons réalisé comme toujours avec des matériaux de récupération.&lt;/p>
+&lt;p>Au centre, nous avons conservé deux poteaux de support comme structure porteuse, et nous avons comblé l&amp;rsquo;espace à l&amp;rsquo;aide de panneaux fins de contreplaqué. Chaque placard est fixé à l&amp;rsquo;aide de tasseaux, des charnières pianos servent à l&amp;rsquo;ouverture, et des aimants maintiennent les placards en place lorsque le véhicule est en mouvement. L&amp;rsquo;ajout de chant sur les bandes coupées d&amp;rsquo;agloméré, de poignées et de loquets sur les placards personnels viennent apporter la touche finale de l&amp;rsquo;ouvrage.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-38-56_modelisation_placard_sous_lit.png"
+loading="lazy"
+alt="2023-10-05_14-38-56_modelisation_placard_sous_lit.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-51-06_placard_sous_lit.jpg"
+loading="lazy"
+alt="2023-10-05_14-51-06_placard_sous_lit.jpg"
+>&lt;/p>
+&lt;h2 id="ajout-dun-séparateur-sur-la-partie-droite-du-coffre">Ajout D&amp;rsquo;un Séparateur Sur La Partie Droite Du Coffre&lt;/h2>
+&lt;p>L&amp;rsquo;espace à droite du coffre à l&amp;rsquo;origine était trop vertical à nos yeux, il y avait beaucoup de place inutilisée. Nous avons donc ajouté un panneau de contreplaqué découpé sur mesure pour épouser les formes du van.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-46-16_modelisation_separateur_coffre.png"
+loading="lazy"
+alt="2023-10-05_14-46-16_modelisation_separateur_coffre.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_14-50-52_separateur_coffre.jpg"
+loading="lazy"
+alt="2023-10-05_14-50-52_separateur_coffre.jpg"
+>&lt;/p>
+&lt;h2 id="le-système-daération">Le Système D&amp;rsquo;aération&lt;/h2>
+&lt;p>Le gros point faible du van à l&amp;rsquo;achat était son absence d&amp;rsquo;aération. Certes, nous avions une fenêtre latérale à hauteur de tête pour les nuits. Mais non seulement une seule entrée d&amp;rsquo;air ne suffit pas, mais l&amp;rsquo;aspect sécurité était complètement à revoir.&lt;/p>
+&lt;p>Nous avons donc réalisé une plaque sur mesure qui s&amp;rsquo;adapte à la fenêtre latérale, permet d&amp;rsquo;aérer à l&amp;rsquo;aide d&amp;rsquo;une grille et possède un pare-pluie. Il suffit ainsi d&amp;rsquo;entrouvrir la porte du coffre la nuit tout en la bloquant avec un tendeur pour obtenir un courant d&amp;rsquo;air confortable.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_15-39-24_plaque_aeration_grille.jpg"
+loading="lazy"
+alt="2023-10-05_15-39-24_plaque_aeration_grille.jpg"
+>&lt;/p>
+&lt;h2 id="isolation-du-van">Isolation Du Van&lt;/h2>
+&lt;p>Le van a été isolé par l&amp;rsquo;ancien propriétaire, plus particulièrement le plafond, les murs ainsi que le sol. Cependant, notre van étant un modèle minibus à l&amp;rsquo;origine, nous avions beaucoup de fenêtres.&lt;/p>
+&lt;p>Nous avions déjà quelques pare-soleils réalisés sur mesure par l&amp;rsquo;ancien propriétaire mais scotchés pour la plupart à l&amp;rsquo;arrache. Nous les avons donc recousus et équipés de petits aimants pour gagner en modularité et permettre de retirer l&amp;rsquo;humidité qui pouvait s&amp;rsquo;y cacher au petit matin.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_15-41-29_isolation_pare_soleil.jpg"
+loading="lazy"
+alt="2023-10-05_15-41-29_isolation_pare_soleil.jpg"
+>&lt;/p>
+&lt;h2 id="les-ajouts-de-dernière-minute">Les Ajouts De Dernière Minute&lt;/h2>
+&lt;h3 id="support-pour-bouteille-de-gaz">Support Pour Bouteille De Gaz&lt;/h3>
+&lt;p>Nous avons opté pour des &lt;a class="link" href="https://www.campingaz.fr/gaz/bouteilles-de-gaz-rechargeables/bouteille-de-gaz-rechargeable-r907/SAP_1688ZCL.html" target="_blank" rel="noopener"
+>bouteilles de gaz CampinGaz R907&lt;/a>. Cependant, nous n&amp;rsquo;avions pas d&amp;rsquo;emplacement spécifique pour stocker la bouteille de gaz autrement qu&amp;rsquo;à même le coffre.&lt;/p>
+&lt;p>Nous avons donc réalisé un support sur mesure.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_16-06-01_modelisation_support_gaz.png"
+loading="lazy"
+alt="2023-10-05_16-06-01_modelisation_support_gaz.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_15-06-54_support_gaz.jpg"
+loading="lazy"
+alt="2023-10-05_15-06-54_support_gaz.jpg"
+>&lt;/p>
+&lt;h3 id="bords-de-placard">Bords De Placard&lt;/h3>
+&lt;p>Avec les chutes de bois restantes, nous avons également réalisé des bords de placards pour ajouter un peu d&amp;rsquo;affaires sur la cuisine sans risquer de tout faire tomber en roulant.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-07_09-47-30_modelisation_bords_placards.png"
+loading="lazy"
+alt="2023-10-07_09-47-30_modelisation_bords_placards.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_15-08-24_bords_placards_cuisine.jpg"
+loading="lazy"
+alt="2023-10-05_15-08-24_bords_placards_cuisine.jpg"
+>&lt;/p>
+&lt;h2 id="les-modifications-réalisées-pendant-le-voyage">Les Modifications Réalisées Pendant Le Voyage&lt;/h2>
+&lt;p>Notons que pendant le voyage, nous avons été contraints de changer le système d&amp;rsquo;eau.&lt;/p>
+&lt;p>En effet, à l&amp;rsquo;origine deux problèmes :&lt;/p>
+&lt;ul>
+&lt;li>L&amp;rsquo;eau usée du robinet sortait uniquement sur le côté du van, imposant l&amp;rsquo;usage de produits naturels et l&amp;rsquo;acceptation des locaux. (Impossible en Angleterre)&lt;/li>
+&lt;li>Le bout de l&amp;rsquo;entrée d&amp;rsquo;air du réservoir d&amp;rsquo;eau était positionnée plus bas que son raccord au réservoir ⇒ De l&amp;rsquo;eau pouvait donc entrer depuis le réservoir et s&amp;rsquo;écouler sur notre plancher lors des virages pendant la conduite.&lt;/li>
+&lt;/ul>
+&lt;p>Lorsque nous avons malencontreusement cassé le bout de l&amp;rsquo;évacuation d&amp;rsquo;eau usée, nous avons décidé de raccourcir le tuyau et de le relier à un bidon amovible de 5L permettant de conserver nos eaux usées et de pouvoir tout faire à l&amp;rsquo;intérieur du van.&lt;/p>
+&lt;p>Concernant l&amp;rsquo;entrée d&amp;rsquo;air, nous avons donc percé un trou sur le côté du placard et installé la sortie d&amp;rsquo;air plus haut que son entrée dans le réservoir afin d&amp;rsquo;éviter les reflux.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_15-35-09_modification_eau.jpg"
+loading="lazy"
+alt="2023-10-05_15-35-09_modification_eau.jpg"
+>&lt;/p></description></item><item><title>Modélisation Et Réalisation D'un Réchaud À Bois</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-dun-r%C3%A9chaud-%C3%A0-bois/</link><pubDate>Thu, 05 Oct 2023 10:14:12 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/mod%C3%A9lisation-et-r%C3%A9alisation-dun-r%C3%A9chaud-%C3%A0-bois/</guid><description>&lt;h1 id="modélisation-et-réalisation-dun-réchaud-à-bois">Modélisation Et Réalisation D&amp;rsquo;un Réchaud À Bois&lt;/h1>
+&lt;p>Le 17 Avril 2023, nous sommes partis à l&amp;rsquo;aventure avec ma copine pour 166 jours en Angleterre, au Pays de Galles, en Ecosse et en Irlande.&lt;/p>
+&lt;p>A l&amp;rsquo;origine, nous pensions utiliser du bois pour manger le soir, et nous avions donc besoin d&amp;rsquo;un réchaud. Décathlon en proposait &lt;a class="link" href="https://www.decathlon.fr/p/rechaud-a-bois-mh500-pour-le-camp-du-randonneur/_/R-p-302880" target="_blank" rel="noopener"
+>un&lt;/a> à 50€, mais ayant du temps libre à la fin de nos études, nous avons décidé avec un très bon ami (Grégoire Marie) d&amp;rsquo;en réaliser un nous-mêmes avec les moyens du bord.&lt;/p>
+&lt;p>Il a donc réalisé un premier jet de modélisation du &lt;code>Camping Stove&lt;/code> sur &lt;a class="link" href="https://www.onshape.com/fr/" target="_blank" rel="noopener"
+>Onshape&lt;/a> selon le cahier des charges que j&amp;rsquo;ai pu établir.&lt;/p>
+&lt;p>Ci-dessous, nous retrouvons la modélisation ainsi que les plans que nous avons utilisés lors de la fabrication.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-18-41_camping_stove_vue_iso.png"
+loading="lazy"
+alt="2023-10-05_10-18-41_camping_stove_vue_iso.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-19-47_camping_stove_assemblage.png"
+loading="lazy"
+alt="2023-10-05_10-19-47_camping_stove_assemblage.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-20-43_plan_camping_stove.png"
+loading="lazy"
+alt="2023-10-05_10-20-43_plan_camping_stove.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-21-17_plan_recuperateur_cendre_camping_stove.png"
+loading="lazy"
+alt="2023-10-05_10-21-17_plan_recuperateur_cendre_camping_stove.png"
+>&lt;/p>
+&lt;p>Nous avons procédé à la fabrication des pièces et à l&amp;rsquo;assemblage chez nous avec les moyens du bord ainsi que des matériaux de récupération.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-24-50_fabrication_stove.jpg"
+loading="lazy"
+alt="2023-10-05_10-24-50_fabrication_stove.jpg"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-25-13_fabrication_stove.jpg"
+loading="lazy"
+alt="2023-10-05_10-25-13_fabrication_stove.jpg"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-25-23_fabrication_stove.jpg"
+loading="lazy"
+alt="2023-10-05_10-25-23_fabrication_stove.jpg"
+>&lt;/p>
+&lt;p>Enfin nous l&amp;rsquo;avons peint et testé, et le concept bien que trop gros pour être pratique dans notre van aménagé nous servira pour des petits barbecues en extérieur !&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-05_10-26-34_test_camping_stove.jpg"
+loading="lazy"
+alt="2023-10-05_10-26-34_test_camping_stove.jpg"
+>&lt;/p></description></item><item><title>Projet Industriel De Fin D'études - Chariot De Course À Assistance Électrique</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/projet-industriel-de-fin-d%C3%A9tudes-chariot-de-course-%C3%A0-assistance-%C3%A9lectrique/</link><pubDate>Thu, 10 Feb 2022 16:11:22 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/projet-industriel-de-fin-d%C3%A9tudes-chariot-de-course-%C3%A0-assistance-%C3%A9lectrique/</guid><description>&lt;h1 id="projet-industriel-de-fin-détudes---chariot-de-course-à-assistance-électrique">Projet Industriel De Fin D&amp;rsquo;études - Chariot De Course À Assistance Électrique&lt;/h1>
+&lt;p>&lt;em>Ce document contient des extraits de notre soutenance finale.&lt;/em>&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;blockquote>
+&lt;p>Équiper un chariot de courses d’un système d&amp;rsquo;assistance électrique pour aider au déplacement sur le plat et au franchissement de trottoirs et d&amp;rsquo;escaliers.&lt;/p>
+&lt;/blockquote>
+&lt;p>Lors de notre dernier semestre d&amp;rsquo;études d&amp;rsquo;ingénieur en mécanique, nous avons réalisé ce projet en autonomie à 3. Ce projet s&amp;rsquo;est déroulé selon les étapes suivantes :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-15-48_etapes_projet_industriel.png"
+loading="lazy"
+alt="2023-10-10_16-15-48_etapes_projet_industriel.png"
+>&lt;/p>
+&lt;p>Pour suivre l&amp;rsquo;avancement des différentes phases du projet, nous avons utilisé le logiciel Jira et son affichage Gantt.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-18-26_jira_gantt.png"
+loading="lazy"
+alt="2023-10-10_16-18-26_jira_gantt.png"
+>&lt;/p>
+&lt;h2 id="etablissement-du-cahier-des-charges-fonctionnel">Etablissement Du Cahier Des Charges Fonctionnel&lt;/h2>
+&lt;p>Nos objectifs ont été les suivants :&lt;/p>
+&lt;ul>
+&lt;li>✅ Assistance sur le plat&lt;/li>
+&lt;li>✅ Assistance franchissement trottoir&lt;/li>
+&lt;li>✅ Assistance franchissement escalier&lt;/li>
+&lt;li>❌ Assistance franchissement escalier en colimaçon&lt;/li>
+&lt;/ul>
+&lt;h2 id="recherche-de-solutions-existantes">Recherche De Solutions Existantes&lt;/h2>
+&lt;p>Nous avons envisagé plusieurs solutions techniques lors de nos recherches documentaires.&lt;/p>
+&lt;h3 id="système-à-piston">Système À Piston&lt;/h3>
+&lt;p>Une première piste que nous avons envisagé fut d&amp;rsquo;utiliser un système de vérin poussoir soulevant le chariot à deux roues (éventuellement motorisées) au-dessus de la marche.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-21-56_schema_piston.png"
+loading="lazy"
+alt="2023-10-10_16-21-56_schema_piston.png"
+>&lt;/p>
+&lt;h3 id="système-à-crochet">Système À Crochet&lt;/h3>
+&lt;p>Une seconde piste que nous avons envisagé fut d&amp;rsquo;utiliser un système de crochet tracteur soulevant le chariot à deux roues (éventuellement motorisées) au-dessus de la marche.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-22-53_systeme_crochet.png"
+loading="lazy"
+alt="2023-10-10_16-22-53_systeme_crochet.png"
+>&lt;/p>
+&lt;h3 id="système-à-trois-roues">Système À Trois Roues&lt;/h3>
+&lt;p>Une dernière piste que nous avons envisagé fut d&amp;rsquo;utiliser un système à 6 roues, avec des roues individuellement motorisées ou par transmission, et un couple appliqué sur l’axe entre les roues pour faire tourner le support des roues.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-23-19_systeme_trois_roues.png"
+loading="lazy"
+alt="2023-10-10_16-23-19_systeme_trois_roues.png"
+>&lt;/p>
+&lt;h2 id="pré-études-des-solutions-sur-adams">Pré-études Des Solutions Sur Adams&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-26-56_difficulte.png"
+loading="lazy"
+alt="2023-10-10_16-26-56_difficulte.png"
+>&lt;/p>
+&lt;p>Après plusieurs pré-études, les résultats les plus prometteurs en terme d&amp;rsquo;aide à la réduction des efforts pour l&amp;rsquo;utilisateur sont associées au modèle à 6 roues.&lt;/p>
+&lt;p>En effet, l&amp;rsquo;accompagnement est beaucoup plus souple et sans à-coups, et le système permet un franchissement répété d&amp;rsquo;obstacle (comme un escalier) beaucoup plus rapide.&lt;/p>
+&lt;h2 id="préciser-les-caractéristiques-techniques-à-laide-détudes-sur-adams">Préciser Les Caractéristiques Techniques À L&amp;rsquo;aide D&amp;rsquo;études Sur Adams&lt;/h2>
+&lt;p>Nous avons donc par la suite utilisé les scripts d&amp;rsquo;optimisation d&amp;rsquo;Adams pour trouver les meilleures dimensions et masses afin de réduire les efforts de l&amp;rsquo;utilisateur. Nous avons ainsi joué notamment sur les dimensions des roues, du système 3 roues, la hauteur du chariot et son chargement afin de contrôler l&amp;rsquo;assistance quel que soit le niveau de charge.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-31-53_pre-etudes_adams.png"
+loading="lazy"
+alt="2023-10-10_16-31-53_pre-etudes_adams.png"
+>&lt;/p>
+&lt;p>Ces études nous ont mené a définir notre cahier des charges techniques :&lt;/p>
+&lt;ul>
+&lt;li>Charge max admissible : 30kg&lt;/li>
+&lt;li>Contenance maximale : 50L&lt;/li>
+&lt;li>Poids à vide : 5 à 10kg max&lt;/li>
+&lt;li>Diamètre roues : 14cm&lt;/li>
+&lt;li>Entraxe système 3 roues : 17cm&lt;/li>
+&lt;li>Hauteur du chariot : 1.1m&lt;/li>
+&lt;li>Largeur du chariot : 40cm&lt;/li>
+&lt;li>Profondeur du chariot : 35cm&lt;/li>
+&lt;/ul>
+&lt;p>En terme de composants utilisés :&lt;/p>
+&lt;ul>
+&lt;li>Moteur : Transtecno CM 026 F30 D, série CM-CMP
+&lt;ul>
+&lt;li>Couple en sortie de 10 Nm (entre 1 et 17)&lt;/li>
+&lt;li>Puissance 0.06 kW à 0.12 kW&lt;/li>
+&lt;li>Vitesse entre 25 et 300 RPM&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Transmission : Réducteur intégré puis réduction par engrenage de 0.5.&lt;/li>
+&lt;li>Embrayage : Embrayage électromagnétique WARNER M.0113.2411&lt;/li>
+&lt;li>Batterie : Batterie Lithium Iron Phosphate LIFEPO4 → 12.8V, 7.5Ah, 96Wh&lt;/li>
+&lt;li>Système de commande : Bouton poussoir (franchissement) et molette A/R pour l’assistance sur le plat&lt;/li>
+&lt;/ul>
+&lt;h2 id="modélisation-de-la-solution-retenue">Modélisation De La Solution Retenue&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-32-23_modelisation_3D.png"
+loading="lazy"
+alt="2023-10-10_16-32-23_modelisation_3D.png"
+>&lt;/p>
+&lt;h3 id="schema-cinematique">Schema Cinematique&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-38-23_schema_cinematique.png"
+loading="lazy"
+alt="2023-10-10_16-38-23_schema_cinematique.png"
+>&lt;/p>
+&lt;h3 id="motorisation">Motorisation&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-38-49_motorisation.png"
+loading="lazy"
+alt="2023-10-10_16-38-49_motorisation.png"
+>&lt;/p>
+&lt;h3 id="chaine-de-transmission-et-embrayage">Chaine De Transmission Et Embrayage&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-39-05_transmission_embrayage.png"
+loading="lazy"
+alt="2023-10-10_16-39-05_transmission_embrayage.png"
+>&lt;/p>
+&lt;h3 id="batterie-et-passage-de-cables-en-rotation">Batterie Et Passage De Cables En Rotation&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-39-24_batterie_cables.png"
+loading="lazy"
+alt="2023-10-10_16-39-24_batterie_cables.png"
+>&lt;/p>
+&lt;h3 id="commande-assistance">Commande Assistance&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-39-41_commande_assistance.png"
+loading="lazy"
+alt="2023-10-10_16-39-41_commande_assistance.png"
+>&lt;/p>
+&lt;h2 id="test-de-validation-sur-adams-avec-le-modèle-cao-puis-prototypage">Test De Validation Sur Adams Avec Le Modèle CAO Puis Prototypage&lt;/h2>
+&lt;p>Enfin, nous avons utilisé les caractéristiques techniques finales du modèle pour valider nos modélisation et analyser les efforts subit par l&amp;rsquo;utilisation avec ou sans les diverses assistances activées ou non.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-29-51_adams_rotation_roues_seules.png"
+loading="lazy"
+alt="2023-10-10_16-29-51_adams_rotation_roues_seules.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-30-21_adams_assistance_rotation_seule.png"
+loading="lazy"
+alt="2023-10-10_16-30-21_adams_assistance_rotation_seule.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-31-26_adams_assistance_complete.png"
+loading="lazy"
+alt="2023-10-10_16-31-26_adams_assistance_complete.png"
+>&lt;/p></description></item><item><title>Projet De CAO - Modélisation D'un Cold Python</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/projet-de-cao-mod%C3%A9lisation-dun-cold-python/</link><pubDate>Mon, 01 Jun 2020 15:42:32 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/projet-de-cao-mod%C3%A9lisation-dun-cold-python/</guid><description>&lt;h1 id="projet-de-cao---modélisation-dun-cold-python">Projet De CAO - Modélisation D&amp;rsquo;un Cold Python&lt;/h1>
+&lt;p>&lt;em>Ce document à été converti d&amp;rsquo;un compte rendu PDF.&lt;/em>&lt;/p>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;h3 id="présentation-du-projet">Présentation Du Projet&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-44-41_image_colt_python.png"
+loading="lazy"
+alt="2023-10-10_15-44-41_image_colt_python.png"
+>&lt;/p>
+&lt;p>Le Colt « Python » est un revolver à double action pour des cartouches de type .357 magnum très réputé pour sa précision, sa détente souple et son système étroit de blocage de cylindre.&lt;/p>
+&lt;p>Le revolver a été introduit en 1955 comme le model haut de gamme de Colt et était, à l’origine, censé être de calibre .38 spécial. Ce qui a pour conséquence de lui procurer un viseur ajustable, une détente souple et une construction solide.&lt;/p>
+&lt;p>Le « Python » a une très bonne réputation parmi les historiens et spécialistes du domaine, on l’a déjà nommé « la Rolls-Royce des revolvers Colt » ou encore « le meilleur revolver du monde ». Sa réputation est néanmoins méritée car son système de détente est très perfectionné, par exemple quand le révolver est complètement chargé, une fois que l’on appuie sur la détente le cylindre se bloque pendant que le chien percute la balle. Cela permet d’éviter que le cylindre soit lâche pendant le tir, un problème présent sur nombreux modèle de revolver.&lt;/p>
+&lt;h3 id="motivations">Motivations&lt;/h3>
+&lt;p>Le Colt « Python » est une arme que l’on connait très bien, en effet, étant tous fan de jeux vidéo et de séries nous l’avons déjà rencontré à de nombreuses reprises. Il est par exemple présent dans la série Half-Life, Resident Evil ou encore The Walking Dead. Les revolvers en général ont laissé, et laisse encore, une trace dans la culture populaire. Tout le monde connait et apprécie ce type d’arme, que ce soit pour leurs apparences uniques ou leur “aura” (en effet, on les associe directement à l’ambiance unique des Westerns).&lt;/p>
+&lt;p>En plus d’être une arme très répandue dans les jeux vidéo et en général dans la culture populaire, cette arme en particulier possède un mécanisme de tir à double action qui est très intéressant à modéliser et assez rare dans cette catégorie d’arme de poing.&lt;/p>
+&lt;p>Et enfin le Colt « Python » est à nouveaux d’actualité car sa production a été relancée en janvier 2020.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-45-19_colt_python_pop_culture.png"
+loading="lazy"
+alt="2023-10-10_15-45-19_colt_python_pop_culture.png"
+>&lt;/p>
+&lt;h2 id="prise-dinformations">Prise D&amp;rsquo;informations&lt;/h2>
+&lt;h3 id="nomenclature">Nomenclature&lt;/h3>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-46-08_colt_python_nomenclature.png"
+loading="lazy"
+alt="2023-10-10_15-46-08_colt_python_nomenclature.png"
+>&lt;/p>
+&lt;p>A l’aide de documents papiers récupérés sur internet et d’un jeu nommé World Of Guns : Disassembly, nous avons pu établir la nomenclature de notre revolver :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-54-44_nomenclature_part_1.png"
+loading="lazy"
+alt="2023-10-10_15-54-44_nomenclature_part_1.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-55-09_nomenclature_part_2.png"
+loading="lazy"
+alt="2023-10-10_15-55-09_nomenclature_part_2.png"
+>&lt;/p>
+&lt;h3 id="mécanisme-de-rechargement-et-de-tir">Mécanisme De Rechargement Et De Tir&lt;/h3>
+&lt;p>Le Revolver Colt « Python » est à double action, c’est ce qui le rend intéressent. Néanmoins le fait qu’il soit un revolver lui permet d’être utilisé en simple et double action.&lt;/p>
+&lt;p>Avant d’aller plus loin dans les explications, définissons ce qu’est un mécanisme à simple et double action :&lt;/p>
+&lt;ul>
+&lt;li>Un mécanisme simple action signifie qu’un appui sur la gâchette de l’arme ne fera qu’abaisser le chien qui ensuite percutera la cartouche. Il est donc nécessaire de relever manuellement le chien avec le pouce avant d’appuyer sur la gâchette si on veut que le coup part.&lt;/li>
+&lt;li>Un mécanisme double action possède lui la capacité de relever automatiquement le chien. Les deux étapes (monter et abaisser le chien) se font simultanément en un appui sur la gâchette. Ce qui permet d’économiser du temps entre deux tirs.&lt;/li>
+&lt;/ul>
+&lt;p>⇒ Dans le Colt « Python » la double action fonctionne de la manière suivante :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-57-32_double_action.gif"
+loading="lazy"
+alt="2023-10-10_15-57-32_double_action.gif"
+>&lt;/p>
+&lt;p>Lorsqu’on appuie sur la gâchette, elle pivote. Ce qui élève la partie arrière de celle-ci qui va servir de poussoir au chien. Quand on pousse sur le chien, celui-ci pivote à son tour, ce qui permet au percuteur de s’éloigner du barillet. Quand la gâchette est reculée au maximum, sa partie poussoir va perdre le contact avec le chien. Le ressort de celui-ci va alors pouvoir se détendre et le percuteur va alors frapper la balle. En un mouvement sur la gâchette le mécanisme double action du revolver a donc levé et abaissé le chien pour permettre le tir.&lt;/p>
+&lt;h2 id="modélisation">Modélisation&lt;/h2>
+&lt;h3 id="planification">Planification&lt;/h3>
+&lt;p>Pour commencer la modélisation nous avons d’abord cherché des plans. N’ayant aucune documentation en ligne sur les dimensions exactes d’une arme à feu nous avons utilisé des images du colt complétement démonté. En utilisant la taille des balles de calibre .357 comme échelle pour avoir une longueur de référence nous avons pu coter les pièces sur nos plans en commençant par le barillet.&lt;/p>
+&lt;p>Puis nous avons enchainé avec le corps du revolver, et enfin nous aurions pu nous attarder a y intégrer le mécanisme de tir.&lt;/p>
+&lt;h3 id="modélisation-du-barillet">Modélisation Du Barillet&lt;/h3>
+&lt;p>Nous avons commencé par modéliser le barillet pour avoir une pièce référence pour l’échelle du reste de la modélisation.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_15-59-58_barillet_colt_python.png"
+loading="lazy"
+alt="2023-10-10_15-59-58_barillet_colt_python.png"
+>&lt;/p>
+&lt;h3 id="modélisation-de-la-carcasse">Modélisation De La Carcasse&lt;/h3>
+&lt;p>Pour la carcasse, nous l’avons faite en une seule esquisse qui est extrudée. Les dimensions exactes n’était pas très importantes autour de la crosse mais nous avons dû être précis dans le dimensionnement aux alentours des pièces qui viendront ensuite s’emboiter ou s’assembler à la partie principale de l’arme. Nous avons dû reprendre la carcasse à plusieurs reprises pour obtenir le bon alignement avec le barillet et le canon.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-00-21_colt_python_carcasse.png"
+loading="lazy"
+alt="2023-10-10_16-00-21_colt_python_carcasse.png"
+>&lt;/p>
+&lt;h3 id="modélisation-du-mécanisme-du-barillet-et-du-canon">Modélisation Du Mécanisme Du Barillet Et Du Canon&lt;/h3>
+&lt;p>Ici l’objectif était de pouvoir faire pivoter l’intégralité du barillet sur le coté pour pouvoir recharger facilement l’arme. Il est composé de plusieurs pièces qui une fois assemblées viennent se fixer sans problème sur le corps de l’arme avec le canon.&lt;/p>
+&lt;p>Le petit rebord sur la dernière figure sert mécaniquement à ce que le barillet ne descende pas complètement et reste bloqué à 90° pour le rechargement de l’arme. La tige à l’intérieur du barillet se pousse en arrière pour éjecter les douilles.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-01-15_colt_python_modelisation_complete.png"
+loading="lazy"
+alt="2023-10-10_16-01-15_colt_python_modelisation_complete.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-10-10_16-01-47_mecanisme_rechargement.png"
+loading="lazy"
+alt="2023-10-10_16-01-47_mecanisme_rechargement.png"
+>&lt;/p>
+&lt;h3 id="modélisation-de-la-gachette-et-du-chien">Modélisation De La Gachette Et Du Chien&lt;/h3>
+&lt;p>Nous avons voulu modéliser le chien et la gâchette de telle manière à reproduire le mécanisme double action qui lève le chien lorsque nous appuyons sur la gâchette et qui le relâche une fois arrivée en butée, par manque de ressources nous n’avons pas pu modéliser l’intégralités des pièces servant ce mécanisme. Nous n’avons pas pu non plus modéliser le ressort du retour du chien car CATIA ne permet pas facilement la réalisation de pièce avec des propriétés élastique.&lt;/p>
+&lt;p>&lt;strong>Update post-diplôme: Avec nos connaissances de fin d&amp;rsquo;études, nous pourrions désormais réaliser ce type de mécanisme dans son intégralité&lt;/strong>&lt;/p></description></item></channel></rss>

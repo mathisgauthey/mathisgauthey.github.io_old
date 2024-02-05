@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>obsidian on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/obsidian/</link><description>Recent content in obsidian on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Aug 2023 18:55:32 +0200</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/obsidian/index.xml" rel="self" type="application/rss+xml"/><item><title>Obsidian Publish Alternative, How to One-click Upload Your Notes on Your Own Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website/</link><pubDate>Wed, 02 Aug 2023 18:55:32 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website/</guid><description>&lt;h1 id="obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website">Obsidian Publish Alternative, How to One-click Upload Your Notes on Your Own Website&lt;/h1>
+&lt;p>This post is an extension of my &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/my-complete-obsidian-workflow-to-manage-my-life/" >main post&lt;/a> showcase of my Obsidian workflow. You might want to check it out as well.&lt;/p>
+&lt;h2 id="create-you-own-hugo-website">Create You Own Hugo Website&lt;/h2>
+&lt;h3 id="prerequisites">Prerequisites&lt;/h3>
+&lt;p>I&amp;rsquo;ll assume that you installed &lt;a class="link" href="https://gohugo.io/getting-started/quick-start/" target="_blank" rel="noopener"
+>Hugo following their quick-start documentation&lt;/a> and &lt;a class="link" href="https://git-scm.com/downloads" target="_blank" rel="noopener"
+>Git&lt;/a> on your computer, and that you know how to clone a repository from Github. If not, Google and Chat GPT are your friends here.&lt;/p>
+&lt;h3 id="create-your-website-repository-on-github">Create Your Website Repository on Github&lt;/h3>
+&lt;p>First thing you need to do is to &lt;a class="link" href="https://github.com/new" target="_blank" rel="noopener"
+>create your website repository on Github&lt;/a>.&lt;/p>
+&lt;p>Name it &lt;code>website_name.github.io&lt;/code> with &lt;code>website_name&lt;/code> being your desired website name. (Thanks captain obvious).&lt;/p>
+&lt;p>Don&amp;rsquo;t forget to tick the &lt;code>Add a README file&lt;/code>. It will prevent cloning an empty repository that will lead to issues if you&amp;rsquo;re not comfortable with Git.&lt;/p>
+&lt;h3 id="create-your-website-on-local">Create Your Website on Local&lt;/h3>
+&lt;p>You&amp;rsquo;ll now head to a folder of your choice on your computer.&lt;/p>
+&lt;p>I&amp;rsquo;m simply using my &lt;code>documents&lt;/code> folder inside my &lt;code>home&lt;/code> in Ubuntu. But you might use &lt;code>Documents&lt;/code> in Windows or anything else.&lt;/p>
+&lt;p>Open a command prompt inside this folder. Using &lt;a class="link" href="https://learn.microsoft.com/en-us/windows/terminal/install" target="_blank" rel="noopener"
+>Windows Terminal&lt;/a> you should be able to right click inside the &lt;code>Documents&lt;/code> folder and select &lt;code>Open in terminal&lt;/code>. Or use the &lt;code>cd&lt;/code> command to navigate to the right folder. If you&amp;rsquo;re a Linux user, I&amp;rsquo;ll assume that you know what you are doing.&lt;/p>
+&lt;p>Input the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">hugo new site website_name
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then to get inside the newly created website folder :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd website_name
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And you&amp;rsquo;ll now add your Hugo website template as a git submodule.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There&amp;rsquo;s other ways of installing a theme, I just made a choice :&lt;/p>
+&lt;ul>
+&lt;li>Using the theme quick-start → Usually end up being hard to configure&lt;/li>
+&lt;li>Using a simple git clone instead of a submodule → It&amp;rsquo;ll be a pain to update the theme&lt;/li>
+&lt;li>Using a Hugo module → Configuration involves creating folder, I&amp;rsquo;m a lazy ass, I&amp;rsquo;m configuring my theme directly from my theme folder.&lt;/li>
+&lt;/ul>
+&lt;p>By the way, if you want to be able to modify the theme, you should fork the theme, and update the &lt;code>.gitmodules&lt;/code> file with your forked repository link. If not, just keep it this way with the official &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a> repository.&lt;/p>
+&lt;p>&lt;strong>If you do choose to use the git submodules for being able to modify the website theme, please don&amp;rsquo;t forget to use the &lt;code>git submodule update --remote&lt;/code> command to gather the changes from your remote fork.&lt;/strong>&lt;/p>
+&lt;p>Anyway, now you should find the &lt;code>hugo.toml&lt;/code> file and &lt;strong>delete it&lt;/strong>. Don&amp;rsquo;t worry, we&amp;rsquo;ll use the theme configuration file.&lt;/p>
+&lt;p>Speaking of which, copy the whole &lt;code>exampleSite&lt;/code> folder content at the root of your &lt;code>website_name&lt;/code> folder.&lt;/p>
+&lt;p>You&amp;rsquo;ll now have a &lt;code>config.yaml&lt;/code> configured correctly, meaning with the good theme and all the base configs. You can also steal &lt;a class="link" href="https://github.com/mathisgauthey/mathisgauthey.github.io/blob/main/config.yaml" target="_blank" rel="noopener"
+>mine&lt;/a>. I don&amp;rsquo;t really mind, if anything, it&amp;rsquo;ll make me happy to see websites created thanks to my guide.&lt;/p>
+&lt;p>Just don&amp;rsquo;t forget to change at least the &lt;code>baseurl&lt;/code> to &lt;code>https://website_name.github.io/&lt;/code> and your website &lt;code>title&lt;/code>.&lt;/p>
+&lt;p>Please make sure to add the following two lines to your &lt;code>config.yaml&lt;/code> as well :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Error handling configuration for internal markdown link not found&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">refLinksErrorLevel&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">WARNING&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">refLinksNotFoundURL&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://website_name.github.io/404&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>They will assure that your website still build even if you push a note that has a link to an un-uploaded note, and redirect to your 404 page if it doesn&amp;rsquo;t find the requested URL.&lt;/p>
+&lt;p>Icons and avatar are saved inside the &lt;code>assets&lt;/code> folder. Except for your website &lt;code>favicon&lt;/code> that goes into the &lt;code>static&lt;/code> folder.&lt;/p>
+&lt;p>You will now come back to your &lt;code>Documents&lt;/code> folder and git clone your previously created repository. You now have a &lt;code>website_name&lt;/code> folder containing your Hugo site folder with the theme as a git submodule. And a &lt;code>website_name.github.io&lt;/code> folder containing a &lt;code>README.md&lt;/code> file.&lt;/p>
+&lt;p>You just need to copy the &lt;code>website_name&lt;/code> folder content inside your repository folder named &lt;code>website_name.github.io&lt;/code>. And finally, commit and push !&lt;/p>
+&lt;h3 id="configuring-the-github-pages-online-part">Configuring the Github Pages Online Part&lt;/h3>
+&lt;p>First, you need to go to your website settings and configure how the site is build.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-08-02_19-45-36_github_page_config.png"
+loading="lazy"
+alt="2023-08-02_19-45-36_github_page_config.png"
+>&lt;/p>
+&lt;p>Then create a &lt;code>.github&lt;/code> folder.&lt;/p>
+&lt;p>Inside the folder, create a &lt;code>workflows&lt;/code> folder.&lt;/p>
+&lt;p>Finally, create a &lt;code>deploy.yml&lt;/code> file. Add the following content :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy to Github Pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">main]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pull_request&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">main]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">permissions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># Give the default GITHUB_TOKEN write permission to commit and push the&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># added or changed files to the repository.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">contents&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">write&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;recursive&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Cache Hugo resources&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/cache@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">cache-name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cache-hugo-resources&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">resources&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ env.cache-name }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/setup-go@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">go-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;^1.17.0&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">go version&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Cache Go Modules&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/cache@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> ~/.cache/go-build
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> ~/go/pkg/mod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ runner.os }}-go-${{ hashFiles(&amp;#39;**/go.sum&amp;#39;) }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">restore-keys&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> ${{ runner.os }}-go-&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Setup Hugo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;latest&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">extended&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Build&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo --minify --gc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deploy 🚀&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">JamesIves/github-pages-deploy-action@4.1.4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gh-pages&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">folder&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">public&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">clean&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">single-commit&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>It is based on the &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>hugo-stack-theme-starter&lt;/a> repository, but configured to use a git submodule by adding the lines 20 and 21 :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;recursive&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you don&amp;rsquo;t know much about Github workflows, just keep in mind that this is the part that will automatically build your site from your &lt;code>main&lt;/code> branch on Github and deploy the &lt;code>gh-pages&lt;/code> branch that is the built website.&lt;/p>
+&lt;h3 id="configure-your-website">Configure Your Website&lt;/h3>
+&lt;p>I honestly don&amp;rsquo;t have the time nor the will to document every modification I made on my website. You have many options to learn how to do so :&lt;/p>
+&lt;ul>
+&lt;li>Explore my &lt;a class="link" href="https://github.com/mathisgauthey/mathisgauthey.github.io/settings/pages" target="_blank" rel="noopener"
+>website repository and files&lt;/a>&lt;/li>
+&lt;li>Explore the &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a> repository, its issues and discussions&lt;/li>
+&lt;li>Explore the &lt;a class="link" href="https://stack.jimmycai.com/" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a> documentations&lt;/li>
+&lt;/ul>
+&lt;p>Basically, I changed and added some icons, added some left panel pages, and configured a comment section using &lt;a class="link" href="https://giscus.app/" target="_blank" rel="noopener"
+>giscus&lt;/a>.&lt;/p>
+&lt;h2 id="upload-content-to-your-website">Upload Content to Your Website&lt;/h2>
+&lt;p>You can simply change the &lt;code>share&lt;/code> boolean to &lt;code>true&lt;/code> in the note frontmatter, then select the command &lt;code>Upload filename to DEFAULT&lt;/code> of the &lt;a class="link" href="https://github.com/ObsidianPublisher/obsidian-github-publisher" target="_blank" rel="noopener"
+>obsidian-github-publisher&lt;/a> plugin from the note drop down menu. It will use some regex to convert wikilinks to standard Hugo links, commit and push to the relevant repository on Github, make a pull request that&amp;rsquo;ll be automatically accepted, and then use some Github Actions to build your website.&lt;/p>
+&lt;p>Attachments are automatically sent as well as linked notes as long as they have the &lt;code>share&lt;/code> boolean set to &lt;code>true&lt;/code> as well.&lt;/p>
+&lt;p>The posts will be sent to the &lt;code>content/post&lt;/code> folder and the attachments to the &lt;code>content/images&lt;/code> folder.&lt;/p></description></item><item><title>Why Using Obsidian for Life Management</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/why-using-obsidian-for-life-management/</link><pubDate>Sat, 29 Jul 2023 22:31:22 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/why-using-obsidian-for-life-management/</guid><description>&lt;h1 id="why-using-obsidian-for-life-management">Why Using Obsidian for Life Management&lt;/h1>
+&lt;p>This post is an extension of my &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/my-complete-obsidian-workflow-to-manage-my-life/" >main post&lt;/a> showcase of my Obsidian workflow. You might want to check it out as well.&lt;/p>
+&lt;h2 id="what-is-gtd-">What is GTD ?&lt;/h2>
+&lt;p>If you already know all of that, skip this section.&lt;/p>
+&lt;p>Getting Things Done is a book written by David Allen. I recommend reading it, really. Like everything, reading key concepts online is good, but a whole book gives you a much better understanding of the underlying concepts described, why and how it works. I know it might sound like a lot of time, but it&amp;rsquo;s all worth it, trust me.&lt;/p>
+&lt;p>But if you still don&amp;rsquo;t have the time or the willingness to read GTD, try at least to read &lt;a class="link" href="https://todoist.com/fr/productivity-methods/getting-things-done" target="_blank" rel="noopener"
+>Todoist&amp;rsquo;s guide&lt;/a> or my personal interpretation below.&lt;/p>
+&lt;h3 id="definitions">Definitions&lt;/h3>
+&lt;p>A &lt;strong>task&lt;/strong> is a clear action step, something to be done. It must be precise and concrete.&lt;/p>
+&lt;p>A &lt;strong>one-off task&lt;/strong> is a task that is enough by itself. Like &amp;ldquo;Calling the dentist to make an appointment&amp;rdquo; or &amp;ldquo;Doing the dishes&amp;rdquo;.&lt;/p>
+&lt;p>A &lt;strong>project&lt;/strong> is a bunch of tasks to achieve a goal. It must have a due date, at least one that you tell yourself.&lt;/p>
+&lt;h3 id="key-concepts">Key Concepts&lt;/h3>
+&lt;p>GTD is all about capturing every thoughts you have, clarifying them, organizing them, and acting on them. Your brain should be a factory for new ideas, not a warehouse.&lt;/p>
+&lt;p>So you need an inbox, easily and quickly accessible everywhere to clear your head. We&amp;rsquo;ll use &lt;a class="link" href="https://todoist.com" target="_blank" rel="noopener"
+>Todoist&lt;/a> and the &lt;a class="link" href="https://github.com/jamiebrynes7/obsidian-todoist-plugin" target="_blank" rel="noopener"
+>obsidian-todoist-plugin&lt;/a> for that, but more on that latter. Every-time something (small or big) crosses your mind, you capture (step 1) it in here. It might be &amp;ldquo;clean the house&amp;rdquo; or &amp;ldquo;learn to play piano&amp;rdquo;, anything really.&lt;/p>
+&lt;p>Then you need to clarify (step 2) these items you&amp;rsquo;ve captured. For instance :&lt;/p>
+&lt;ul>
+&lt;li>A task must be a clear and concrete action step (&amp;ldquo;laundry&amp;rdquo; ❌ → &amp;ldquo;Do the laundry at the laundrette&amp;rdquo; ✅).&lt;/li>
+&lt;li>A project must be a goal to achieve (use the &lt;a class="link" href="https://www.mindtools.com/a4wo118/smart-goals" target="_blank" rel="noopener"
+>SMART goal setting&lt;/a>).&lt;/li>
+&lt;li>A reference material might be a note, a link, or a document to store that might help achieving some tasks. Or you might just need to store it for later unknown purpose. &lt;strong>Be careful not to fall in the &lt;a class="link" href="https://zettelkasten.de/posts/collectors-fallacy/" target="_blank" rel="noopener"
+>collector fallacy&lt;/a> trying to store and remember everything as if Wikipedia didn&amp;rsquo;t yet exist.&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>You then organise (step 3) them :&lt;/p>
+&lt;ul>
+&lt;li>A task might be delegated or waiting for something, it might be the next action of a project, it might have to wait for a start date, be scheduled for a particular day, have a due date, etc.&lt;/li>
+&lt;li>A project must have a due date, we need time constraint because it helps us see how much we have to do and not put too much on our plate. If there&amp;rsquo;s no due date, it goes into the someday maybe list of things you&amp;rsquo;d do one day.&lt;/li>
+&lt;li>A reference material must be filled accordingly. If it&amp;rsquo;s a piece of information you can create a note, if it&amp;rsquo;s a document you might use your cloud storage, if it&amp;rsquo;s a link you might save it using Omnivore.&lt;/li>
+&lt;/ul>
+&lt;p>Tasks in obsidian-tasks vault have &lt;a class="link" href="https://publish.obsidian.md/tasks/Scripting/Task&amp;#43;Properties" target="_blank" rel="noopener"
+>different properties&lt;/a>, and are displayed by &lt;a class="link" href="https://publish.obsidian.md/tasks/Advanced/Urgency" target="_blank" rel="noopener"
+>urgency&lt;/a> using the default sorting. In short, you have to worry about these one using my template :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://publish.obsidian.md/tasks/Queries/Filters#Happens" target="_blank" rel="noopener"
+>Happens date&lt;/a> :
+&lt;ul>
+&lt;li>A due date : Date by which the task needs to be completed.&lt;/li>
+&lt;li>A scheduled date : Date on which you plan to work on your task&lt;/li>
+&lt;li>A start date : Date by which you can start working on a specific task. Possibly because you can&amp;rsquo;t do that task before this date.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Context tag : A &lt;code>tag&lt;/code> describing in which context you can do this task. This can be something like &amp;ldquo;phone&amp;rdquo;, &amp;ldquo;online&amp;rdquo;, &amp;ldquo;errands&amp;rdquo;, &amp;ldquo;mail&amp;rdquo;, &amp;ldquo;transports&amp;rdquo;, etc.&lt;/li>
+&lt;li>Time available : Not used actively in this vault but might take the form of a &lt;code>tags&lt;/code> as well.&lt;/li>
+&lt;li>Energy available : Used in this vault but in the form of a &lt;code>tags&lt;/code> just like contexts.&lt;/li>
+&lt;li>Priority : &lt;a class="link" href="https://publish.obsidian.md/tasks/Getting&amp;#43;Started/Priority" target="_blank" rel="noopener"
+>Task property from obsidian-task plugin&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;p>You must review (step 4) your system periodically. That&amp;rsquo;s why I&amp;rsquo;m using daily, weekly, monthly, quarterly and yearly notes. But more on that later as well, just remember that this is a &lt;strong>really important&lt;/strong> part of the process and helps maintaining it.&lt;/p>
+&lt;p>Finally, you need to engage (step 5) → It&amp;rsquo;s about time to get things done don&amp;rsquo;t you think ? That&amp;rsquo;s the fifth part.&lt;/p>
+&lt;h3 id="horizons-of-focus">Horizons of Focus&lt;/h3>
+&lt;p>In GTD, there&amp;rsquo;s multiple &lt;a class="link" href="https://gettingthingsdone.com/2011/01/the-6-horizons-of-focus/" target="_blank" rel="noopener"
+>horizons of focus&lt;/a> :&lt;/p>
+&lt;ol>
+&lt;li>Tasks : Actions to take&lt;/li>
+&lt;li>Projects : A bigger task with two or more sub-tasks&lt;/li>
+&lt;li>Areas of focus/responsibility : Areas of your life with a standard to maintain&lt;/li>
+&lt;li>Goals &amp;amp; Objectives : Short term goals for this or next year (1-2 years)&lt;/li>
+&lt;li>Visions : How and where do you see yourself in a few years (3-5 years)&lt;/li>
+&lt;li>Purpose and principles : Who you are, what is your purpose and on what principles do you live&lt;/li>
+&lt;/ol>
+&lt;p>I learned that having goals alongside projects didn&amp;rsquo;t work for me as I would put goals somewhere but never act on it. That&amp;rsquo;s why on this system inside obsidian, projects &lt;strong>are&lt;/strong> goals, they live inside &lt;code>areas&lt;/code> of my life.&lt;/p>
+&lt;p>If I have a goal to become an artist, I might have a daily recurring task inside that would be &amp;ldquo;Draw for 15min each day&amp;rdquo;. Or if I want to have a nice party next weekend as a goal, I might need to contact friends, prepare my shopping list, take friday off, etc.&lt;/p>
+&lt;p>You can&amp;rsquo;t just put on simple goals on a list and hope that your actions will go toward them. It won&amp;rsquo;t. But if you create a goal inside one of your &lt;code>areas&lt;/code> file, that links to a project note where you can put next actions and notes, you&amp;rsquo;ll move forward and clear that goal before the estimated due date !&lt;/p>
+&lt;p>So in our case with this Obsidian setup :&lt;/p>
+&lt;ol>
+&lt;li>Tasks : They can be created simply by using markdown tasks formatting anywhere on your vault except the _Sources folder, the -Workout-Log folder, the 4-Archives folder, the 5-Templates folder and the Media Backlog note. The &lt;a class="link" href="https://github.com/obsidian-tasks-group/obsidian-tasks" target="_blank" rel="noopener"
+>obsidian-tasks&lt;/a> is configured to exclude these folders by design choice.&lt;/li>
+&lt;li>Projects : They live inside the &lt;code>1-Projects&lt;/code> folder. One note by goals or objectives, and inside the note you can put the tasks alongside notes and embedded attachments, just like you would with a piece of paper.&lt;/li>
+&lt;li>Areas : Areas contains projects. That&amp;rsquo;s where you&amp;rsquo;re creating your projects in the form of &lt;strong>obsidian tasks&lt;/strong>. You can use wikilinks to create the project note while doing so. You can also have some recurring tasks to maintain the area standard. And finally there&amp;rsquo;s an archive to clear the clutter using &lt;a class="link" href="https://github.com/ivan-lednev/obsidian-task-archiver" target="_blank" rel="noopener"
+>obsidian-tasks-archiver&lt;/a> plugin.&lt;/li>
+&lt;li>Visions, purpose and principles : They are less actionable and don&amp;rsquo;t require constant consideration. Just update the note every once in a while when you feel like your long term goals have changed after a big event in your life. Don&amp;rsquo;t change them often, focus on achieving tasks to progress in your goals instead.&lt;/li>
+&lt;/ol>
+&lt;h2 id="how-to-use-this-vault-template-for-life-management">How to Use This Vault Template for Life Management&lt;/h2>
+&lt;h3 id="inbox">Inbox&lt;/h3>
+&lt;p>Alright, so if we want to have a GTD setup, first we need an Inbox. And those of you who already had an obsidian vault with some plugins might have spotted an important issue : Obsidian is slow to launch.&lt;/p>
+&lt;p>Well, fortunately there&amp;rsquo;s a &lt;a class="link" href="https://github.com/jamiebrynes7/obsidian-todoist-plugin" target="_blank" rel="noopener"
+>Todoist&lt;/a> plugin for obsidian that gather tasks from your Todoist account. You can now quickly jot notes and tasks on your phone and computer directly inside Todoist&amp;rsquo;s inbox using shortcuts and see them inside the &lt;code>0-Inbox&lt;/code> file inside the &lt;code>0-Inbox&lt;/code> folder, or inside your daily-notes !&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-07-31_19-37-08_inbox_example.png"
+loading="lazy"
+alt="2023-07-31_19-37-08_inbox_example.png"
+>&lt;/p>
+&lt;h3 id="why-using-a-daily-and-periodic-notes-instead-of-a-beautiful-and-perfect-dashboard-">Why Using a Daily and Periodic Notes Instead of a Beautiful and Perfect Dashboard ?&lt;/h3>
+&lt;p>I used Notion, Notion users love clean dashboard. Obsidian folks love them too. Why I hate them ? I&amp;rsquo;m a perfectionist with many OCD&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> issues. If I&amp;rsquo;m using a Dashboard, I&amp;rsquo;ll need to update it every time I feel like it (often), and &lt;strong>end up spending more time fine tuning a board and maintaining it than acting on my life&lt;/strong>.&lt;/p>
+&lt;p>Using Daily and Periodic Notes allows you to use template, modify these templates if needed but without needing backward modifications everywhere.&lt;/p>
+&lt;blockquote>
+&lt;p>Embrace the fact that you can change along your life journey.&lt;/p>
+&lt;/blockquote>
+&lt;p>It also provides an easy way to zoom in or zoom out to get the big picture. For instance, during a stressed period one might only rely on the daily notes and the current most important project. And as things calm down, you might consider seeing weekly, then monthly, eventually quarterly and finally yearly notes for projects plans and move their due date before to work on them.&lt;/p>
+&lt;p>I spoke about reviewing your system periodically before. I used to have some &amp;ldquo;periodic&amp;rdquo; checklist to do every periods. I ended that as it became a habit to sort pictures daily, budget weekly, clean files monthly, backup quarterly and yearly. But you might also use these notes template with tasks to do at the beginning or end of each period. Even if you don&amp;rsquo;t, having periodic notes &amp;ldquo;forces&amp;rdquo; you to review where you are by zooming in and out of your day to day activities.&lt;/p>
+&lt;p>You also get a cool archive of tasks and projects achieved, and that&amp;rsquo;s great !&lt;/p>
+&lt;h3 id="the-daily-note">The Daily Note&lt;/h3>
+&lt;p>The daily note is the note you&amp;rsquo;ll open each morning when you wake up and each evening when you finish your working day.&lt;/p>
+&lt;p>The first part looks like this :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-08-03_18-22-39_daily_note_first_part_example.png"
+loading="lazy"
+alt="2023-08-03_18-22-39_daily_note_first_part_example.png"
+>&lt;/p>
+&lt;p>The name of the note is the current date in the &lt;a class="link" href="https://www.wikiwand.com/en/ISO_8601" target="_blank" rel="noopener"
+>ISO 8601 format&lt;/a>. You also get the weekday, and some navigation to the periodic notes where the day belongs to and to the previous and next day.&lt;/p>
+&lt;p>You also have some shortcut to you &lt;code>Dashboard 🗺️&lt;/code> and &lt;code>Taskboard ✅&lt;/code> files, they helps you not to miss a project or a task respectively inside your vault. More on that later.&lt;/p>
+&lt;p>Then there&amp;rsquo;s some introductions callouts :&lt;/p>
+&lt;ul>
+&lt;li>Ongoing medias from your Media Backlog → Dataview script that show the medias inside columns containing the word &lt;code>Doing&lt;/code>.&lt;/li>
+&lt;li>Time left in each periods → Using a &lt;code>dataviewjs&lt;/code> function based on the one provided to me by &lt;strong>Dovos&lt;/strong> from the &lt;code>Dataview discord&lt;/code> following an &lt;a class="link" href="https://forum.obsidian.md/t/day-week-month-quarter-year-progress-bar-in-dataview/56853/3" target="_blank" rel="noopener"
+>obsidian post&lt;/a>.&lt;/li>
+&lt;li>Google calendar weekly view → Using &lt;a class="link" href="https://github.com/YukiGasai/obsidian-google-calendar" target="_blank" rel="noopener"
+>obsidian-google-calendar&lt;/a> plugin to show a weekly view of your google calendar.&lt;/li>
+&lt;li>Tasks Calendar using &lt;a class="link" href="https://github.com/702573n/Obsidian-Tasks-Calendar" target="_blank" rel="noopener"
+>obsidian-tasks-calendar&lt;/a> plugin based on &lt;a class="link" href="https://github.com/obsidian-tasks-group/obsidian-tasks" target="_blank" rel="noopener"
+>obsidian-tasks&lt;/a> and &lt;a class="link" href="https://github.com/blacksmithgu/obsidian-dataview" target="_blank" rel="noopener"
+>obsidian-dataview&lt;/a> plugins.&lt;/li>
+&lt;li>Ongoing and upcoming projects from your areas files inside &lt;code>2-Areas&lt;/code> folder.&lt;/li>
+&lt;/ul>
+&lt;p>There&amp;rsquo;s also a notes space where you can create some &lt;a class="link" href="https://todoist.com/fr/productivity-methods/getting-things-done#taches-ponctuelles" target="_blank" rel="noopener"
+>one-off tasks&lt;/a> while clarifying the Todoist inbox that sits just below.&lt;/p>
+&lt;p>The second part is all about tasks :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-07-31_19-46-22_daily_note_second_part_example.png"
+loading="lazy"
+alt="2023-07-31_19-46-22_daily_note_second_part_example.png"
+>&lt;/p>
+&lt;p>It&amp;rsquo;s just a simple set of callout containing tasks queries :&lt;/p>
+&lt;ul>
+&lt;li>Overdue tasks&lt;/li>
+&lt;li>Tasks due today&lt;/li>
+&lt;li>Upcoming tasks in the next 30 days&lt;/li>
+&lt;li>Next actions grouped by context tags&lt;/li>
+&lt;li>Waiting for tasks&lt;/li>
+&lt;li>Delegated tasks&lt;/li>
+&lt;/ul>
+&lt;p>You finally get to the journaling part :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-07-31_19-58-02_daily_note_journal_part_example.png"
+loading="lazy"
+alt="2023-07-31_19-58-02_daily_note_journal_part_example.png"
+>&lt;/p>
+&lt;p>This part contains :&lt;/p>
+&lt;ul>
+&lt;li>A task log for tasks done today&lt;/li>
+&lt;li>Your workout log scanning for daily workouts&lt;/li>
+&lt;li>Your recurring tasks&lt;/li>
+&lt;/ul>
+&lt;p>And finally : Your journal ! Evaluate your mood (1-5), give a title to your day, write down your thoughts, be grateful, and write down the good things you brought to this world.&lt;/p>
+&lt;h3 id="the-periodic-notes">The Periodic Notes&lt;/h3>
+&lt;p>Basically a periodic note look like this :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-08-02_18-59-34_periodic_note_example.png"
+loading="lazy"
+alt="2023-08-02_18-59-34_periodic_note_example.png"
+>&lt;/p>
+&lt;p>You will get for each periodic view some slightly different templates :&lt;/p>
+&lt;ul>
+&lt;li>The time left callout&lt;/li>
+&lt;li>A google calendar weekly view if on a weekly note, or schedule view if on a monthly note&lt;/li>
+&lt;li>A task calendar with a weekly or monthly view depending on the note type&lt;/li>
+&lt;li>Your projects happening during this time period&lt;/li>
+&lt;li>The projects you achieved during this time period&lt;/li>
+&lt;li>A task log (only if on a weekly note)&lt;/li>
+&lt;li>A journal entry&lt;/li>
+&lt;/ul>
+&lt;h3 id="how-not-to-miss-a-task-or-project-inside-my-vault-">How Not to Miss a Task or Project Inside My Vault ?&lt;/h3>
+&lt;p>The &lt;code>TaskBoard ✅&lt;/code> and &lt;code>Dashboard 🗺️&lt;/code> files will find any unplanned task or project inside your vault, as long as they are not inside any of the excluded files and folders :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">path does not include Archives
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Templates
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Workout_Log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Media Backlog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include _Sources
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="the-someday-maybe-note">The Someday Maybe Note&lt;/h2>
+&lt;p>The &lt;code>Someday Maybe 💭&lt;/code> file is where you put your future goals and objectives in the form of a simple bullet list. Nothing fancy, we don&amp;rsquo;t care it&amp;rsquo;s not important as of now. But you might want to put things you want to do here, wait for a bit and decide if they&amp;rsquo;re still relevant after a while. If yes, simply create a project and start working on it !&lt;/p>
+&lt;h3 id="how-to-use-other-functionalities-such-as-journaling-workout-logging-media-tracking-">How to Use Other Functionalities Such as Journaling, Workout-logging, Media-tracking ?&lt;/h3>
+&lt;p>I&amp;rsquo;ll refer you to the &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/my-complete-obsidian-workflow-to-manage-my-life/" >main post&lt;/a> that showcase my workflow. It is detailed enough in here.&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Obsessive-Compulsive Disorder&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>My Complete Obsidian Workflow to Manage My Life</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/my-complete-obsidian-workflow-to-manage-my-life/</link><pubDate>Sat, 29 Jul 2023 17:53:34 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/my-complete-obsidian-workflow-to-manage-my-life/</guid><description>&lt;h1 id="my-complete-obsidian-workflow-to-manage-my-life">My Complete Obsidian Workflow to Manage My Life&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-08-05_19-43-11_obsidian_workflow_workspace_example.png"
+loading="lazy"
+alt="2023-08-05_19-43-11_obsidian_workflow_workspace_example.png"
+>&lt;/p>
+&lt;h3 id="why-writing-this-guide-">Why Writing This Guide ?&lt;/h3>
+&lt;p>As I promised to quite a few people on different places, I&amp;rsquo;m releasing a full blown guide of my Obsidian workflow. It has many cool features that I&amp;rsquo;ve seen people struggling with online :&lt;/p>
+&lt;ol>
+&lt;li>Tasks and project management with journaling, workout logging and media tracking. Using daily and periodic notes.&lt;/li>
+&lt;li>Read-it-later with automated conversion to markdown and import inside your vault. Meaning all your past knowledge is inside Obsidian, available with a simple search alongside your notes.&lt;/li>
+&lt;li>Fast and simple one click upload obsidian publish alternative.&lt;/li>
+&lt;/ol>
+&lt;p>But there&amp;rsquo;s plenty more. It took me some time here and there during the past year to come up with this setup. And don&amp;rsquo;t worry, it is &lt;strong>easy to use&lt;/strong> despite its awfully long name. But I&amp;rsquo;ll describe it with as much depth as I can for people who wants to fine tune it.&lt;/p>
+&lt;p>Obviously, it is merely just a starting point, with Obsidian you can (and you always should) do something that works well for &lt;strong>you&lt;/strong>. And that means creating your &lt;strong>own&lt;/strong> setup. But that doesn&amp;rsquo;t forbid you from using this one as a starting-point.&lt;/p>
+&lt;h3 id="why-is-it-the-perfect-obsidian-setup-at-least-for-me-">Why is it the Perfect Obsidian Setup (at Least for me) ?&lt;/h3>
+&lt;p>It embraces many relevant and high level productivity concepts alongside &lt;a class="link" href="https://obsidian.md/" target="_blank" rel="noopener"
+>Obsidian&lt;/a>&amp;rsquo;s &lt;a class="link" href="https://help.obsidian.md/Getting&amp;#43;started/Link&amp;#43;notes" target="_blank" rel="noopener"
+>powerful note linking feature&lt;/a> while still being usable as a simple &amp;ldquo;I create a simple daily checklist with a few notes&amp;rdquo; in case of existential crisis. → That means the system will &lt;strong>last&lt;/strong>.&lt;/p>
+&lt;p>Of course using Obsidian also mean &lt;strong>offline access&lt;/strong> and &lt;strong>data possession&lt;/strong>. You can sync your data yourself using &lt;a class="link" href="https://github.com/denolehov/obsidian-git" target="_blank" rel="noopener"
+>obsidian-git&lt;/a> plugin. If the mobile (android) version doesn&amp;rsquo;t work the way you want despite the plugin active development, you can follow one of my guides :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/" >One using cron jobs to sync at regular intervals&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/" >Another one that sync at Obsidian&amp;rsquo;s app startup&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Or just pay for the encrypted &lt;a class="link" href="https://obsidian.md/sync" target="_blank" rel="noopener"
+>obsidian-sync&lt;/a> official plugin.&lt;/p>
+&lt;h2 id="core-features">Core Features&lt;/h2>
+&lt;ul>
+&lt;li>🎨 Beautiful design using &lt;a class="link" href="https://github.com/AnubisNekhet/anuppuccin" target="_blank" rel="noopener"
+>AnuPpuccin: Personal theme for Obsidian&lt;/a>.&lt;/li>
+&lt;li>🗃️ &lt;a class="link" href="https://fortelabs.com/blog/para/" target="_blank" rel="noopener"
+>P.A.R.A&lt;/a>&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup> folder organisation based on file actionability.&lt;/li>
+&lt;li>✅ &lt;a class="link" href="https://gettingthingsdone.com/" target="_blank" rel="noopener"
+>GTD&lt;/a>&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup> task management on par with a &lt;a class="link" href="https://todoist.com/fr/productivity-methods/getting-things-done" target="_blank" rel="noopener"
+>full Todoist setup&lt;/a>, but with a simple and natural way of &lt;strong>writing tasks alongside notes&lt;/strong>. You also get to keep your project tasks, notes and files archives when you finish a project, allowing you to access these informations in the future.&lt;/li>
+&lt;li>📅 Daily notes for task management, periodic notes for projects management (week, month, quarter and year).&lt;/li>
+&lt;li>📓 Journal section for each daily and periodic notes to write about anything that happened during a certain period of time.&lt;/li>
+&lt;li>💪 Simple workout log for storing your workout sessions but with an infinite possible personalized exercise library.&lt;/li>
+&lt;li>🎮 Media backlog Kanban board for tracking books, shows, movies or video games backlog, consuming media at the right pace, and archiving what you do. All without proprietary online services that hold you data.&lt;/li>
+&lt;li>🔗 Read-it-later / bookmark manager with automated markdown conversion for offline storage inside your vault using &lt;a class="link" href="https://omnivore.app/" target="_blank" rel="noopener"
+>Omnivore app&lt;/a>. That means easy search for knowledge inside your vault across sources and personal notes.&lt;/li>
+&lt;li>📝 &lt;a class="link" href="https://everlaab.com/methode-zettelkasten-comment-prendre-des-notes-utiles/" target="_blank" rel="noopener"
+>Zettelkasten note-taking&lt;/a> on a flat structure inside &lt;code>3-Resources&lt;/code> folder.
+&lt;ol>
+&lt;li>📎 Import sources automatically using &lt;a class="link" href="https://github.com/omnivore-app/obsidian-omnivore" target="_blank" rel="noopener"
+>obsidian-omnivore&lt;/a> plugin for an automatic markdown conversion of a webpage or document online or manually from a file or using &lt;a class="link" href="https://github.com/deathau/markdownload" target="_blank" rel="noopener"
+>markdownload&lt;/a>.&lt;/li>
+&lt;li>Highlight and take reference notes using &lt;a class="link" href="https://omnivore.app/" target="_blank" rel="noopener"
+>Omnivore app&lt;/a> or directly inside your vault using a simple markdown file.&lt;/li>
+&lt;li>Write literature notes to summarise the source informations.&lt;/li>
+&lt;li>Write permanent notes from key concepts directly inside literature notes using wiki-links.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>🌐 One click upload of file and attachments to a &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>Hugo&lt;/a> website hosted on &lt;a class="link" href="https://pages.github.com/" target="_blank" rel="noopener"
+>Github Pages&lt;/a> thanks to &lt;a class="link" href="https://github.com/ObsidianPublisher/obsidian-github-publisher" target="_blank" rel="noopener"
+>obsidian-github-publisher&lt;/a> plugin.&lt;/li>
+&lt;/ul>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;ul>
+&lt;li>Obsidian app.&lt;/li>
+&lt;li>&lt;a class="link" href="https://todoist.com/" target="_blank" rel="noopener"
+>Todoist&lt;/a> account for an easy, &lt;strong>fast&lt;/strong> and accessible inbox on any of your devices.&lt;/li>
+&lt;li>&lt;a class="link" href="https://omnivore.app/" target="_blank" rel="noopener"
+>Omnivore&lt;/a> account for read-it-later and bookmark manager with automated markdown conversion for offline use.&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/" target="_blank" rel="noopener"
+>Github&lt;/a> account for hosting your website on github pages.&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.google.com/" target="_blank" rel="noopener"
+>Google&lt;/a> account for importing your Google calendar inside your daily-notes.&lt;/li>
+&lt;/ul>
+&lt;h2 id="quick-start--how-do-i-">Quick-start : How Do I ?&lt;/h2>
+&lt;h3 id="repository">Repository&lt;/h3>
+&lt;p>Alright, I&amp;rsquo;m in, how can I start ?&lt;/p>
+&lt;p>→ Here you can find a &lt;a class="link" href="https://github.com/mathisgauthey/obsidian-workflow-template" target="_blank" rel="noopener"
+>Github repository with an example vault&lt;/a> using my setup. All the plugins are configured to match with one another.&lt;/p>
+&lt;p>Don&amp;rsquo;t forget to &lt;strong>login&lt;/strong> to the following plugins using your account :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/jamiebrynes7/obsidian-todoist-plugin" target="_blank" rel="noopener"
+>obsidian-todoist-plugin with your todoist axcount&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/YukiGasai/obsidian-google-calendar" target="_blank" rel="noopener"
+>obsidian-google-calendar plugin with your Google account&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/omnivore-app/obsidian-omnivore" target="_blank" rel="noopener"
+>obsidian-omnivore plugin with your Omnivore account&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/ObsidianPublisher/obsidian-github-publisher" target="_blank" rel="noopener"
+>obsidian-github-publisher plugin with your GitHub account&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>For the note-sharing part, you might want to take a look at my &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website/" >guide&lt;/a>, along with my &lt;a class="link" href="https://github.com/mathisgauthey/mathisgauthey.github.io" target="_blank" rel="noopener"
+>own website repository&lt;/a> and how is it configured. It is based on &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>hugo-theme-stack&lt;/a>.&lt;/p>
+&lt;p>I will briefly explain each functionality here as well, and with more details in other posts.&lt;/p>
+&lt;h3 id="wait--dont-go-further-">Wait ! Don&amp;rsquo;t Go Further !&lt;/h3>
+&lt;p>I forgot something in the initial post. Here&amp;rsquo;s an update. There&amp;rsquo;s a lot of quality of live improvements in this vault, here&amp;rsquo;s a few examples :&lt;/p>
+&lt;ul>
+&lt;li>If you hit &lt;code>ctrl+S&lt;/code> or just save the file, Obsidian will &lt;a class="link" href="https://github.com/platers/obsidian-linter" target="_blank" rel="noopener"
+>lint&lt;/a> the file ! Meaning the whole writing, the frontmatter, the titles, the spacings, even the characters used for bold or italics will be standardized. In a way that works with my other plugins !&lt;/li>
+&lt;li>If you paste a link, the link will &lt;a class="link" href="https://github.com/zolrath/obsidian-auto-link-title" target="_blank" rel="noopener"
+>auto-fetch&lt;/a> a title for markdown link !&lt;/li>
+&lt;li>If you paste an image, it&amp;rsquo;ll &lt;a class="link" href="https://github.com/reorx/obsidian-paste-image-rename" target="_blank" rel="noopener"
+>automatically&lt;/a> prompt you for an image title after a timestamp. That way, if you use clear unused image, you&amp;rsquo;ll be able to see if you deleted unwanted images or not.&lt;/li>
+&lt;li>The first header will &lt;a class="link" href="https://github.com/dvcrn/obsidian-filename-heading-sync" target="_blank" rel="noopener"
+>automatically&lt;/a> mimic the note title. And if you lint the file, the title metadata will change according to the title as well.&lt;/li>
+&lt;li>There&amp;rsquo;s also improvements in the way footnotes are managed along with a configurable shortcut to create footnotes automatically numbered. I recommend setting &lt;code>ctrl + shift + ^&lt;/code>.&lt;/li>
+&lt;/ul>
+&lt;h3 id="how-do-i-use-the-tasks-and-projects-">How Do I Use the Tasks and Projects ?&lt;/h3>
+&lt;p>I&amp;rsquo;ll explain here how to use it. But if you want to understand why I built it this way, I encourage you to read my explanations &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/why-using-obsidian-for-life-management/" >here&lt;/a>.&lt;/p>
+&lt;p>Basically you can create tasks everywhere except inside the following files and folders :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">path does not include Archives
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Templates
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Workout_Log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include Media Backlog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">path does not include _Sources
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>There&amp;rsquo;s a predefined space inside your &lt;code>daily note&lt;/code> to add some &lt;code>one-off tasks&lt;/code>, it is below the &lt;code>Notes 📝&lt;/code> header. But you can use tasks alongside your notes anywhere else as long as it isn&amp;rsquo;t in one of the previously mentioned files or folder.&lt;/p>
+&lt;p>The workflow also involves using &lt;code>projects&lt;/code> to achieve goals &amp;amp; objectives. Each goal or objective then must have a &lt;code>project&lt;/code> with an according &lt;a class="link" href="https://publish.obsidian.md/tasks/Queries/Filters#Happens" target="_blank" rel="noopener"
+>happens date&lt;/a> for viewing purposes.&lt;/p>
+&lt;p>But where do I create such projects to achieves my goals &amp;amp; objectives? Inside an &lt;code>Area&lt;/code> file (eg: Finances) under your &lt;code>2-Areas&lt;/code> folder. Areas are to be understood as areas of focus (GTD) or areas or responsibility (P.A.R.A), meaning areas of your life.&lt;/p>
+&lt;p>Each &lt;code>Areas&lt;/code> file template has a &lt;code>Projects 🎯&lt;/code> header. Markdown tasks inside the file are considered as &lt;code>Project&lt;/code>, you can give it any task property you find useful but a deadline is important to use the setup properly. The task description can then be enclosed by &lt;code>[[&lt;/code> in order to create a wikilink to a &lt;code>project note&lt;/code> inside the &lt;code>1-Projects&lt;/code> folder. You&amp;rsquo;ll find more informations about wikilinks in the obsidian &lt;a class="link" href="https://help.obsidian.md/Linking&amp;#43;notes&amp;#43;and&amp;#43;files/Internal&amp;#43;links" target="_blank" rel="noopener"
+>documentation&lt;/a>.&lt;/p>
+&lt;p>If you feel the need to use a recurring task like &amp;ldquo;Add recent transactions to my budget each week&amp;rdquo; inside your Finances area to maintain a standard, you might create a project called &amp;ldquo;Maintain a good budget&amp;rdquo;. Inside the project note, you can create a &lt;code>recurring task&lt;/code> and that&amp;rsquo;s it. I would always recommend setting a happens date as it will help you see if it became a &lt;a class="link" href="https://jamesclear.com/habits" target="_blank" rel="noopener"
+>habit&lt;/a> by then.&lt;/p>
+&lt;p>But how to &lt;strong>display my current tasks&lt;/strong> ? That&amp;rsquo;s the job of the &lt;code>daily note&lt;/code>. It will display tasks according to their &lt;code>happens date&lt;/code>, and it will also display the tasks that has one of the three specific tags (that can&amp;rsquo;t be used at the same time by essence) : &lt;code>#next&lt;/code>, &lt;code>#waiting&lt;/code> and &lt;code>#delegated&lt;/code>. They are displayed differently and tasks using the &lt;code>#next&lt;/code> tag will be grouped by context, meaning by their other tag(s).&lt;/p>
+&lt;p>There&amp;rsquo;s also the &lt;code>TaskBoard ✅&lt;/code> note where you&amp;rsquo;ll find unplanned tasks (without &lt;code>happens date&lt;/code> or &lt;code>tags&lt;/code>) so that you can&amp;rsquo;t miss a thing ! You should open this note sometimes to make sure nothing is left unattended.&lt;/p>
+&lt;p>In order to show which project you should be working on, you should rely on your periodic notes (weekly, monthly, quarterly and yearly) to display the relative projects based on their first happen date. The &lt;code>Dashboard 🗺️&lt;/code> plays a similar role. There&amp;rsquo;s also a callout inside the &lt;code>daily note&lt;/code> that queries upcoming projects (with a happens date in the next 30 days) and the projects in progress (using &lt;code>- [/]&lt;/code> tasks status).&lt;/p>
+&lt;p>The &lt;code>Someday Maybe 💭&lt;/code> file is where you put your future goals and objectives in the form of a simple bullet list. Nothing fancy, we don&amp;rsquo;t care it&amp;rsquo;s not important as of now. But you might want to put things you want to do here, wait for a bit and decide if they&amp;rsquo;re still relevant after a while. If yes, simply create a project and start working on it !&lt;/p>
+&lt;p>The higher horizons of existence are covered in the &lt;code>Vision, Identity, Purpose &amp;amp; Principles ⚙️&lt;/code> note.&lt;/p>
+&lt;p>Basically :&lt;/p>
+&lt;ul>
+&lt;li>Visions : Where and how you see yourself in 3-5 years.&lt;/li>
+&lt;li>Identity : Who you are.&lt;/li>
+&lt;li>Purpose : Your ultimate goal in life, why you&amp;rsquo;re in this world.&lt;/li>
+&lt;li>Principles : Values you act upon everyday.&lt;/li>
+&lt;/ul>
+&lt;h3 id="how-do-i-use-the-journal-">How Do I Use the Journal ?&lt;/h3>
+&lt;p>You can write your feelings inside your &lt;code>daily note&lt;/code> and each &lt;code>periodic notes&lt;/code>, that&amp;rsquo;s always the last header purpose.&lt;/p>
+&lt;p>The daily note adds a grateful part in which you should describe the good things that happened each day, and the things you did that were good to the world.&lt;/p>
+&lt;p>There&amp;rsquo;s also a mood tracking property (mood:1-5) that ranges from 1=bad to 5=amazing. It could be used with the &lt;a class="link" href="https://github.com/pyrochlore/obsidian-tracker" target="_blank" rel="noopener"
+>obsidian-tracker plugin&lt;/a> to create a mood chart, but I have no use for it yet myself.&lt;/p>
+&lt;p>I created a &lt;code>Journal 📓&lt;/code> note with a script that queries every single journal entries from your daily notes. Basically, it finds any header containing the word &amp;ldquo;Journal&amp;rdquo;, take the content, and stop at the next header found or the end of the note. If you&amp;rsquo;re looking for the last time you had &amp;ldquo;fun&amp;rdquo;, just &lt;code>ctrl+f&lt;/code> inside this note in &lt;code>read view&lt;/code> and you&amp;rsquo;ll find it.&lt;/p>
+&lt;p>If you need to import your journal from Daylio like me, you might want to take a look at &lt;a class="link" href="https://github.com/DeutscheGabanna/Obsidian-Daylio-Parser" target="_blank" rel="noopener"
+>obsidian-daylio-parser repository&lt;/a> on Github, or my &lt;a class="link" href="https://github.com/mathisgauthey/Obsidian-Daylio-Parser" target="_blank" rel="noopener"
+>fork of it&lt;/a> that works well with my example vault.&lt;/p>
+&lt;h3 id="how-do-i-use-the-workout-log-">How Do I Use the Workout Log ?&lt;/h3>
+&lt;p>If you right click on the &lt;code>-Workout-Log&lt;/code> folder and select &lt;code>Create new note from template&lt;/code>, you can select your workout template. It will be correctly named with a &lt;code>YYYY-MM-DD_&lt;/code> timestamp and will then be found inside the &lt;code>Workout Log 💪&lt;/code> callout of your daily note. Nothing fancy, just enough for keeping count.&lt;/p>
+&lt;p>It is important that the first header of your workout template keep the &lt;a class="link" href="https://github.com/SilentVoid13/Templater" target="_blank" rel="noopener"
+>templater&lt;/a> code snippet. This is how the timestamp is added to the template file name.&lt;/p>
+&lt;p>You&amp;rsquo;ll find that I added goals to sections of my workout linked to goals in my &lt;code>Sport&lt;/code> area. You can do something like this, or not. Experiment with queries and filters from the &lt;a class="link" href="https://blacksmithgu.github.io/obsidian-dataview/" target="_blank" rel="noopener"
+>dataview&lt;/a> plugin or the &lt;a class="link" href="https://publish.obsidian.md/tasks/Introduction" target="_blank" rel="noopener"
+>task&lt;/a> plugin, you can make very powerful things without much effort. You just need to read their doc !&lt;/p>
+&lt;blockquote>
+&lt;p>Take extra care where moving file from the &lt;code>5-Templates&lt;/code> folder to the archives or anywhere else. &lt;strong>You should remove the templater code from everywhere before doing so&lt;/strong>, otherwise it might end up in an infinite loop of template file creation because of &lt;code>filename-heading-sync&lt;/code> and &lt;code>templater&lt;/code> plugin working asynchronously.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="how-do-i-use-the-media-backlog-">How Do I Use the Media Backlog ?&lt;/h3>
+&lt;p>Your Media Backlog 🎮 file is a simple Kanban board. It is self explicit, just keep in mind that the daily note&amp;rsquo;s &lt;code>Ongoing Medias 🎮&lt;/code> callout will query some kanban cards. But only the one inside columns that contains &lt;code>Doing&lt;/code>. That&amp;rsquo;ll help you to know what you could be doing during your daily spare time today.&lt;/p>
+&lt;p>There&amp;rsquo;s some predefined tags with emojis that you can find in the colorful-tag plugin settings.&lt;/p>
+&lt;p>If you finished something, you can add a date on the kanban board by using the &lt;code>Add a date&lt;/code> command from right clicking the card.&lt;/p>
+&lt;p>You might want to add the &lt;code>#ongoing&lt;/code> tag if there&amp;rsquo;s going to be a sequel and you want to get back to it later on.&lt;/p>
+&lt;h3 id="how-do-i-use-the-the-read-it-later-and-bookmark-manager-">How Do I Use the The Read-it-later and Bookmark Manager ?&lt;/h3>
+&lt;p>This part is pretty simple. You simply need to connect your Omnivore account, add some pages to your inbox. It will then be synced to Obsidian inside the &lt;code>_Sources&lt;/code> folder each time you use the &lt;code>Omnivore button&lt;/code> on Obsidian left side bar. It has been configured to import inside a different daily folder based on when you saved the link. The generated markdown file will contains the document notes from Omnivore, then your highlight and content notes, and finally the whole converted markdown page. Simple as that !&lt;/p>
+&lt;p>It allows you to simply search inside Obsidian if you want to find past knowledge you came across. That&amp;rsquo;s why I love it.&lt;/p>
+&lt;p>I wont describe too much functionalities here as the app and plugin are in active development. I&amp;rsquo;ll let you discover the magic with their &lt;a class="link" href="https://docs.omnivore.app/" target="_blank" rel="noopener"
+>documentation&lt;/a>.&lt;/p>
+&lt;h3 id="how-do-i-use-the-note-sharing-process-">How Do I Use The Note Sharing Process ?&lt;/h3>
+&lt;p>The whole process is detailed in &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website/" >another post&lt;/a>.&lt;/p>
+&lt;p>The note sharing process requires to create a &lt;a class="link" href="https://gohugo.io/" target="_blank" rel="noopener"
+>Hugo&lt;/a> website first on Github Pages. Once it&amp;rsquo;s done, you can simply change the &lt;code>share&lt;/code> boolean to &lt;code>true&lt;/code> in the note frontmatter, then select the command &lt;code>Upload filename to DEFAULT&lt;/code> of the &lt;a class="link" href="https://github.com/ObsidianPublisher/obsidian-github-publisher" target="_blank" rel="noopener"
+>obsidian-github-publisher&lt;/a> plugin from the note drop down menu. It will use some &lt;a class="link" href="https://www.wikiwand.com/en/Regular_expression" target="_blank" rel="noopener"
+>regex&lt;/a> to convert wikilinks to standard &lt;a class="link" href="https://gohugo.io/content-management/cross-references/" target="_blank" rel="noopener"
+>Hugo links formatting&lt;/a>, commit and push to the relevant repository on Github, make a pull request that&amp;rsquo;ll be automatically accepted (allowing for easy reversing changes), and then use some Github Actions to build your website.&lt;/p>
+&lt;p>Attachments are automatically sent as well as linked notes as long as they have the &lt;code>share&lt;/code> boolean set to &lt;code>true&lt;/code> as well.&lt;/p>
+&lt;p>The posts will be sent to the &lt;code>content/post&lt;/code> folder and the attachments to the &lt;code>content/images&lt;/code> folder.&lt;/p>
+&lt;h2 id="detailed-explanations-links">Detailed Explanations Links&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/why-using-obsidian-for-life-management/" >Why Using Obsidian for Life Management&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/obsidian-publish-alternative-how-to-one-click-upload-your-notes-on-your-own-website/" >Obsidian Publish Alternative, How to One-click Upload Your Notes on Your Own Website&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="how-is-the-vault-organised-">How is the Vault Organised ?&lt;/h2>
+&lt;blockquote>
+&lt;p>This setup relies heavily on Obsidian wikilinks and tags for task and project management, but also for attachment cleaning. One should take the habit to use them.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;code>_Media&lt;/code> folder : Storing all attachments (images and pdf for example) in the same folder using the &lt;code>YYYY-MM-DD_filename.extension&lt;/code> pattern thanks to &lt;a class="link" href="https://github.com/reorx/obsidian-paste-image-rename" target="_blank" rel="noopener"
+>obsidian-paste-image-rename&lt;/a>. Beware, all the attachments must be linked inside a note, otherwise the use of plugins such as &lt;a class="link" href="https://github.com/Vinzent03/find-unlinked-files" target="_blank" rel="noopener"
+>Find orphaned files and broken links&lt;/a> and &lt;a class="link" href="https://github.com/ozntel/oz-clear-unused-images-obsidian" target="_blank" rel="noopener"
+>Clean unused images&lt;/a> might delete them.&lt;/li>
+&lt;li>&lt;code>_Sources&lt;/code> folder : Storing all the websites sources you saved automatically using &lt;a class="link" href="https://omnivore.app/" target="_blank" rel="noopener"
+>Omnivore&lt;/a> or manually using &lt;a class="link" href="https://github.com/deathau/markdownload" target="_blank" rel="noopener"
+>markdownload&lt;/a>.&lt;/li>
+&lt;li>&lt;code>-Daily-Notes&lt;/code> folder : Storing daily notes for &lt;strong>tasks&lt;/strong> management, quick-notes and journaling.&lt;/li>
+&lt;li>&lt;code>-Periodic-Notes&lt;/code> folder : Storing weekly, monthly, quarterly and yearly notes for &lt;strong>project&lt;/strong> management and journaling.&lt;/li>
+&lt;li>&lt;code>-Workout_Log&lt;/code> folder : Storing your workout logs.&lt;/li>
+&lt;li>&lt;code>0-Inbox&lt;/code> folder : Newly created files automatically goes here. However, using the file explorer on the left you can create note wherever you want.&lt;/li>
+&lt;li>&lt;code>1-Projects&lt;/code> folder : Project files containing markdown notes, tasks, embedded attachments (attachments are still stored inside the &lt;code>_Media&lt;/code> folder, but you can embed them inside projet notes), wikilinks to useful notes or whatever you need to complete your projects. &lt;em>That&amp;rsquo;s the real power of Obsidian, you can organise projects naturally, just like you would do using a piece of paper.&lt;/em>&lt;/li>
+&lt;li>&lt;code>2-Areas&lt;/code> folder : Containing main &lt;code>areas of responsibility of your life&lt;/code> files. That&amp;rsquo;s in these files that you&amp;rsquo;ll create projects in the form of tasks with a wikilink to a project note.&lt;/li>
+&lt;li>&lt;code>3-Resources&lt;/code> folder : Contains all of your notes and stuff !&lt;/li>
+&lt;li>&lt;code>4-Archives&lt;/code> folder : Contains done or cancelled projects, no longer relevant and old resources that you might never need again… But you might also need once again, so you archive it instead of deleting it.&lt;/li>
+&lt;li>&lt;code>5-Templates&lt;/code> folder : Contains all your file templates used by the &lt;a class="link" href="https://github.com/SilentVoid13/Templater" target="_blank" rel="noopener"
+>templater plugin&lt;/a>.&lt;/li>
+&lt;li>&lt;code>Vision, Purpose and Principles ⚙️&lt;/code> file : Contains your visions (3-5 year goals), who you are, what is your purpose in life and what are your principles.&lt;/li>
+&lt;li>&lt;code>Taskboard ✅&lt;/code> file : Useful to scan for unplanned tasks across your vault.&lt;/li>
+&lt;li>&lt;code>Someday Maybe 💭&lt;/code> file : Write someday maybe projects, things to do one day and goals you&amp;rsquo;d like to achieve.&lt;/li>
+&lt;li>&lt;code>Media Backlog 🎮&lt;/code> file : Kanban board of your upcoming, current and past media consumption.&lt;/li>
+&lt;li>&lt;code>Journal 📓&lt;/code> file : Contains all the Journal entries of your daily notes.&lt;/li>
+&lt;li>&lt;code>Dashboard 🗺️&lt;/code> file : Contains your active projects by dates, areas and your currently unplanned projects.&lt;/li>
+&lt;/ul>
+&lt;h2 id="plugin-list">Plugin List&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> Plugins enabled: 35
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 1: Calendar v1.5.10
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2: Better Word Count v0.9.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 3: Auto Link Title v1.4.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 4: Clear Unused Images v1.1.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 5: Code Editor Shortcuts v1.14.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 6: Colorful Tag v1.3.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 7: Dataview v0.5.56
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 8: File Explorer Note Count v1.2.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 9: Filename Heading Sync v1.9.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 10: Find orphaned files and broken links v1.9.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 11: Footnote Shortcut v0.1.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 12: Frontmatter Tag Suggest v0.4.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 13: Icon Folder v2.1.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 14: Kanban v1.5.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 15: Linter v1.17.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 16: Note Refactor v1.7.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 17: Paste image rename v1.6.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 18: Paste URL into selection v1.7.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 19: Periodic Notes v0.0.17
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 20: Style Settings v1.0.6
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 21: Symbols Prettifier v1.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 22: Tag Wrangler v0.5.11
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 23: Tasks v4.3.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 24: Templater v1.16.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 25: Todoist Plugin v1.11.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 26: Omnivore v1.5.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 27: Better footnote v1.0.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 28: Editing Toolbar v2.3.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 29: Image Toolkit v1.3.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 30: Quick Explorer v0.2.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 31: Show Whitespace v0.3.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 32: Google Calendar v1.9.19
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 33: Github Publisher v6.3.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 34: Archiver v0.23.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 35: Commander v0.5.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>Project.Areas.Resources.Archives&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>Getting Things Done&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item><item><title>How to Use Obsidian Git Sync on Android</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/</link><pubDate>Wed, 18 Jan 2023 18:43:21 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/</guid><description>&lt;h1 id="how-to-use-obsidian-git-sync-on-android">How to Use Obsidian Git Sync on Android&lt;/h1>
+&lt;h2 id="inspirations">Inspirations&lt;/h2>
+&lt;ul>
+&lt;li>My &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/" >old guide&lt;/a> using cron jobs with time intervals instead of tasker&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/v6otbu/how_to_sync_your_obsidian_vault_on_mobile_using/" target="_blank" rel="noopener"
+>How to sync your obsidian vault on mobile using git&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://werzum.github.io/tech/2022/02/13/Obsidian-Mobile-Sync.html" target="_blank" rel="noopener"
+>Mobile Sync for Obsidian | Some Thoughts&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://gist.github.com/yuvve/013977d93ddc3b0c4780de950ba53d89" target="_blank" rel="noopener"
+>Automatically sync notes to and from git repository whenever you open and close Obsidian on mobile. · GitHub&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://pulinagrawal.github.io/Obsidian-Sync-Alternative/" target="_blank" rel="noopener"
+>Obsidian Syncing Alternative (For Android and iOS) | Obsidian-Sync-Alternative&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="install-the-required-tools">Install the Required Tools&lt;/h2>
+&lt;p>Install &lt;a class="link" href="https://tasker.joaoapps.com/download.html" target="_blank" rel="noopener"
+>Tasker&lt;/a> from the official website (7 days trial) or from the Google Play Store (~3.5€).&lt;/p>
+&lt;p>Install &lt;a class="link" href="https://f-droid.org/en/packages/com.termux/" target="_blank" rel="noopener"
+>Termux&lt;/a>, &lt;a class="link" href="https://f-droid.org/en/packages/com.termux.widget/" target="_blank" rel="noopener"
+>Termux Widget&lt;/a>, &lt;a class="link" href="https://f-droid.org/packages/com.termux.tasker/" target="_blank" rel="noopener"
+>Termux Tasker&lt;/a> on F-droid or on the official Termux Github repository.&lt;/p>
+&lt;blockquote>
+&lt;p>[!attention] Never use the play store version
+Trust me it is depreciated.&lt;/p>
+&lt;/blockquote>
+&lt;p>Give Termux access to your storage using the following command :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="setup-git-and-github-for-manipulating-repositories">Setup Git and Github for Manipulating Repositories&lt;/h2>
+&lt;p>Use the following commands to &lt;a class="link" href="https://www.techrepublic.com/article/how-to-install-git-on-android/" target="_blank" rel="noopener"
+>setup git and github via HTTPS&lt;/a> :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg update &amp;amp;&amp;amp; pkg upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install gh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>You can use SSH or an access token as well instead of using gh&lt;/em>&lt;/p>
+&lt;p>Login to your Github account :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Update the git configs :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.name &amp;#34;name&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.email &amp;#34;email&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Go into the shared folder :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd ~/storage/shared/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Clone your repo :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git clone https://github.com/YOUR_GH_USERNAME/Lifewiki.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Try using the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>[!Attention] Android 12 warning
+If you are on Android 12, you&amp;rsquo;ll get an error with the command required to add the repository to a security list or something like that. Do it, and these commands should work.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="change-the-default-termux-working-directory">Change the Default Termux Working Directory&lt;/h2>
+&lt;p>Edit the bashrc file :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nano /data/data/com.termux/files/usr/etc/bash.bashrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>And append this line to the end of the file :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">cd ~/storage/shared/Lifewiki
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Restart your terminal, and you will find that it always opens up in your desired directory!&lt;/p>
+&lt;h2 id="setup-tasker">Setup Tasker&lt;/h2>
+&lt;p>Launch Tasker and do the basic setup (setting battery optimisation and stuff).&lt;/p>
+&lt;blockquote>
+&lt;p>[!Done] Give Tasker some important Termux permissions
+Android Settings -&amp;gt; Apps -&amp;gt; Tasker -&amp;gt; Permissions -&amp;gt;Additional permissions -&amp;gt; Run commands in Termux environment.&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Launch Termux&lt;/li>
+&lt;li>&lt;code>mkdir ~/.termux/tasker/&lt;/code>&lt;/li>
+&lt;li>&lt;code>cd ~/.termux/tasker/&lt;/code>&lt;/li>
+&lt;li>nano pull.sh&lt;/li>
+&lt;li>Add the following script :&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>nano backup.sh&lt;/li>
+&lt;li>Add the following script :&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>git add -A
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Don&amp;rsquo;t forget to edit permissions to termux home folder :&lt;/p>
+&lt;p>&lt;code>chmod 700 -R /data/data/com.termux/files/home/.termux&lt;/code>&lt;/p>
+&lt;p>Create an Obsidian profile :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Obsidian_profile.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Obsidian_profile.png"
+>&lt;/p>
+&lt;p>Setup the following task :&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_backup.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_backup.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_backup_task.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_backup_task.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_stdout.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_stdout.png"
+>&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_13-42-12_Tasker_Termux_stderr.png"
+loading="lazy"
+alt="2023-03-09_13-42-12_Tasker_Termux_stderr.png"
+>&lt;/p>
+&lt;h2 id="setup-the-error-handling-shortcut-for-merge-conflict">Setup the Error Handling Shortcut for Merge Conflict&lt;/h2>
+&lt;p>Create a directory for the shortcuts :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> -R /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nano debug.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Add the following script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the widget and add it to your home screen. That&amp;rsquo;s it, you just need to launch it to solve merging errors.&lt;/p>
+&lt;h2 id="setting-up-an-automatic-execution-of-the-script-not-recommended-if-you-want-to-avoid-merge-issues">Setting up an Automatic Execution of the Script (Not Recommended if You Want to Avoid Merge issues)&lt;/h2>
+&lt;p>If you want to automatically &lt;strong>sync your vault every hour&lt;/strong>, for instance, you can do it using a &lt;a class="link" href="https://ostechnix.com/a-beginners-guide-to-cron-jobs/" target="_blank" rel="noopener"
+>Cron job&lt;/a> (like described in this &lt;a class="link" href="https://forum.obsidian.md/t/obsidian-github-integration-for-sync-and-version-control/6369" target="_blank" rel="noopener"
+>thread&lt;/a> or this &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/qep4gn/guide_obsidian_vault_github_sync_cron_on_termux/" target="_blank" rel="noopener"
+>one&lt;/a>).&lt;/p>
+&lt;p>First, create the auto sync task folders :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod &lt;span class="m">700&lt;/span> -R /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script inside &lt;code>.shortcut/tasks&lt;/code> :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>[!info] Difference between .shortcuts and .shortcuts/tasks folders
+What is run inside .shortcuts are just scripts launching Termux. If it is run under the tasks folder, it will launch it as an underground task.&lt;/p>
+&lt;/blockquote>
+&lt;p>First, you need to install Cron :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pkg install cronie termux-services
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then, you&amp;rsquo;ll restart Termux and then run the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sv-enable crond
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crontab -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Finally, you&amp;rsquo;ll end up with the &lt;code>crontab -e&lt;/code> command in the &lt;strong>nano&lt;/strong> text editor. Add the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> * * * * bash ~/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You just need to keep Termux opened in order for the job to be able to launch.&lt;/p>
+&lt;p>You can find information about Cron job easily on the internet.&lt;/p>
+&lt;p>&lt;img src="https://mathisgauthey.github.io/mathisgauthey.github.io_old/images/2023-03-09_11-57-30_cron-job-format-1.png"
+loading="lazy"
+alt="2023-03-09_11-57-30_cron-job-format-1.png"
+>&lt;/p>
+&lt;p>Edit : I already uploaded a guide to do it with a cron job. I kept this part, but I wanted something less energy consuming. Hence I learned how to use Tasker and did it this way. I find it as simple as the obsidian-git plugin on computer, but on mobile ! Hope it helps !&lt;/p></description></item><item><title>Using Git to sync your Obsidian vault on Android devices</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/</link><pubDate>Sat, 06 Aug 2022 09:45:37 +0200</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/using-git-to-sync-your-obsidian-vault-on-android-devices/</guid><description>&lt;h1 id="using-git-to-sync-your-obsidian-vault-on-android-devices">Using Git to Sync Your Obsidian Vault on Android Devices&lt;/h1>
+&lt;p>My &lt;a class="link" href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-use-obsidian-git-sync-on-android/" >new guide&lt;/a> using tasker to sync on app start-up and close instead of using cron jobs at time intervals.&lt;/p>
+&lt;p>Hi everyone! As I&amp;rsquo;m using Obsidian Git on my laptop, and it isn&amp;rsquo;t available on android (yet?), I searched for ways to make it simple on Android. I wrote myself a tutorial and wanted to share it with you all! This one is not using SSH keys which might be too complicated for the standard user. But if you do use a SSH key, remember not to use a passphrase if you want the process to be automated and or fast with your widget!&lt;/p>
+&lt;p>Install Termux and Termux Widget&lt;/p>
+&lt;p>From &lt;a class="link" href="https://github.com/termux/termux-app" target="_blank" rel="noopener"
+>Github Termux&lt;/a>, &lt;a class="link" href="https://github.com/termux/termux-widget" target="_blank" rel="noopener"
+>Github Termux Widget&lt;/a>  download the APKs and install them. You can use F-Droid as well.&lt;/p>
+&lt;p>Give Termux access to your storage using the following command &lt;a class="link" href="https://www.techrepublic.com/article/how-to-install-git-on-android/" target="_blank" rel="noopener"
+>How to install Git on Android with Termux (Step-by-Step Guide)&lt;/a>] :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">termux-setup-storage
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Setup Git and Github for manipulating repositories&lt;/p>
+&lt;p>Use the following commands to setup git and github via HTTPS :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg update &amp;amp;&amp;amp; pkg upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install gh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;em>You can use SSH as well&lt;/em>&lt;/p>
+&lt;p>Login to your Github account :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">gh auth login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Update the git configs :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.name &amp;#34;name&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git config --global user.email &amp;#34;email&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now you should clone your repository, try to use the following commands :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">git status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git commit
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>If you are on Android 12, you&amp;rsquo;ll get an error with the command required to add the repository to a security list or something like that. Do it, and these commands should work.&lt;/p>
+&lt;p>Setup the sync script shortcut&lt;/p>
+&lt;p>Create a directory for the shortcuts (&lt;a class="link" href="https://werzum.github.io/tech/2022/02/13/Obsidian-Mobile-Sync.html" target="_blank" rel="noopener"
+>Mobile Sync for Obsidian | Some Thoughts&lt;/a> and &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/v6otbu/how_to_sync_your_obsidian_vault_on_mobile_using/" target="_blank" rel="noopener"
+>How to sync your obsidian vault on mobile using git : ObsidianMD&lt;/a>) :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod 700 -R /data/data/com.termux/files/home/.shortcuts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir -p /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod 700 -R /data/data/com.termux/files/home/.shortcuts/tasks
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the sync script :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">nano /data/data/com.termux/files/home/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Add the following script (&lt;a class="link" href="https://github.com/git-guides/git-add" target="_blank" rel="noopener"
+>Git Guides - git add · GitHub&lt;/a> and &lt;a class="link" href="https://stackoverflow.com/questions/4654437/how-to-set-current-date-as-git-commit-message" target="_blank" rel="noopener"
+>bash - How to set current date as git commit message - Stack Overflow&lt;/a>) :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>&lt;span class="nb">cd&lt;/span> storage/shared/LifeWiki
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git pull &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -a -m &lt;span class="s2">&amp;#34;android vault backup: `date +&amp;#39;%Y-%m-%d %H-%M-%S&amp;#39;`&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create the widget and add it to your home screen. That&amp;rsquo;s it, you just need to launch it to sync your Obsidian vault. It means you need to launch it before and after editing notes. If you putted your script inside ~/.shortcuts it will launch in the foreground, and if it was inside ~/.shortcuts/tasks then it will launch in the background.&lt;/p>
+&lt;p>Setting up an Automatic Execution of the Script&lt;/p>
+&lt;p>If you want to automatically &lt;strong>sync your vault every hour&lt;/strong>, for instance, you can do it using a Cron job. (&lt;a class="link" href="https://pulinagrawal.github.io/Obsidian-Sync-Alternative/" target="_blank" rel="noopener"
+>Obsidian Syncing Alternative | Obsidian-Sync-Alternative&lt;/a> and &lt;a class="link" href="https://forum.obsidian.md/t/obsidian-github-integration-for-sync-and-version-control/6369" target="_blank" rel="noopener"
+>Obsidian Github Integration for Sync and Version Control - Share &amp;amp; showcase - Obsidian Forum&lt;/a> and &lt;a class="link" href="https://www.reddit.com/r/ObsidianMD/comments/qep4gn/guide_obsidian_vault_github_sync_cron_on_termux/" target="_blank" rel="noopener"
+>Guide: Obsidian vault github sync cron on termux : ObsidianMD&lt;/a>)&lt;/p>
+&lt;p>First, you need to install Cron :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">pkg install cronie termux-services
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then, you&amp;rsquo;ll restart Termux then run the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sv-enable crond
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">crontab -e
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Finally, you&amp;rsquo;ll end up with the &lt;code>crontab -e&lt;/code> command in the &lt;strong>nano&lt;/strong> text editor. Add the following :&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">0 * * * * bash ~/.shortcuts/tasks/sync_script.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>You just need to keep Termux opened in order for the job to be able to launch.&lt;/p>
+&lt;p>You can find information about Cron job easily on the internet. (&lt;a class="link" href="https://ostechnix.com/a-beginners-guide-to-cron-jobs/" target="_blank" rel="noopener"
+>A Beginners Guide To Cron Jobs - OSTechNix&lt;/a>)&lt;/p></description></item></channel></rss>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>voice-typing on Mathis Gauthey's Website</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/voice-typing/</link><description>Recent content in voice-typing on Mathis Gauthey's Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 01 Dec 2023 14:03:00 +0100</lastBuildDate><atom:link href="https://mathisgauthey.github.io/mathisgauthey.github.io_old/tags/voice-typing/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Fix Gboard Voice Typing Issue</title><link>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-gboard-voice-typing-issue/</link><pubDate>Fri, 01 Dec 2023 14:03:00 +0100</pubDate><guid>https://mathisgauthey.github.io/mathisgauthey.github.io_old/how-to-fix-gboard-voice-typing-issue/</guid><description>&lt;h1 id="how-to-fix-gboard-voice-typing-issue">How to Fix Gboard Voice Typing Issue&lt;/h1>
+&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>If you ever had issues with voice typing on Gboard like starting voice input and speaking but nothing writes down. But sometimes it works and you don&amp;rsquo;t understand why.&lt;/p>
+&lt;p>But why does it happen ? Well, it turns out it only happens to people using :&lt;/p>
+&lt;ul>
+&lt;li>At least two languages on their keyboard.&lt;/li>
+&lt;li>Have &lt;code>Multilingual typing&lt;/code> options activated in their keyboards.&lt;/li>
+&lt;/ul>
+&lt;h2 id="fix">Fix&lt;/h2>
+&lt;p>Without any more talking, the ultimate fix for me was to make sure that :&lt;/p>
+&lt;blockquote>
+&lt;p>My first keyboard language on Gboard was the same as my Android display language.&lt;/p>
+&lt;/blockquote>
+&lt;p>That&amp;rsquo;s it. Now it detects my voice correctly, in English or French. But I can&amp;rsquo;t start typing in one language and switch midway through, I need to actually type on the voice recording once again.&lt;/p>
+&lt;p>&lt;strong>Always try force stopping Gboard, then clearing its cache, then rebooting your phone after each method.&lt;/strong>&lt;/p>
+&lt;h2 id="other-possible-fixes">Other Possible Fixes&lt;/h2>
+&lt;p>One could also try :&lt;/p>
+&lt;ul>
+&lt;li>Deactivate &lt;code>multilingual typing&lt;/code>, and manually switch to the right language before activating voice input.&lt;/li>
+&lt;li>Deactivating the second language on your Gboard.&lt;/li>
+&lt;li>Some users reported going inside &lt;code>Voice typing&lt;/code> options and unticking &lt;code>Faster voice typing&lt;/code> helped. It helped on reboot but started happening again on my end.&lt;/li>
+&lt;li>Some user reported uninstalling the Google Assistant app on your phone if you have a Google Pixel phone, as it is already bundled in your phone.&lt;/li>
+&lt;/ul>
+&lt;p>Sources :&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://xdaforums.com/t/gboard-voice-typing-not-working-properly.4572165/" target="_blank" rel="noopener"
+>gBoard voice typing not working properly | XDA Forums&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://xdaforums.com/t/gboards-assistant-voice-typing-is-jacked.4520341/" target="_blank" rel="noopener"
+>Question - Gboard&amp;rsquo;s Assistant voice typing is jacked | XDA Forums&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
